@@ -1,0 +1,16 @@
+server:
+  port: 8091
+#配置数据库源
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://42.193.177.25/jiajiao?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+  redis:
+    host: 42.193.177.25
+    port: 6379
+    password: 123456
+#mybatis 映射文件
+mybatis:
+  mapper-locations: classpath:mappers/*xml

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!-- 指定jdbc 驱动 -->
+    <classPathEntry location="C:\Users\CNBIWAN12\.m2\repository\mysql\mysql-connector-java\8.0.22\mysql-connector-java-8.0.22.jar" />
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"></plugin>
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!-- 数据源
+                需更改数据表 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://42.193.177.25/jiajiao?serverTimezone=UTC"
+                        userId="root"
+                        password="123456">
+            <property name="nullCatalogMeansCurrent" value="true" />
+        </jdbcConnection>
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 配置 java pojo对象生成目录 -->
+        <javaModelGenerator targetPackage="com.learn.web.pojo" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <!--<property name="trimStrings" value="true" />-->
+        </javaModelGenerator>
+        <!-- 配置mapper 文件生成目录 -->
+        <sqlMapGenerator targetPackage="mappers"  targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!-- 配置dao 接口的生成目录 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.learn.web.dao"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+<!--        <table tableName="mall_order" domainObjectName="Order" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->
+        <table tableName="jiajiao_user" domainObjectName="User" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />
+<!--        <table tableName="mall_product" domainObjectName="Product" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" >-->
+<!--            <columnOverride column="detail" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="sub_images" jdbcType="VARCHAR" />-->
+<!--        </table>-->
+
+    </context>
+</generatorConfiguration>
