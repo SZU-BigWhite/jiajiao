@@ -30,8 +30,10 @@ public class UserServiceImpl implements IUserService {
     public ResponseVo Login(LoginForm form) {
 
         User user = userMapper.selectByPhone(form.getPhone());
-        final String password = user.getPassword();
+        System.out.println(user);
+        String password = user.getPassword();
         System.out.println(password);
+
         return null;
     }
 }

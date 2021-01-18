@@ -39,12 +39,12 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-<!--        <table tableName="mall_order" domainObjectName="Order" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->
-        <table tableName="jiajiao_user" domainObjectName="User" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />
+<!--        <table tableName="jiajiao_user" domainObjectName="User" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->
+        <table tableName="jiajiao_time" domainObjectName="Time" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />
 <!--        <table tableName="mall_product" domainObjectName="Product" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" >-->
 <!--            <columnOverride column="detail" jdbcType="VARCHAR" />-->
 <!--            <columnOverride column="sub_images" jdbcType="VARCHAR" />-->
 <!--        </table>-->
-
+        <!--mvn mybatis-generator:generate-->
     </context>
 </generatorConfiguration>

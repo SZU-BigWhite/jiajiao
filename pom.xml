@@ -12,8 +12,8 @@
     <groupId>com.learn</groupId>
     <artifactId>web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>web</name>
-    <description>Demo project for Spring Boot</description>
+    <name>jiajiao</name>
+    <description>jiajiao project</description>
 
     <properties>
         <java.version>1.8</java.version>
