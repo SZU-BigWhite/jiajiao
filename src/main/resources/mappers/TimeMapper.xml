@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.learn.web.dao.TimeMapper">
-  <resultMap id="BaseResultMap" type="com.learn.web.pojo.Time">
+<mapper namespace="com.jiajiao.web.dao.TimeMapper">
+  <resultMap id="BaseResultMap" type="com.jiajiao.web.pojo.Time">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="out_id" jdbcType="INTEGER" property="outId" />
-    <result column="type" jdbcType="TINYINT" property="type" />
-    <result column="weekday" jdbcType="TINYINT" property="weekday" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="weekday" jdbcType="INTEGER" property="weekday" />
     <result column="begin_time" jdbcType="TIME" property="beginTime" />
     <result column="end_time" jdbcType="TIME" property="endTime" />
   </resultMap>
@@ -24,19 +24,20 @@
     from jiajiao_time
     where out_id = #{out_id,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from jiajiao_time
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.learn.web.pojo.Time">
+  <insert id="insert" parameterType="com.jiajiao.web.pojo.Time">
     insert into jiajiao_time (id, out_id, type, 
       weekday, begin_time, end_time
       )
-    values (#{id,jdbcType=INTEGER}, #{outId,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, 
-      #{weekday,jdbcType=TINYINT}, #{beginTime,jdbcType=TIME}, #{endTime,jdbcType=TIME}
+    values (#{id,jdbcType=INTEGER}, #{outId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{weekday,jdbcType=INTEGER}, #{beginTime,jdbcType=TIME}, #{endTime,jdbcType=TIME}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.learn.web.pojo.Time">
+  <insert id="insertSelective" parameterType="com.jiajiao.web.pojo.Time">
     insert into jiajiao_time
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -66,10 +67,10 @@
         #{outId,jdbcType=INTEGER},
       </if>
       <if test="type != null">
-        #{type,jdbcType=TINYINT},
+        #{type,jdbcType=INTEGER},
       </if>
       <if test="weekday != null">
-        #{weekday,jdbcType=TINYINT},
+        #{weekday,jdbcType=INTEGER},
       </if>
       <if test="beginTime != null">
         #{beginTime,jdbcType=TIME},
@@ -79,17 +80,17 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.learn.web.pojo.Time">
+  <update id="updateByPrimaryKeySelective" parameterType="com.jiajiao.web.pojo.Time">
     update jiajiao_time
     <set>
       <if test="outId != null">
         out_id = #{outId,jdbcType=INTEGER},
       </if>
       <if test="type != null">
-        type = #{type,jdbcType=TINYINT},
+        type = #{type,jdbcType=INTEGER},
       </if>
       <if test="weekday != null">
-        weekday = #{weekday,jdbcType=TINYINT},
+        weekday = #{weekday,jdbcType=INTEGER},
       </if>
       <if test="beginTime != null">
         begin_time = #{beginTime,jdbcType=TIME},
@@ -100,11 +101,11 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.learn.web.pojo.Time">
+  <update id="updateByPrimaryKey" parameterType="com.jiajiao.web.pojo.Time">
     update jiajiao_time
     set out_id = #{outId,jdbcType=INTEGER},
-      type = #{type,jdbcType=TINYINT},
-      weekday = #{weekday,jdbcType=TINYINT},
+      type = #{type,jdbcType=INTEGER},
+      weekday = #{weekday,jdbcType=INTEGER},
       begin_time = #{beginTime,jdbcType=TIME},
       end_time = #{endTime,jdbcType=TIME}
     where id = #{id,jdbcType=INTEGER}

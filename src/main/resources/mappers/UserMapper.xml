@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.learn.web.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.learn.web.pojo.User">
+<mapper namespace="com.jiajiao.web.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.jiajiao.web.pojo.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="phone" jdbcType="BIGINT" property="phone" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="role" jdbcType="TINYINT" property="role" />
+    <result column="role" jdbcType="INTEGER" property="role" />
     <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="head_img" jdbcType="VARCHAR" property="headImg" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, phone, password, role, email, username, name, head_img
+    id, phone, password, role, email, name, head_img
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from jiajiao_user
     where id = #{id,jdbcType=INTEGER}
@@ -24,22 +23,21 @@
     select
     <include refid="Base_Column_List" />
     from jiajiao_user
-    where phone = #{phone}
+    where out_id = #{out_id,jdbcType=INTEGER}
   </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from jiajiao_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.learn.web.pojo.User">
+  <insert id="insert" parameterType="com.jiajiao.web.pojo.User">
     insert into jiajiao_user (id, phone, password, 
-      role, email, username, 
-      name, head_img)
+      role, email, name, 
+      head_img)
     values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=BIGINT}, #{password,jdbcType=VARCHAR}, 
-      #{role,jdbcType=TINYINT}, #{email,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR})
+      #{role,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{headImg,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.learn.web.pojo.User">
+  <insert id="insertSelective" parameterType="com.jiajiao.web.pojo.User">
     insert into jiajiao_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -56,9 +54,6 @@
       </if>
       <if test="email != null">
         email,
-      </if>
-      <if test="username != null">
-        username,
       </if>
       <if test="name != null">
         name,
@@ -78,13 +73,10 @@
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="role != null">
-        #{role,jdbcType=TINYINT},
+        #{role,jdbcType=INTEGER},
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -94,7 +86,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.learn.web.pojo.User">
+  <update id="updateByPrimaryKeySelective" parameterType="com.jiajiao.web.pojo.User">
     update jiajiao_user
     <set>
       <if test="phone != null">
@@ -104,13 +96,10 @@
         password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="role != null">
-        role = #{role,jdbcType=TINYINT},
+        role = #{role,jdbcType=INTEGER},
       </if>
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -121,13 +110,12 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.learn.web.pojo.User">
+  <update id="updateByPrimaryKey" parameterType="com.jiajiao.web.pojo.User">
     update jiajiao_user
     set phone = #{phone,jdbcType=BIGINT},
       password = #{password,jdbcType=VARCHAR},
-      role = #{role,jdbcType=TINYINT},
+      role = #{role,jdbcType=INTEGER},
       email = #{email,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       head_img = #{headImg,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

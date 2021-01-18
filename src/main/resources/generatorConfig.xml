@@ -26,7 +26,7 @@
         </javaTypeResolver>
 
         <!-- 配置 java pojo对象生成目录 -->
-        <javaModelGenerator targetPackage="com.learn.web.pojo" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.jiajiao.web.pojo" targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
             <!--<property name="trimStrings" value="true" />-->
         </javaModelGenerator>
@@ -35,12 +35,12 @@
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
         <!-- 配置dao 接口的生成目录 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.learn.web.dao"  targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.jiajiao.web.dao"  targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-<!--        <table tableName="jiajiao_user" domainObjectName="User" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->
-        <table tableName="jiajiao_time" domainObjectName="Time" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />
+        <table tableName="jiajiao_user" domainObjectName="User" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />
+<!--        <table tableName="jiajiao_time" domainObjectName="Time" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->
 <!--        <table tableName="mall_product" domainObjectName="Product" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" >-->
 <!--            <columnOverride column="detail" jdbcType="VARCHAR" />-->
 <!--            <columnOverride column="sub_images" jdbcType="VARCHAR" />-->
