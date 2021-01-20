@@ -70,4 +70,17 @@ public class User {
     public void setHeadImg(String headImg) {
         this.headImg = headImg;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", phone=" + phone +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", headImg='" + headImg + '\'' +
+                '}';
+    }
 }

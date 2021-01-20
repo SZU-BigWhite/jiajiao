@@ -5,6 +5,7 @@ import com.jiajiao.web.dao.TimeMapper;
 import com.jiajiao.web.form.LoginForm;
 import com.jiajiao.web.form.RegisterForm;
 import com.jiajiao.web.pojo.Time;
+import com.jiajiao.web.pojo.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,14 +25,23 @@ public class UserServiceImplTest extends WebApplicationTests {
         RegisterForm registerForm=new RegisterForm();
         registerForm.setCode(1234);
         registerForm.setPhone(18312872234L);
-        userService.Register(registerForm);
+        userService.register(registerForm);
     }
 
     @Test
     public void login() {
         LoginForm loginForm = new LoginForm();
         loginForm.setPhone(18312872507L);
-        userService.Login(loginForm);
+        userService.login(loginForm);
+    }
+
+    @Test
+    public void setUser(){
+        User user=new User();
+        user.setPhone(18312854337L);
+        user.setPassword("wansf123");
+        user.setEmail("917926429@qq.com");
+        userService.updateUser(user);
     }
 
     @Test
@@ -67,6 +77,5 @@ public class UserServiceImplTest extends WebApplicationTests {
             String endTime = sdf.format(time.getEndTime());
             System.out.println("biginTime:"+beginTime+",endTIme:"+endTime);
         }
-
     }
 }

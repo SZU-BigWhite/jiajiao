@@ -23,13 +23,13 @@
     select
     <include refid="Base_Column_List" />
     from jiajiao_user
-    where out_id = #{out_id,jdbcType=INTEGER}
+    where phone = #{phone,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from jiajiao_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.jiajiao.web.pojo.User">
+  <insert id="insert" parameterType="com.jiajiao.web.pojo.User" useGeneratedKeys="true" keyProperty="id">
     insert into jiajiao_user (id, phone, password, 
       role, email, name, 
       head_img)
@@ -110,6 +110,28 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updateByPhoneSelective" parameterType="com.jiajiao.web.pojo.User">
+    update jiajiao_user
+    <set>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="headImg != null">
+        head_img = #{headImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where phone = #{phone,jdbcType=BIGINT}
+  </update>
+
   <update id="updateByPrimaryKey" parameterType="com.jiajiao.web.pojo.User">
     update jiajiao_user
     set phone = #{phone,jdbcType=BIGINT},

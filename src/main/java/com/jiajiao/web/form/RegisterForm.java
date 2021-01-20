@@ -1,7 +1,12 @@
 package com.jiajiao.web.form;
 
+import javax.validation.constraints.NotNull;
+
 public class RegisterForm {
+
+    @NotNull(message = "phone can't be null")
     private Long phone;
+    @NotNull(message = "code can't be null")
     private Integer code;
 
     public Long getPhone() {

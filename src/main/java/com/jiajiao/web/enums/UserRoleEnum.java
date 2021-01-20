@@ -1,4 +1,4 @@
-package com.jiajiao.web.myenum;
+package com.jiajiao.web.enums;
 
 public enum  UserRoleEnum {
     SUPER_ADMIN(0,"超级管理员"),

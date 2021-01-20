@@ -1,4 +1,4 @@
-package com.jiajiao.web.myenum;
+package com.jiajiao.web.enums;
 
 
 public enum ExceptionEnum {
