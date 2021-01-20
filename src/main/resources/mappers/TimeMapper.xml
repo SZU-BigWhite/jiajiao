@@ -18,12 +18,7 @@
     from jiajiao_time
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectByOutKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from jiajiao_time
-    where out_id = #{out_id,jdbcType=INTEGER}
-  </select>
+
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from jiajiao_time
@@ -110,4 +105,29 @@
       end_time = #{endTime,jdbcType=TIME}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByOutKeyAndType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jiajiao_time
+    where out_id = #{out_id,jdbcType=INTEGER} and type = #{type,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertList" parameterType="java.util.List">
+    insert into jiajiao_time (id, out_id, type,
+      weekday, begin_time, end_time
+      )
+    values
+    <foreach collection="record_list" separator="," item="record">
+      (#{record.id,jdbcType=INTEGER}, #{record.outId,jdbcType=INTEGER}, #{record.type,jdbcType=INTEGER},
+      #{record.weekday,jdbcType=INTEGER}, #{record.beginTime,jdbcType=TIME}, #{record.endTime,jdbcType=TIME}
+      )
+    </foreach>
+
+  </insert>
+
+  <delete id="deleteByOutKey" parameterType="java.lang.Integer">
+    delete from jiajiao_time
+    where out_id = #{out_id,jdbcType=INTEGER}
+  </delete>
 </mapper>

@@ -1,5 +1,7 @@
 package com.jiajiao.web.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Time {
@@ -11,8 +13,10 @@ public class Time {
 
     private Integer weekday;
 
+    @JsonFormat(pattern = "HH:mm")
     private Date beginTime;
 
+    @JsonFormat(pattern = "HH:mm")
     private Date endTime;
 
     public Integer getId() {

@@ -18,8 +18,6 @@ public class UserServiceImplTest extends WebApplicationTests {
     @Autowired
     UserServiceImpl userService;
     SimpleDateFormat sdf =new SimpleDateFormat("HH:mm:ss" );
-    @Autowired
-    TimeMapper timeMapper;
     @Test
     public void register() {
         RegisterForm registerForm=new RegisterForm();
@@ -35,14 +33,6 @@ public class UserServiceImplTest extends WebApplicationTests {
         userService.login(loginForm);
     }
 
-    @Test
-    public void setUser(){
-        User user=new User();
-        user.setPhone(18312854337L);
-        user.setPassword("wansf123");
-        user.setEmail("917926429@qq.com");
-        userService.updateUser(user);
-    }
 
     @Test
     //测试 时间对象
@@ -64,18 +54,5 @@ public class UserServiceImplTest extends WebApplicationTests {
         time.setOutId(12);
         time.setType(1);
         time.setWeekday(7);
-        timeMapper.insert(time);
-    }
-    @Test
-    public void testSelectTimeObject(){
-        Time[] times = timeMapper.selectByOutKey(12);
-
-        for(Time time : times){
-            System.out.println(time);
-            Date begin = time.getBeginTime();
-            String beginTime = sdf.format(begin);
-            String endTime = sdf.format(time.getEndTime());
-            System.out.println("biginTime:"+beginTime+",endTIme:"+endTime);
-        }
     }
 }

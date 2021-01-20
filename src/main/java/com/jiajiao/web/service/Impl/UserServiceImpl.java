@@ -1,5 +1,6 @@
 package com.jiajiao.web.service.Impl;
 
+import com.jiajiao.web.enums.UserReqConst;
 import com.jiajiao.web.form.RegisterForm;
 import com.jiajiao.web.enums.HttpStatusEnum;
 import com.jiajiao.web.enums.UserRoleEnum;
@@ -15,6 +16,7 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import sun.security.provider.MD5;
 
@@ -26,6 +28,7 @@ import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@Transactional
 public class UserServiceImpl implements IUserService {
 
     final String HEAD_IMAGE_URL="https://files-cdn.cnblogs.com/files/poloyy/touxianga.bmp";
@@ -72,8 +75,10 @@ public class UserServiceImpl implements IUserService {
 
         //插入数据
         User user=new User();
-        user.setPhone(form.getPhone());
-        this.setUserDefaultData(user);
+            user.setPhone(form.getPhone());
+            user.setRole(UserRoleEnum.CUMSTOMER.getCode());
+            user.setName(UserRoleEnum.CUMSTOMER.getMsg()+"_"+user.getPhone());
+            user.setHeadImg(HEAD_IMAGE_URL);
         int num = userMapper.insert(user);
         if(num==0){
             return ResponseVo.error();
@@ -127,21 +132,12 @@ public class UserServiceImpl implements IUserService {
         //设置浏览器session
         String userSession = DigestUtils.md5DigestAsHex(("" + user.getId() + user.getPhone()).getBytes());
         //添加sessionid到Cookie
-        response.addCookie(new Cookie("user_session",userSession));
+        response.addCookie(new Cookie(UserReqConst.UESR_SESSION,userSession));
         //添加 sessionid -》 userid  到 redis
         ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
         opsForValue.set(userSession,user.getId().toString(),7L,TimeUnit.DAYS);
     }
 
-    /**
-     * 设置user的默认的值
-     * @param user
-     */
-    private void setUserDefaultData(User user){
-        user.setRole(UserRoleEnum.CUMSTOMER.getCode());
-        user.setName(UserRoleEnum.CUMSTOMER.getMsg()+"_"+user.getPhone());
-        user.setHeadImg(HEAD_IMAGE_URL);
-    }
 
     /**
      * 设置user 一些相关的信息
@@ -149,9 +145,14 @@ public class UserServiceImpl implements IUserService {
      * @param user
      * @return
      */
-    public ResponseVo updateUser(User user) {
-        userMapper.updateByPrimaryKeySelective(user);
-        int i = userMapper.updateByPhoneSelective(user);
+    public ResponseVo updateUser(User user,Cookie cookie) {
+        //根据session获取userId
+        ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
+        String redisKey = cookie.getValue();
+        String uIdStr = opsForValue.get(redisKey);
+        //根据uId更新相关信息
+        user.setId(Integer.parseInt(uIdStr));
+        int i =userMapper.updateByPrimaryKeySelective(user);
         if(i==0){
             return ResponseVo.error(HttpStatusEnum.ERROR_SERVER.getMsg());
         }

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiajiao.web.dao.ParentNeedMapper">
+  <resultMap id="BaseResultMap" type="com.jiajiao.web.pojo.ParentNeed">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="wechat" jdbcType="VARCHAR" property="wechat" />
+    <result column="student_class" jdbcType="VARCHAR" property="studentClass" />
+    <result column="grade_condiction" jdbcType="VARCHAR" property="gradeCondiction" />
+    <result column="character_condiction" jdbcType="VARCHAR" property="characterCondiction" />
+    <result column="time_is_change" jdbcType="INTEGER" property="timeIsChange" />
+    <result column="duration" jdbcType="REAL" property="duration" />
+    <result column="times" jdbcType="INTEGER" property="times" />
+    <result column="salary" jdbcType="REAL" property="salary" />
+    <result column="marjor" jdbcType="VARCHAR" property="marjor" />
+    <result column="character_req" jdbcType="VARCHAR" property="characterReq" />
+    <result column="chatting_req" jdbcType="VARCHAR" property="chattingReq" />
+    <result column="expect_goal" jdbcType="VARCHAR" property="expectGoal" />
+    <result column="added_bonus" jdbcType="INTEGER" property="addedBonus" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="arrive_hours" jdbcType="REAL" property="arriveHours" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, u_id, name, wechat, student_class, grade_condiction, character_condiction, time_is_change, 
+    duration, times, salary, marjor, character_req, chatting_req, expect_goal, added_bonus, 
+    location, arrive_hours
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jiajiao_parent_need
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jiajiao_parent_need
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jiajiao.web.pojo.ParentNeed" useGeneratedKeys="true" keyProperty="id">
+    insert into jiajiao_parent_need (id, u_id, name, 
+      wechat, student_class, grade_condiction, 
+      character_condiction, time_is_change, duration, 
+      times, salary, marjor, 
+      character_req, chatting_req, expect_goal, 
+      added_bonus, location, arrive_hours
+      )
+    values (#{id,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{wechat,jdbcType=VARCHAR}, #{studentClass,jdbcType=VARCHAR}, #{gradeCondiction,jdbcType=VARCHAR}, 
+      #{characterCondiction,jdbcType=VARCHAR}, #{timeIsChange,jdbcType=INTEGER}, #{duration,jdbcType=REAL}, 
+      #{times,jdbcType=INTEGER}, #{salary,jdbcType=REAL}, #{marjor,jdbcType=VARCHAR}, 
+      #{characterReq,jdbcType=VARCHAR}, #{chattingReq,jdbcType=VARCHAR}, #{expectGoal,jdbcType=VARCHAR}, 
+      #{addedBonus,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, #{arriveHours,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jiajiao.web.pojo.ParentNeed">
+    insert into jiajiao_parent_need
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="wechat != null">
+        wechat,
+      </if>
+      <if test="studentClass != null">
+        student_class,
+      </if>
+      <if test="gradeCondiction != null">
+        grade_condiction,
+      </if>
+      <if test="characterCondiction != null">
+        character_condiction,
+      </if>
+      <if test="timeIsChange != null">
+        time_is_change,
+      </if>
+      <if test="duration != null">
+        duration,
+      </if>
+      <if test="times != null">
+        times,
+      </if>
+      <if test="salary != null">
+        salary,
+      </if>
+      <if test="marjor != null">
+        marjor,
+      </if>
+      <if test="characterReq != null">
+        character_req,
+      </if>
+      <if test="chattingReq != null">
+        chatting_req,
+      </if>
+      <if test="expectGoal != null">
+        expect_goal,
+      </if>
+      <if test="addedBonus != null">
+        added_bonus,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="arriveHours != null">
+        arrive_hours,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null">
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="studentClass != null">
+        #{studentClass,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeCondiction != null">
+        #{gradeCondiction,jdbcType=VARCHAR},
+      </if>
+      <if test="characterCondiction != null">
+        #{characterCondiction,jdbcType=VARCHAR},
+      </if>
+      <if test="timeIsChange != null">
+        #{timeIsChange,jdbcType=INTEGER},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=REAL},
+      </if>
+      <if test="times != null">
+        #{times,jdbcType=INTEGER},
+      </if>
+      <if test="salary != null">
+        #{salary,jdbcType=REAL},
+      </if>
+      <if test="marjor != null">
+        #{marjor,jdbcType=VARCHAR},
+      </if>
+      <if test="characterReq != null">
+        #{characterReq,jdbcType=VARCHAR},
+      </if>
+      <if test="chattingReq != null">
+        #{chattingReq,jdbcType=VARCHAR},
+      </if>
+      <if test="expectGoal != null">
+        #{expectGoal,jdbcType=VARCHAR},
+      </if>
+      <if test="addedBonus != null">
+        #{addedBonus,jdbcType=INTEGER},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveHours != null">
+        #{arriveHours,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jiajiao.web.pojo.ParentNeed">
+    update jiajiao_parent_need
+    <set>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null">
+        wechat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="studentClass != null">
+        student_class = #{studentClass,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeCondiction != null">
+        grade_condiction = #{gradeCondiction,jdbcType=VARCHAR},
+      </if>
+      <if test="characterCondiction != null">
+        character_condiction = #{characterCondiction,jdbcType=VARCHAR},
+      </if>
+      <if test="timeIsChange != null">
+        time_is_change = #{timeIsChange,jdbcType=INTEGER},
+      </if>
+      <if test="duration != null">
+        duration = #{duration,jdbcType=REAL},
+      </if>
+      <if test="times != null">
+        times = #{times,jdbcType=INTEGER},
+      </if>
+      <if test="salary != null">
+        salary = #{salary,jdbcType=REAL},
+      </if>
+      <if test="marjor != null">
+        marjor = #{marjor,jdbcType=VARCHAR},
+      </if>
+      <if test="characterReq != null">
+        character_req = #{characterReq,jdbcType=VARCHAR},
+      </if>
+      <if test="chattingReq != null">
+        chatting_req = #{chattingReq,jdbcType=VARCHAR},
+      </if>
+      <if test="expectGoal != null">
+        expect_goal = #{expectGoal,jdbcType=VARCHAR},
+      </if>
+      <if test="addedBonus != null">
+        added_bonus = #{addedBonus,jdbcType=INTEGER},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveHours != null">
+        arrive_hours = #{arriveHours,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jiajiao.web.pojo.ParentNeed">
+    update jiajiao_parent_need
+    set u_id = #{uId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      student_class = #{studentClass,jdbcType=VARCHAR},
+      grade_condiction = #{gradeCondiction,jdbcType=VARCHAR},
+      character_condiction = #{characterCondiction,jdbcType=VARCHAR},
+      time_is_change = #{timeIsChange,jdbcType=INTEGER},
+      duration = #{duration,jdbcType=REAL},
+      times = #{times,jdbcType=INTEGER},
+      salary = #{salary,jdbcType=REAL},
+      marjor = #{marjor,jdbcType=VARCHAR},
+      character_req = #{characterReq,jdbcType=VARCHAR},
+      chatting_req = #{chattingReq,jdbcType=VARCHAR},
+      expect_goal = #{expectGoal,jdbcType=VARCHAR},
+      added_bonus = #{addedBonus,jdbcType=INTEGER},
+      location = #{location,jdbcType=VARCHAR},
+      arrive_hours = #{arriveHours,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByOutKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jiajiao_parent_need
+    where u_id = #{u_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jiajiao_parent_need
+  </select>
+  <select id="selectAllByOrder" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jiajiao_parent_need
+    order by
+    <if test="parentNeedOrder.duration == 0">
+        null,
+    </if>
+    <if test="parentNeedOrder.duration == 1">
+        duration ASC ,
+    </if>
+    <if test="parentNeedOrder.duration == 2">
+        duration DESC ,
+    </if>
+    <if test="parentNeedOrder.times == 0">
+      null,
+    </if>
+    <if test="parentNeedOrder.times == 1">
+      times ASC ,
+    </if>
+    <if test="parentNeedOrder.times == 2">
+      times DESC ,
+    </if>
+    <if test="parentNeedOrder.salary == 0">
+      null,
+    </if>
+    <if test="parentNeedOrder.salary == 1">
+      salary ASC ,
+    </if>
+    <if test="parentNeedOrder.salary == 2">
+      salary DESC,
+    </if>
+    <if test="parentNeedOrder.arriveHours == 0">
+      null
+    </if>
+    <if test="parentNeedOrder.arriveHours == 1">
+      arrive_hours ASC
+    </if>
+    <if test="parentNeedOrder.arriveHours == 2">
+      arrive_hours DESC
+    </if>
+  </select>
+
+</mapper>

@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
-    url: jdbc:mysql://42.193.177.25/jiajiao?characterEncoding=utf-8&useTimezone=true&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://42.193.177.25/jiajiao?characterEncoding=utf-8&serverTimezone=GMT&useSSL=false
   redis:
     host: 42.193.177.25
     port: 6379
@@ -14,3 +14,5 @@ spring:
 #mybatis 映射文件
 mybatis:
   mapper-locations: classpath:mappers/*xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
