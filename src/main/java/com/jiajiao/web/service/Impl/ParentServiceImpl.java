@@ -2,20 +2,13 @@ package com.jiajiao.web.service.Impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.jiajiao.web.dao.ParentNeedMapper;
-import com.jiajiao.web.dao.ParentSentMapper;
-import com.jiajiao.web.dao.SubjectMapper;
-import com.jiajiao.web.dao.TimeMapper;
+import com.jiajiao.web.dao.*;
 import com.jiajiao.web.enums.UserReqConst;
-import com.jiajiao.web.pojo.ParentNeed;
-import com.jiajiao.web.pojo.ParentSent;
-import com.jiajiao.web.pojo.Subject;
-import com.jiajiao.web.pojo.Time;
+import com.jiajiao.web.form.GetParentNeedOrderForm;
+import com.jiajiao.web.pojo.*;
 import com.jiajiao.web.service.IParentService;
-import com.jiajiao.web.vo.GetParentNeedOrderVo;
-import com.jiajiao.web.vo.ParentNeedVo;
-import com.jiajiao.web.vo.ParentSendStudentVo;
-import com.jiajiao.web.vo.ResponseVo;
+import com.jiajiao.web.utils.StudentResumeUtil;
+import com.jiajiao.web.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,17 +27,15 @@ public class ParentServiceImpl implements IParentService {
     TimeMapper timeMapper;
     @Autowired
     ParentSentMapper parentSentMapper;
+    @Autowired
+    StudentSentMapper studentSentMapper;
+    @Autowired
+    StudentResumeMapper studentResumeMapper;
 
     @Override
     public ResponseVo getParentNeedByUId(int id) {
-        List<ParentNeedVo> parentNeedVoList=new ArrayList<ParentNeedVo>();
         List<ParentNeed> parentNeedList = parentNeedMapper.selectByOutKey(id);
-        for (ParentNeed parentNeed:parentNeedList){
-            //构建Vo
-            ParentNeedVo parentNeedVo=buildParentNeedVo(parentNeed);
-            //加入Vo List
-            parentNeedVoList.add(parentNeedVo);
-        }
+        List<ParentNeedVo> parentNeedVoList = buildParentNeedVoList(parentNeedList);
         return ResponseVo.success("获取需求成功",parentNeedVoList);
     }
 
@@ -55,25 +46,18 @@ public class ParentServiceImpl implements IParentService {
         PageHelper.startPage(1,2);
         List<ParentNeed> parentNeedList = parentNeedMapper.selectAll();
         //构建VoList
-        List<ParentNeedVo> parentNeedVoList=new ArrayList<ParentNeedVo>();
-        for (ParentNeed parentNeed:parentNeedList){
-            ParentNeedVo parentNeedVo = buildParentNeedVo(parentNeed);
-            parentNeedVoList.add(parentNeedVo);
-        }
+        List<ParentNeedVo> parentNeedVoList = buildParentNeedVoList(parentNeedList);
+        //生成Page信息
         PageInfo<ParentNeedVo> pageInfo=new PageInfo<ParentNeedVo>(parentNeedVoList);
         return ResponseVo.success("获取需求成功",pageInfo);
     }
 
     @Override
-    public ResponseVo getParentsNeedByOrder(GetParentNeedOrderVo parentNeedOrderVo) {
+    public ResponseVo getParentsNeedByOrder(GetParentNeedOrderForm parentNeedOrderVo) {
 
         List<ParentNeed> parentNeedList = parentNeedMapper.selectAllByOrder(parentNeedOrderVo);
         //构建VoList
-        List<ParentNeedVo> parentNeedVoList=new ArrayList<ParentNeedVo>();
-        for (ParentNeed parentNeed:parentNeedList){
-            ParentNeedVo parentNeedVo = buildParentNeedVo(parentNeed);
-            parentNeedVoList.add(parentNeedVo);
-        }
+        List<ParentNeedVo> parentNeedVoList = buildParentNeedVoList(parentNeedList);
         return ResponseVo.success("排序成功",parentNeedList);
     }
 
@@ -103,19 +87,21 @@ public class ParentServiceImpl implements IParentService {
 
         Integer outId = parentNeed.getId();
         //删除旧的Subject表,并插入新Subject表
-        subjectMapper.deleteByOutKey(outId);
+        subjectMapper.deleteByOutKey(outId,UserReqConst.SUBJECT_PARENT_TYPE);
         insertNewSubject(outId,parentNeedVo);
         //删除旧的Time表，并插入新Time表
-        timeMapper.deleteByOutKey(outId);
+        timeMapper.deleteByOutKey(outId,UserReqConst.TIME_PARENT_TYPE);
         insertNewTime(outId,parentNeedVo);
 
         return ResponseVo.success("需求更新成功");
     }
 
     @Override
-    public ResponseVo deleteParentNeed(int id) {
+    public ResponseVo deleteParentNeed(int id,Integer uId) {
         //todo 状态删除
-        parentNeedMapper.deleteByPrimaryKey(id);
+        parentNeedMapper.deleteByPrimaryKeyAndUId(id,uId);
+        subjectMapper.deleteByOutKey(id,UserReqConst.SUBJECT_PARENT_TYPE);
+        timeMapper.deleteByOutKey(id,UserReqConst.TIME_PARENT_TYPE);
         return ResponseVo.success("删除成功");
     }
 
@@ -126,6 +112,43 @@ public class ParentServiceImpl implements IParentService {
         parentSent.setsResumeId(pSend.getsResumeId());
         parentSentMapper.insert(parentSent);
         return ResponseVo.success("发送需求成功");
+    }
+
+    @Override
+    public ResponseVo getParentReceive(Integer id) {
+        //获取sResumeIdList
+        List<StudentSent> studentSentList = studentSentMapper.selectByParentNeedId(id);
+        List<Integer> sResumeIdList=new ArrayList<Integer>();
+        for(StudentSent studentSent:studentSentList){
+            sResumeIdList.add(studentSent.getsResumeId());
+        }
+        if(sResumeIdList.size()==0)
+            return ResponseVo.success("暂未收到学生的简历");
+        //获取StudentResumeList
+        List<StudentResume> studentResumeList = studentResumeMapper.selectByIdList(sResumeIdList);
+        //根据StudentResumeList 构建VoList
+        List<StudentResumeVo> studentResumeVoList = StudentResumeUtil.buildStudentResumeVoList(studentResumeList, timeMapper, subjectMapper);
+
+        return ResponseVo.success("收到学生的简历查询成功",studentResumeVoList);
+    }
+
+    @Override
+    public ResponseVo getParentSent(Integer id) {
+        //获取sResumeIdList
+        List<ParentSent> parentSentList = parentSentMapper.selectByParentNeedId(id);
+        List<Integer> sResumeIdList=new ArrayList<Integer>();
+        for (ParentSent parentSent:parentSentList){
+            sResumeIdList.add(parentSent.getsResumeId());
+        }
+        if(sResumeIdList.size()==0)
+            return ResponseVo.success("此需求暂无发送历史");
+
+        //获取StudentResumeList
+        List<StudentResume> studentResumeList = studentResumeMapper.selectByIdList(sResumeIdList);
+        //构建VoList
+        List<StudentResumeVo> studentResumeVoList = StudentResumeUtil.buildStudentResumeVoList(studentResumeList,timeMapper,subjectMapper);
+
+        return ResponseVo.success("发送历史查询成功",studentResumeVoList);
     }
 
     //根据ParentNeed 构建 Vo
@@ -139,6 +162,15 @@ public class ParentServiceImpl implements IParentService {
         parentNeedVo.setSubjectList(subjectList);
         parentNeedVo.setTimeList(timeList);
         return parentNeedVo;
+    }
+    //根据ParentNeedList 构建VoList
+    private List<ParentNeedVo> buildParentNeedVoList(List<ParentNeed> parentNeedList){
+        List<ParentNeedVo> parentNeedVoList=new ArrayList<ParentNeedVo>();
+        for (ParentNeed parentNeed:parentNeedList){
+            ParentNeedVo parentNeedVo = buildParentNeedVo(parentNeed);
+            parentNeedVoList.add(parentNeedVo);
+        }
+        return parentNeedVoList;
     }
     //插入新的Subject表
     private void insertNewSubject(Integer outId,ParentNeedVo parentNeedVo){

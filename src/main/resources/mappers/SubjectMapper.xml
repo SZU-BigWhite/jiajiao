@@ -102,7 +102,7 @@
 
   <delete id="deleteByOutKey" parameterType="java.lang.Integer">
     delete from jiajiao_subject
-    where out_id = #{out_id,jdbcType=INTEGER}
+    where out_id = #{out_id,jdbcType=INTEGER} and type = #{type,jdbcType=INTEGER}
   </delete>
 
 </mapper>

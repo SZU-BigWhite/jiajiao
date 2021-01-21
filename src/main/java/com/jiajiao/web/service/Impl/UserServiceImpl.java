@@ -145,13 +145,9 @@ public class UserServiceImpl implements IUserService {
      * @param user
      * @return
      */
-    public ResponseVo updateUser(User user,Cookie cookie) {
-        //根据session获取userId
-        ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
-        String redisKey = cookie.getValue();
-        String uIdStr = opsForValue.get(redisKey);
+    public ResponseVo updateUser(User user,Integer uId) {
         //根据uId更新相关信息
-        user.setId(Integer.parseInt(uIdStr));
+        user.setId(uId);
         int i =userMapper.updateByPrimaryKeySelective(user);
         if(i==0){
             return ResponseVo.error(HttpStatusEnum.ERROR_SERVER.getMsg());

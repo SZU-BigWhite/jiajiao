@@ -1,8 +1,8 @@
-package com.jiajiao.web.vo;
+package com.jiajiao.web.form;
 
 import org.springframework.beans.factory.annotation.Value;
 
-public class GetParentNeedOrderVo {
+public class GetParentNeedOrderForm {
     /**
      * 0 - 不做排序
      * 1 - 升序

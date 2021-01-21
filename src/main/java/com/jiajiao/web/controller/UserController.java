@@ -100,9 +100,8 @@ public class UserController {
     @PostMapping("/update/user")
     public ResponseVo updateUser(@RequestBody User user,HttpServletRequest request){
 
-        Cookie cookie = CookieUtils.getCookieByName(request, UserReqConst.UESR_SESSION);
-        ResponseVo res = userService.updateUser(user,cookie);
-
+        int uId = CookieUtils.getUIdFromRedis(request,redisTemplate);
+        ResponseVo res = userService.updateUser(user,uId);
         return res;
     }
 

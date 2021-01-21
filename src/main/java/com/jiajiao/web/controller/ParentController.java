@@ -2,16 +2,16 @@ package com.jiajiao.web.controller;
 
 import com.jiajiao.web.service.Impl.ParentServiceImpl;
 import com.jiajiao.web.utils.CookieUtils;
-import com.jiajiao.web.vo.GetParentNeedOrderVo;
+import com.jiajiao.web.form.GetParentNeedOrderForm;
 import com.jiajiao.web.vo.ParentNeedVo;
 import com.jiajiao.web.vo.ParentSendStudentVo;
 import com.jiajiao.web.vo.ResponseVo;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 public class ParentController {
@@ -25,7 +25,7 @@ public class ParentController {
      * @param request
      * @return
      */
-    @GetMapping("/parent/get/needlist")
+    @GetMapping("/get/parent/needlist")
     public ResponseVo getParentNeedList(HttpServletRequest request){
 
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
@@ -49,8 +49,8 @@ public class ParentController {
      * @param parentOrderVo
      * @return
      */
-    @GetMapping("get/parents/needlists/order")
-    public ResponseVo getParentsNeedListByOrder(GetParentNeedOrderVo parentOrderVo){
+    @GetMapping("/get/parents/needlists/order")
+    public ResponseVo getParentsNeedListByOrder(GetParentNeedOrderForm parentOrderVo){
         ResponseVo res = parentService.getParentsNeedByOrder(parentOrderVo);
         return res;
     }
@@ -61,7 +61,7 @@ public class ParentController {
      * @param request
      * @return
      */
-    @PostMapping("/parent/add/need")
+    @PostMapping("/add/parent/need")
     public ResponseVo addParentNeed(@RequestBody ParentNeedVo parentNeedVo,HttpServletRequest request){
 
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
@@ -74,7 +74,7 @@ public class ParentController {
      * @param parentNeedVo
      * @return
      */
-    @PostMapping("/parent/update/need")
+    @PostMapping("/update/parent/need")
     public ResponseVo updateParentNeed(@RequestBody ParentNeedVo parentNeedVo){
         //todo 是否需要校验uid->id的对应
         ResponseVo res = parentService.updateParentNeed(parentNeedVo);
@@ -86,9 +86,10 @@ public class ParentController {
      * @param id
      * @return
      */
-    @DeleteMapping("/parent/delete/need")
-    public ResponseVo deleteParentNeed(@Param("id") Integer id){
-        ResponseVo res = parentService.deleteParentNeed(id);
+    @DeleteMapping("/delete/parent/need")
+    public ResponseVo deleteParentNeed(@RequestParam("id") Integer id,HttpServletRequest request){
+        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
+        ResponseVo res = parentService.deleteParentNeed(id,uId);
         return res;
     }
 
@@ -97,14 +98,33 @@ public class ParentController {
      * @param parentSendStudentVo
      * @return
      */
-    @PostMapping("/parent/send/need")
-    public ResponseVo sendParentNeed(@RequestBody ParentSendStudentVo parentSendStudentVo){
+    @PostMapping("/send/parent/need")
+    public ResponseVo sendParentNeed(@Valid @RequestBody ParentSendStudentVo parentSendStudentVo){
         ResponseVo res = parentService.sendNeedToResume(parentSendStudentVo);
         return res;
     }
+
     /**
-     * 查看自己发送过的需求
+     * 查看需求接收到的简历
+     * @param id
+     * @return
      */
+    @GetMapping("/get/parent/receive")
+    public ResponseVo getParentReceive(Integer id){
+        ResponseVo res = parentService.getParentReceive(id);
+        return res;
+    }
+
+    /**
+     * 查看需求发送到的简历
+     * @param id
+     * @return
+     */
+    @GetMapping("/get/parent/sent")
+    public ResponseVo getParentSent(Integer id){
+        ResponseVo res = parentService.getParentSent(id);
+        return res;
+    }
 
 
 }

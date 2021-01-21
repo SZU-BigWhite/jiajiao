@@ -24,6 +24,6 @@ public interface SubjectMapper {
 
     int insertList(@Param("record_list") List<Subject> record_list);
 
-    int deleteByOutKey(Integer out_id);
+    int deleteByOutKey(@Param("out_id") Integer out_id, @Param("type") Integer type);
 
 }

@@ -3,6 +3,8 @@ package com.jiajiao.web.dao;
 import com.jiajiao.web.pojo.ParentSent;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ParentSentMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +18,8 @@ public interface ParentSentMapper {
     int updateByPrimaryKeySelective(ParentSent record);
 
     int updateByPrimaryKey(ParentSent record);
+
+    List<ParentSent> selectByStudentResumeId(Integer s_resume_id);
+
+    List<ParentSent> selectByParentNeedId(Integer p_need_id);
 }

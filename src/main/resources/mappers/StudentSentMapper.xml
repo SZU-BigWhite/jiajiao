@@ -1,83 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jiajiao.web.dao.ParentSentMapper">
-  <resultMap id="BaseResultMap" type="com.jiajiao.web.pojo.ParentSent">
+<mapper namespace="com.jiajiao.web.dao.StudentSentMapper">
+  <resultMap id="BaseResultMap" type="com.jiajiao.web.pojo.StudentSent">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="p_need_id" jdbcType="INTEGER" property="pNeedId" />
     <result column="s_resume_id" jdbcType="INTEGER" property="sResumeId" />
+    <result column="p_need_id" jdbcType="INTEGER" property="pNeedId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, p_need_id, s_resume_id
+    id, s_resume_id, p_need_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from jiajiao_parent_sent
+    from jiajiao_student_sent
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from jiajiao_parent_sent
+    delete from jiajiao_student_sent
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.jiajiao.web.pojo.ParentSent">
-    insert into jiajiao_parent_sent (id, p_need_id, s_resume_id
+  <insert id="insert" parameterType="com.jiajiao.web.pojo.StudentSent">
+    insert into jiajiao_student_sent (id, s_resume_id, p_need_id
       )
-    values (#{id,jdbcType=INTEGER}, #{pNeedId,jdbcType=INTEGER}, #{sResumeId,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, #{sResumeId,jdbcType=INTEGER}, #{pNeedId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.jiajiao.web.pojo.ParentSent">
-    insert into jiajiao_parent_sent
+  <insert id="insertSelective" parameterType="com.jiajiao.web.pojo.StudentSent">
+    insert into jiajiao_student_sent
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="pNeedId != null">
-        p_need_id,
-      </if>
       <if test="sResumeId != null">
         s_resume_id,
+      </if>
+      <if test="pNeedId != null">
+        p_need_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="pNeedId != null">
-        #{pNeedId,jdbcType=INTEGER},
-      </if>
       <if test="sResumeId != null">
         #{sResumeId,jdbcType=INTEGER},
       </if>
+      <if test="pNeedId != null">
+        #{pNeedId,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.jiajiao.web.pojo.ParentSent">
-    update jiajiao_parent_sent
+  <update id="updateByPrimaryKeySelective" parameterType="com.jiajiao.web.pojo.StudentSent">
+    update jiajiao_student_sent
     <set>
-      <if test="pNeedId != null">
-        p_need_id = #{pNeedId,jdbcType=INTEGER},
-      </if>
       <if test="sResumeId != null">
         s_resume_id = #{sResumeId,jdbcType=INTEGER},
+      </if>
+      <if test="pNeedId != null">
+        p_need_id = #{pNeedId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.jiajiao.web.pojo.ParentSent">
-    update jiajiao_parent_sent
-    set p_need_id = #{pNeedId,jdbcType=INTEGER},
-      s_resume_id = #{sResumeId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.jiajiao.web.pojo.StudentSent">
+    update jiajiao_student_sent
+    set s_resume_id = #{sResumeId,jdbcType=INTEGER},
+      p_need_id = #{pNeedId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByStudentResumeId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from jiajiao_parent_sent
+    from jiajiao_student_sent
     where s_resume_id = #{s_resume_id,jdbcType=INTEGER}
   </select>
   <select id="selectByParentNeedId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from jiajiao_parent_sent
+    from jiajiao_student_sent
     where p_need_id = #{p_need_id,jdbcType=INTEGER}
   </select>
 </mapper>
