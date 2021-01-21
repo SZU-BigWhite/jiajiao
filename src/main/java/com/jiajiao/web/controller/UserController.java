@@ -4,6 +4,7 @@ import com.jiajiao.web.enums.UserReqConst;
 import com.jiajiao.web.form.LoginForm;
 import com.jiajiao.web.form.RegisterForm;
 import com.jiajiao.web.pojo.User;
+import com.jiajiao.web.service.Impl.SendSmsImpl;
 import com.jiajiao.web.service.Impl.UserServiceImpl;
 import com.jiajiao.web.utils.CookieUtils;
 import com.jiajiao.web.vo.ResponseVo;
@@ -16,16 +17,26 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class UserController {
-
     @Autowired
     UserServiceImpl userService;
-
+    @Autowired
+    SendSmsImpl sendSms;
     @Autowired
     StringRedisTemplate redisTemplate;
 
+    @GetMapping("/get/phone/code")
+    public ResponseVo getPhoneCode(Long phone){
+        System.out.println(phone);
+        List<String> phoneList=new ArrayList<>();
+        phoneList.add(String.valueOf(phone));
+        ResponseVo res = sendSms.sendSms(phoneList);
+        return  res;
+    }
     /**
      * 注册并登录接口
      * @param form

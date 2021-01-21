@@ -16,3 +16,12 @@ mybatis:
   mapper-locations: classpath:mappers/*xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#短信配置文件
+aliyun:
+  sms:
+    access-key-id: LTAI4G16qSbhSmkt98r6EhSF
+    access-key-secret: WkBsItWW29Mq564EwUYzVGcGURHajG
+    sign-name: bigwhite
+    templates:
+      key1:
+        templateCode: SMS_204746606
