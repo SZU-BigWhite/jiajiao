@@ -9,9 +9,9 @@
         <version>2.3.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.learn</groupId>
-    <artifactId>web</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <groupId>com.web</groupId>
+    <artifactId>jiajiao</artifactId>
+    <version>1.0</version>
     <name>jiajiao</name>
     <description>jiajiao project</description>
 
