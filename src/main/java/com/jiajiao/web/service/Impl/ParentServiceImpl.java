@@ -62,12 +62,12 @@ public class ParentServiceImpl implements IParentService {
     }
 
     @Override
-    public ResponseVo addParentNeedByUId(int id,ParentNeedVo parentNeedVo) {
+    public ResponseVo addParentNeedByUId(int uId,ParentNeedVo parentNeedVo) {
         //todo 一个人最多5个需求
 
         //插入parentNeed表
         ParentNeed parentNeed = parentNeedVo.getParentNeed();
-        parentNeed.setuId(id);
+        parentNeed.setuId(uId);
         parentNeedMapper.insert(parentNeed);
 
         Integer outId = parentNeed.getId();
@@ -96,10 +96,21 @@ public class ParentServiceImpl implements IParentService {
         return ResponseVo.success("需求更新成功");
     }
 
+    public boolean checkIdAndUId(Integer id,Integer uId){
+        ParentNeed parentNeed = parentNeedMapper.selectByPrimaryKey(id);
+        if(parentNeed==null||!parentNeed.getuId().equals(uId)){
+            return false;
+        }
+        return true;
+    }
+
     @Override
-    public ResponseVo deleteParentNeed(int id,Integer uId) {
-        //todo 状态删除
-        parentNeedMapper.deleteByPrimaryKeyAndUId(id,uId);
+    public ResponseVo deleteParentNeed(int id) {
+        //删除 对应的发送和接收
+        studentSentMapper.deleteByParentNeedId(id);
+        parentSentMapper.deleteByParentNeedId(id);
+        //todo 状态删除 删除对应的需求
+        parentNeedMapper.deleteByPrimaryKey(id);
         subjectMapper.deleteByOutKey(id,UserReqConst.SUBJECT_PARENT_TYPE);
         timeMapper.deleteByOutKey(id,UserReqConst.TIME_PARENT_TYPE);
         return ResponseVo.success("删除成功");
@@ -107,11 +118,29 @@ public class ParentServiceImpl implements IParentService {
 
     @Override
     public ResponseVo sendNeedToResume(ParentSendStudentVo pSend) {
+        //校验 发送 和 接收 次数
+        List<ParentSent> parentSentCount = parentSentMapper.selectByParentNeedId(pSend.getpNeedId());
+        List<ParentSent> studentReceiveCount = parentSentMapper.selectByStudentResumeId(pSend.getsResumeId());
+        if(parentSentCount.size()>=5){
+            return ResponseVo.error("你的发送已满，请先删除非必要的发送");
+        }
+        if(studentReceiveCount.size()>=5){
+            return ResponseVo.error("该学生已收到的需求已满");
+        }
+        //发送需求
         ParentSent parentSent=new ParentSent();
         parentSent.setpNeedId(pSend.getpNeedId());
         parentSent.setsResumeId(pSend.getsResumeId());
         parentSentMapper.insert(parentSent);
         return ResponseVo.success("发送需求成功");
+    }
+
+    public ResponseVo deleteSendNeedToResume(ParentSendStudentVo psend){
+        int deleteCount = parentSentMapper.deleteByPNIdAndSRId(psend.getpNeedId(), psend.getsResumeId());
+        if(deleteCount==0){
+            return ResponseVo.error("不可匹配的删除");
+        }
+        return ResponseVo.success("删除发送成功");
     }
 
     @Override

@@ -25,8 +25,6 @@ public interface StudentResumeMapper {
 
     List<StudentResume> selectAllByOrder(@Param("resumeOrderVo") GetStudentResumeOrderForm resumeOrderVo);
 
-    int deleteByPrimaryKeyAndUId(@Param("id")Integer id,@Param("u_id")Integer u_id);
-
     List<StudentResume> selectByIdList(@Param("idList") List<Integer> idList);
 
 }

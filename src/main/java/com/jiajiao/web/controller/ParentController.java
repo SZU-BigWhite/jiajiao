@@ -49,7 +49,7 @@ public class ParentController {
      * @param parentOrderVo
      * @return
      */
-    @GetMapping("/get/parents/needlists/order")
+    @GetMapping("/get/parents/needlist/order")
     public ResponseVo getParentsNeedListByOrder(GetParentNeedOrderForm parentOrderVo){
         ResponseVo res = parentService.getParentsNeedByOrder(parentOrderVo);
         return res;
@@ -75,8 +75,13 @@ public class ParentController {
      * @return
      */
     @PostMapping("/update/parent/need")
-    public ResponseVo updateParentNeed(@RequestBody ParentNeedVo parentNeedVo){
-        //todo 是否需要校验uid->id的对应
+    public ResponseVo updateParentNeed(@RequestBody ParentNeedVo parentNeedVo,HttpServletRequest request){
+        //校验uid->id的对应
+        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
+        if(!parentService.checkIdAndUId(parentNeedVo.getParentNeed().getId(),uId)){
+            return ResponseVo.error("无法操作他人的需求");
+        }
+
         ResponseVo res = parentService.updateParentNeed(parentNeedVo);
         return res;
     }
@@ -88,8 +93,13 @@ public class ParentController {
      */
     @DeleteMapping("/delete/parent/need")
     public ResponseVo deleteParentNeed(@RequestParam("id") Integer id,HttpServletRequest request){
+        //校验uid->id的对应
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
-        ResponseVo res = parentService.deleteParentNeed(id,uId);
+        if(!parentService.checkIdAndUId(id,uId)){
+            return ResponseVo.error("无法操作他人的需求");
+        }
+
+        ResponseVo res = parentService.deleteParentNeed(id);
         return res;
     }
 
@@ -99,8 +109,30 @@ public class ParentController {
      * @return
      */
     @PostMapping("/send/parent/need")
-    public ResponseVo sendParentNeed(@Valid @RequestBody ParentSendStudentVo parentSendStudentVo){
+    public ResponseVo sendParentNeed(@Valid @RequestBody ParentSendStudentVo parentSendStudentVo,HttpServletRequest request){
+        //校验uid->id的对应
+        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
+        if(!parentService.checkIdAndUId(parentSendStudentVo.getpNeedId(),uId)){
+            return ResponseVo.error("无法操作他人的需求");
+        }
         ResponseVo res = parentService.sendNeedToResume(parentSendStudentVo);
+        return res;
+    }
+
+    /**
+     * 删除需求
+     * @param parentSendStudentVo
+     * @param request
+     * @return
+     */
+    @PostMapping("/delete/send/parent/need")
+    public ResponseVo deleteSendParentNeed(@Valid @RequestBody ParentSendStudentVo parentSendStudentVo,HttpServletRequest request){
+        //校验uid->id的对应
+        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
+        if(!parentService.checkIdAndUId(parentSendStudentVo.getpNeedId(),uId)){
+            return ResponseVo.error("无法操作他人的需求");
+        }
+        ResponseVo res = parentService.deleteSendNeedToResume(parentSendStudentVo);
         return res;
     }
 
@@ -110,7 +142,13 @@ public class ParentController {
      * @return
      */
     @GetMapping("/get/parent/receive")
-    public ResponseVo getParentReceive(Integer id){
+    public ResponseVo getParentReceive(Integer id,HttpServletRequest request){
+        //校验uid->id的对应
+        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
+        if(!parentService.checkIdAndUId(id,uId)){
+            return ResponseVo.error("无法操作他人的需求");
+        }
+
         ResponseVo res = parentService.getParentReceive(id);
         return res;
     }
@@ -121,7 +159,12 @@ public class ParentController {
      * @return
      */
     @GetMapping("/get/parent/sent")
-    public ResponseVo getParentSent(Integer id){
+    public ResponseVo getParentSent(Integer id,HttpServletRequest request){
+        //校验uid->id的对应
+        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
+        if(!parentService.checkIdAndUId(id,uId)){
+            return ResponseVo.error("无法操作他人的需求");
+        }
         ResponseVo res = parentService.getParentSent(id);
         return res;
     }

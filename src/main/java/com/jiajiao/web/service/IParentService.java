@@ -11,8 +11,10 @@ public interface IParentService {
     public ResponseVo getParentsNeedByOrder(GetParentNeedOrderForm parentNeedOrderVo);
     public ResponseVo addParentNeedByUId(int id, ParentNeedVo parentNeedVo);
     public ResponseVo updateParentNeed(ParentNeedVo parentNeedVo);
-    public ResponseVo deleteParentNeed(int id,Integer uId);
+    public ResponseVo deleteParentNeed(int id);
+    public boolean checkIdAndUId(Integer id,Integer uId);
     public ResponseVo sendNeedToResume(ParentSendStudentVo parentSendStudentVo);
+    public ResponseVo deleteSendNeedToResume(ParentSendStudentVo psend);
     public ResponseVo getParentReceive(Integer id);
     public ResponseVo getParentSent(Integer id);
 

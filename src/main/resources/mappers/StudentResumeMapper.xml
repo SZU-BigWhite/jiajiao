@@ -240,10 +240,7 @@
       salary DESC
     </if>
   </select>
-  <delete id="deleteByPrimaryKeyAndUId" >
-    delete from jiajiao_student_resume
-    where id = #{id,jdbcType=INTEGER} and u_id = #{u_id,jdbcType=INTEGER}
-  </delete>
+
   <select id="selectByIdList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

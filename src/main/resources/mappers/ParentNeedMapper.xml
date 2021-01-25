@@ -299,10 +299,6 @@
       arrive_hours DESC
     </if>
   </select>
-  <delete id="deleteByPrimaryKeyAndUId" parameterType="java.lang.Integer">
-    delete from jiajiao_parent_need
-    where id = #{id,jdbcType=INTEGER} and u_id = #{u_id,jdbcType=INTEGER}
-  </delete>
   <select id="selectByIdList" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

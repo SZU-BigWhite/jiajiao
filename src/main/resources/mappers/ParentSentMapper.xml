@@ -80,4 +80,16 @@
     from jiajiao_parent_sent
     where p_need_id = #{p_need_id,jdbcType=INTEGER}
   </select>
+  <delete id="deleteByPNIdAndSRId" parameterType="java.lang.Integer">
+    delete from jiajiao_parent_sent
+    where p_need_id = #{p_need_id,jdbcType=INTEGER} and s_resume_id = #{s_resume_id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByParentNeedId" parameterType="java.lang.Integer">
+    delete from jiajiao_parent_sent
+    where p_need_id = #{p_need_id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByStudentResumeId" parameterType="java.lang.Integer">
+    delete from jiajiao_parent_sent
+    where s_resume_id = #{s_resume_id,jdbcType=INTEGER}
+  </delete>
 </mapper>

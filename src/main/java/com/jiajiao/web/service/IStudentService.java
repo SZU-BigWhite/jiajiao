@@ -11,8 +11,10 @@ public interface IStudentService {
     public ResponseVo addStudentResume(StudentResumeVo studentResumeVo,Integer uId);
     public ResponseVo updateStudentResume(StudentResumeVo studentResumeVo);
     public ResponseVo getStudentsResumes(GetStudentResumeOrderForm getStudentResumeOrderVo);
-    public ResponseVo deleteStudentResume(Integer id,Integer uId);
+    public boolean checkIdAndUId(Integer id,Integer uId);
+    public ResponseVo deleteStudentResume(Integer id);
     public ResponseVo sendStudentResume(StudentSendParentVO studentSendParentVO);
+    public ResponseVo deleteSendStudentResume(StudentSendParentVO studentSendParentVO);
     public ResponseVo getStudentReceive(Integer id);
     public ResponseVo getStudentSent(Integer id);
 }

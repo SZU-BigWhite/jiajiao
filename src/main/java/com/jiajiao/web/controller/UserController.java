@@ -10,7 +10,6 @@ import com.jiajiao.web.utils.CookieUtils;
 import com.jiajiao.web.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -29,9 +28,13 @@ public class UserController {
     @Autowired
     StringRedisTemplate redisTemplate;
 
+    /**
+     * 获取验证码接口
+     * @param phone
+     * @return
+     */
     @GetMapping("/get/phone/code")
     public ResponseVo getPhoneCode(Long phone){
-        System.out.println(phone);
         List<String> phoneList=new ArrayList<>();
         phoneList.add(String.valueOf(phone));
         ResponseVo res = sendSms.sendSms(phoneList);
@@ -81,9 +84,7 @@ public class UserController {
     public ResponseVo login(HttpServletRequest request,HttpServletResponse response){
         //获取保存在Cookie 中的user_session
         Cookie cookie = CookieUtils.getCookieByName(request, UserReqConst.UESR_SESSION);
-        if(cookie==null){
-            return ResponseVo.error("请先登录");
-        }
+
         //删除Session、Cookie
         ResponseVo res = userService.logout(cookie);
         if(res.getStatus().equals(200)){

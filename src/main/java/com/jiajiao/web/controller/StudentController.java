@@ -60,7 +60,12 @@ public class StudentController {
      * @return
      */
     @PostMapping("/update/student/resume")
-    public ResponseVo updateStudentResume(@RequestBody StudentResumeVo studentResumeVo){
+    public ResponseVo updateStudentResume(@RequestBody StudentResumeVo studentResumeVo,HttpServletRequest request){
+        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);  //校验id == uid
+        if(!studentService.checkIdAndUId(studentResumeVo.getStudentResume().getId(),uId)){
+            return ResponseVo.error("无法操作他人的简历");
+        }
+
         ResponseVo res = studentService.updateStudentResume(studentResumeVo);
         return res;
     }
@@ -85,8 +90,12 @@ public class StudentController {
      */
     @DeleteMapping("/delete/student/resume")
     public ResponseVo deleteStudentResume(HttpServletRequest request,@RequestParam("id") Integer id){
-        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
-        ResponseVo res = studentService.deleteStudentResume(id, uId);
+        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);  //校验id == uid
+        if(!studentService.checkIdAndUId(id,uId)){
+            return ResponseVo.error("无法操作他人的简历");
+        }
+
+        ResponseVo res = studentService.deleteStudentResume(id);
         return res;
     }
 
@@ -96,11 +105,27 @@ public class StudentController {
      * @return
      */
     @PostMapping("/send/student/resume")
-    public ResponseVo sendStudentResume(@RequestBody StudentSendParentVO studentSendParentVO){
-        System.out.println(studentSendParentVO);
+    public ResponseVo sendStudentResume(@RequestBody StudentSendParentVO studentSendParentVO,HttpServletRequest request){
+        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);  //校验id == uid
+        if(!studentService.checkIdAndUId(studentSendParentVO.getsResumeId(),uId)){
+            return ResponseVo.error("无法操作他人的简历");
+        }
+
         ResponseVo res = studentService.sendStudentResume(studentSendParentVO);
         return res;
     }
+
+    @PostMapping("/delete/send/student/resume")
+    public ResponseVo deleteSendStudentResume(@RequestBody StudentSendParentVO studentSendParentVO,HttpServletRequest request){
+        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);  //校验id == uid
+        if(!studentService.checkIdAndUId(studentSendParentVO.getsResumeId(),uId)){
+            return ResponseVo.error("无法操作他人的简历");
+        }
+
+        ResponseVo res = studentService.deleteSendStudentResume(studentSendParentVO);
+        return res;
+    }
+
 
     /**
      * 查看某个简历收到的需求
@@ -108,7 +133,12 @@ public class StudentController {
      * @return
      */
     @GetMapping("/get/student/receive")
-    public ResponseVo getParentSent(Integer id){
+    public ResponseVo getParentSent(Integer id,HttpServletRequest request){
+        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);  //校验id == uid
+        if(!studentService.checkIdAndUId(id,uId)){
+            return ResponseVo.error("无法操作他人的简历");
+        }
+
         ResponseVo res = studentService.getStudentReceive(id);
         return res;
     }
@@ -118,7 +148,12 @@ public class StudentController {
      * @return
      */
     @GetMapping("/get/student/sent")
-    public ResponseVo getStudentSent(Integer id){
+    public ResponseVo getStudentSent(Integer id,HttpServletRequest request){
+        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);  //校验id == uid
+        if(!studentService.checkIdAndUId(id,uId)){
+            return ResponseVo.error("无法操作他人的简历");
+        }
+
         ResponseVo res = studentService.getStudentSent(id);
         return res;
     }

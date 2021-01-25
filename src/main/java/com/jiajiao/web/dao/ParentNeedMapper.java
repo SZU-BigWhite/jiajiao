@@ -27,8 +27,6 @@ public interface ParentNeedMapper {
 
     List<ParentNeed> selectAllByOrder(@Param("parentNeedOrder") GetParentNeedOrderForm parentNeedOrder);
 
-    int deleteByPrimaryKeyAndUId(@Param("id")Integer id,@Param("u_id")Integer u_id);
-
     List<ParentNeed> selectByIdList(@Param("idList") List<Integer> idList);
 
 }

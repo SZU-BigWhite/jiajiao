@@ -63,6 +63,7 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public ResponseVo updateStudentResume(StudentResumeVo studentResumeVo) {
+
         //更新StudentResume
         StudentResume studentResume = studentResumeVo.getStudentResume();
         resumeMapper.updateByPrimaryKeySelective(studentResume);
@@ -77,6 +78,14 @@ public class StudentServiceImpl implements IStudentService {
 
         return ResponseVo.success("简历更新成功");
     }
+    public boolean checkIdAndUId(Integer id,Integer uId){
+        //校验uId 与 id 是否一致
+        StudentResume checkResume = resumeMapper.selectByPrimaryKey(id);
+        if(checkResume==null||!checkResume.getuId().equals(uId)){
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public ResponseVo getStudentsResumes(GetStudentResumeOrderForm getStudentResumeOrderVo) {
@@ -89,8 +98,12 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
-    public ResponseVo deleteStudentResume(Integer id, Integer uId) {
-        resumeMapper.deleteByPrimaryKeyAndUId(id, uId);
+    public ResponseVo deleteStudentResume(Integer id) {
+        //删除 简历对应的发送和接收
+        studentSentMapper.deleteByStudentResumeId(id);
+        parentSentMapper.deleteByStudentResumeId(id);
+        //删除 简历
+        resumeMapper.deleteByPrimaryKey(id);
         subjectMapper.deleteByOutKey(id,UserReqConst.SUBJECT_STUDENT_TYPE);
         timeMapper.deleteByOutKey(id,UserReqConst.TIME_STUDENT_TYPE);
         return ResponseVo.success("删除成功");
@@ -98,11 +111,29 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public ResponseVo sendStudentResume(StudentSendParentVO studentSendParentVO) {
+        //校验简历是否发送超过5次
+        List<StudentSent> parentReceiveCount = studentSentMapper.selectByParentNeedId(studentSendParentVO.getpNeedId());
+        List<StudentSent> studentSentCount = studentSentMapper.selectByStudentResumeId(studentSendParentVO.getsResumeId());
+        if(studentSentCount.size()>=5){
+            return ResponseVo.error("你的发送已满，请先删除非必要的发送");
+        }
+        if(parentReceiveCount.size()>=5){
+            return ResponseVo.error("该家长已收到的简历已满");
+        }
+        //发送简历
         StudentSent studentSent=new StudentSent();
         studentSent.setsResumeId(studentSendParentVO.getsResumeId());
         studentSent.setpNeedId(studentSendParentVO.getpNeedId());
         studentSentMapper.insertSelective(studentSent);
         return ResponseVo.success("简历发送成功");
+    }
+
+    public ResponseVo deleteSendStudentResume(StudentSendParentVO studentSendParentVO){
+        int deleteCount = studentSentMapper.deleteBySRIdAndPNId(studentSendParentVO.getsResumeId(), studentSendParentVO.getpNeedId());
+        if(deleteCount==0){
+            return ResponseVo.error("不可匹配的删除");
+        }
+        return ResponseVo.success("删除发送成功");
     }
 
     @Override

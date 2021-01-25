@@ -4,7 +4,8 @@ package com.jiajiao.web.enums;
 public enum ExceptionEnum {
 
     USERNAME_NOT_NULL(1001,"username不能为空"),
-    PASSWORD_NOT_NULL(1002,"password不能为空");
+    PASSWORD_NOT_NULL(1002,"password不能为空"),
+    USER_NEED_LOGIN(1024,"用户需要先登录");
 
     private String msg;
     private Integer code;
