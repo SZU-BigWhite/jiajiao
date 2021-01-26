@@ -1,4 +1,4 @@
-FROM java:8
+FROM openjdk:8
 ADD jiajiao-1.0.jar /opt
 RUN chmod +x /opt/jiajiao-1.0.jar
 EXPOSE 8091
