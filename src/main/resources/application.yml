@@ -21,7 +21,5 @@ aliyun:
   sms:
     access-key-id: LTAI4G16qSbhSmkt98r6EhSF
     access-key-secret: WkBsItWW29Mq564EwUYzVGcGURHajG
+    template-code: SMS_204746606
     sign-name: bigwhite
-    templates:
-      key1:
-        templateCode: SMS_204746606

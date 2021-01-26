@@ -5,5 +5,5 @@ import com.jiajiao.web.vo.ResponseVo;
 import java.util.List;
 
 public interface ISendSms {
-    public ResponseVo sendSms(List<String> phoneNumbers);
+    public ResponseVo sendSms(String phoneNumbers);
 }

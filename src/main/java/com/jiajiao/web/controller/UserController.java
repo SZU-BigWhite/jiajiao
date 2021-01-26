@@ -35,9 +35,7 @@ public class UserController {
      */
     @GetMapping("/get/phone/code")
     public ResponseVo getPhoneCode(Long phone){
-        List<String> phoneList=new ArrayList<>();
-        phoneList.add(String.valueOf(phone));
-        ResponseVo res = sendSms.sendSms(phoneList);
+        ResponseVo res = sendSms.sendSms(String.valueOf(phone));
         return  res;
     }
     /**

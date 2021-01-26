@@ -1,8 +1,9 @@
 package com.jiajiao.web.service.Impl;
 
 
-import cn.javaer.aliyun.sms.SmsClient;
-import cn.javaer.aliyun.sms.SmsTemplate;
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
+import com.aliyuncs.exceptions.ClientException;
+import com.jiajiao.web.factory.SmsTemplate;
 import com.jiajiao.web.service.ISendSms;
 import com.jiajiao.web.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,35 +11,33 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
 public class SendSmsImpl implements ISendSms {
 
     @Autowired
-    SmsClient smsClient;
-    @Autowired
     SmsTemplate smsTemplate;
     @Autowired
     StringRedisTemplate redisTemplate;
 
     @Override
-    public ResponseVo sendSms(List<String> phoneNumbers) {
-
+    public ResponseVo sendSms(String phone) {
         //获得手机对应的验证码
-        smsTemplate.setPhoneNumbers(phoneNumbers);
-        String code = getCodeAndAddRedis(phoneNumbers.get(0));
-
+        String code = getCodeAndAddRedis(phone);
         //发送验证码短信
-        Map<String,String> param=new HashMap<>();
-        param.put("code",code);
-        smsTemplate.setTemplateParam(param);
-        smsClient.send(smsTemplate);
+        try {
+            SendSmsResponse sendSmsResponse = smsTemplate.sendByPhone(phone, code);
+            if(sendSmsResponse.getMessage().equals("OK")){
+                return ResponseVo.success("获取验证码成功");
+            }
+            return ResponseVo.error(sendSmsResponse.getMessage());
+        } catch (ClientException e) {
+            e.printStackTrace();
+            return ResponseVo.error("不可系统错误");
+        }
 
-        return ResponseVo.success("获取验证码成功");
+
     }
     private String getCodeAndAddRedis(String phoneNum){
         //从redis找code
