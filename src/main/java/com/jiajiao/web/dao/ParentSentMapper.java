@@ -24,7 +24,7 @@ public interface ParentSentMapper {
 
     List<ParentSent> selectByParentNeedId(Integer p_need_id);
 
-    int deleteByPNIdAndSRId(@Param("p_need_id") Integer p_need_id,@Param("s_resume_id") Integer s_resume_id);
+    int deleteByPNIdAndSRId(@Param("p_need_id") Integer p_need_id, @Param("s_resume_id") Integer s_resume_id);
 
     int deleteByStudentResumeId(Integer s_resume_id);
 

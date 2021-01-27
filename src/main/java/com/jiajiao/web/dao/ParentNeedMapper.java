@@ -1,7 +1,7 @@
 package com.jiajiao.web.dao;
 
-import com.jiajiao.web.pojo.ParentNeed;
 import com.jiajiao.web.form.GetParentNeedOrderForm;
+import com.jiajiao.web.pojo.ParentNeed;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -28,5 +28,4 @@ public interface ParentNeedMapper {
     List<ParentNeed> selectAllByOrder(@Param("parentNeedOrder") GetParentNeedOrderForm parentNeedOrder);
 
     List<ParentNeed> selectByIdList(@Param("idList") List<Integer> idList);
-
 }

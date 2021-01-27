@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface IUserService {
-    public ResponseVo setCode(Long phone);
     public ResponseVo register(RegisterForm form);
     public ResponseVo login(LoginForm form);
     public ResponseVo logout(Cookie cookie);

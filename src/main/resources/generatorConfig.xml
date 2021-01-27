@@ -39,12 +39,14 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-<!--        <table tableName="jiajiao_parent_need" domainObjectName="ParentNeed" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false">-->
-<!--            <columnOverride column="grade_condiction" jdbcType="VARCHAR" />-->
-<!--            <columnOverride column="location" jdbcType="VARCHAR" />-->
-<!--        </table>-->
+        <table tableName="jiajiao_user_messages" domainObjectName="UserMessages" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false">
+            <columnOverride column="topic" jdbcType="VARCHAR" />
+            <columnOverride column="context" jdbcType="VARCHAR" />
+        </table>
 
-        <table tableName="jiajiao_student_sent" domainObjectName="StudentSent" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />
+<!--        <table tableName="jiajiao_student_sent" domainObjectName="StudentSent" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->
+<!--        <table tableName="jiajiao_parent_sent" domainObjectName="ParentSent" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->
+
 <!--        <table tableName="mall_product" domainObjectName="Product" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" >-->
 <!--            <columnOverride column="detail" jdbcType="VARCHAR" />-->
 <!--            <columnOverride column="sub_images" jdbcType="VARCHAR" />-->

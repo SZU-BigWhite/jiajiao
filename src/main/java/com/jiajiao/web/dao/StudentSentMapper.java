@@ -29,5 +29,4 @@ public interface StudentSentMapper {
     int deleteByStudentResumeId(Integer s_resume_id);
 
     int deleteByParentNeedId(Integer p_need_id);
-
 }

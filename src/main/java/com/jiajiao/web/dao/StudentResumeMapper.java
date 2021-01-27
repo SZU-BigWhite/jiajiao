@@ -1,7 +1,7 @@
 package com.jiajiao.web.dao;
 
-import com.jiajiao.web.pojo.StudentResume;
 import com.jiajiao.web.form.GetStudentResumeOrderForm;
+import com.jiajiao.web.pojo.StudentResume;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -26,5 +26,4 @@ public interface StudentResumeMapper {
     List<StudentResume> selectAllByOrder(@Param("resumeOrderVo") GetStudentResumeOrderForm resumeOrderVo);
 
     List<StudentResume> selectByIdList(@Param("idList") List<Integer> idList);
-
 }

@@ -31,6 +31,8 @@ public class ParentServiceImpl implements IParentService {
     StudentSentMapper studentSentMapper;
     @Autowired
     StudentResumeMapper studentResumeMapper;
+    @Autowired
+    MessagesServiceImpl messagesService;
 
     @Override
     public ResponseVo getParentNeedByUId(int id) {
@@ -63,12 +65,14 @@ public class ParentServiceImpl implements IParentService {
 
     @Override
     public ResponseVo addParentNeedByUId(int uId,ParentNeedVo parentNeedVo) {
-        //todo 一个人最多5个需求
-
+        List<ParentNeed> parentNeedList = parentNeedMapper.selectByOutKey(uId);
+        if(parentNeedList.size()>=5){
+            return ResponseVo.error("请勿添加过多需求！");
+        }
         //插入parentNeed表
         ParentNeed parentNeed = parentNeedVo.getParentNeed();
         parentNeed.setuId(uId);
-        parentNeedMapper.insert(parentNeed);
+        parentNeedMapper.insertSelective(parentNeed);
 
         Integer outId = parentNeed.getId();
         //设置outId 并插入subject表
@@ -110,9 +114,10 @@ public class ParentServiceImpl implements IParentService {
         studentSentMapper.deleteByParentNeedId(id);
         parentSentMapper.deleteByParentNeedId(id);
         //todo 状态删除 删除对应的需求
-        parentNeedMapper.deleteByPrimaryKey(id);
         subjectMapper.deleteByOutKey(id,UserReqConst.SUBJECT_PARENT_TYPE);
         timeMapper.deleteByOutKey(id,UserReqConst.TIME_PARENT_TYPE);
+        //删除 need
+        parentNeedMapper.deleteByPrimaryKey(id);
         return ResponseVo.success("删除成功");
     }
 
@@ -127,11 +132,20 @@ public class ParentServiceImpl implements IParentService {
         if(studentReceiveCount.size()>=5){
             return ResponseVo.error("该学生已收到的需求已满");
         }
+
+        //判断需求前判断是否已发送过
+        for(ParentSent parentSent:parentSentCount){
+            if(parentSent.getsResumeId().equals(pSend.getsResumeId())){
+                return ResponseVo.error("已发送过，请勿重复发送！");
+            }
+        }
         //发送需求
         ParentSent parentSent=new ParentSent();
         parentSent.setpNeedId(pSend.getpNeedId());
         parentSent.setsResumeId(pSend.getsResumeId());
         parentSentMapper.insert(parentSent);
+        //发送通知
+        messagesService.sendMessageToStudent(pSend.getsResumeId());
         return ResponseVo.success("发送需求成功");
     }
 

@@ -9,11 +9,13 @@ import com.jiajiao.web.utils.ParentNeedUtil;
 import com.jiajiao.web.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class StudentServiceImpl implements IStudentService {
     @Autowired
     StudentResumeMapper resumeMapper;
@@ -29,6 +31,8 @@ public class StudentServiceImpl implements IStudentService {
     ParentSentMapper parentSentMapper;
     @Autowired
     ParentNeedMapper parentNeedMapper;
+    @Autowired
+    MessagesServiceImpl messagesService;
 
     @Override
     public ResponseVo getStudentAcademy() {
@@ -47,6 +51,10 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public ResponseVo addStudentResume(StudentResumeVo studentResumeVo,Integer uId) {
+        List<StudentResume> studentResumeList = resumeMapper.selectByUId(uId);
+        if(studentResumeList.size()>=3){
+            return ResponseVo.error("请勿添加过多简历");
+        }
         //插入Resume表
         StudentResume studentResume=studentResumeVo.getStudentResume();
         studentResume.setuId(uId);
@@ -99,13 +107,16 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public ResponseVo deleteStudentResume(Integer id) {
+        //todo 通知 接收到需求 已关闭
+
         //删除 简历对应的发送和接收
         studentSentMapper.deleteByStudentResumeId(id);
         parentSentMapper.deleteByStudentResumeId(id);
-        //删除 简历
-        resumeMapper.deleteByPrimaryKey(id);
+        //删除 对应的time 和 课程
         subjectMapper.deleteByOutKey(id,UserReqConst.SUBJECT_STUDENT_TYPE);
         timeMapper.deleteByOutKey(id,UserReqConst.TIME_STUDENT_TYPE);
+        //删除 resume
+        resumeMapper.deleteByPrimaryKey(id);
         return ResponseVo.success("删除成功");
     }
 
@@ -120,11 +131,19 @@ public class StudentServiceImpl implements IStudentService {
         if(parentReceiveCount.size()>=5){
             return ResponseVo.error("该家长已收到的简历已满");
         }
+        //发送前判断是否发送过
+        for (StudentSent studentSent:studentSentCount){
+            if(studentSent.getpNeedId().equals(studentSendParentVO.getpNeedId())){
+                return ResponseVo.error("已发送过，请勿重复发送！");
+            }
+        }
         //发送简历
         StudentSent studentSent=new StudentSent();
         studentSent.setsResumeId(studentSendParentVO.getsResumeId());
         studentSent.setpNeedId(studentSendParentVO.getpNeedId());
         studentSentMapper.insertSelective(studentSent);
+        //发送通知
+        messagesService.sendMessageToParent(studentSendParentVO.getpNeedId());
         return ResponseVo.success("简历发送成功");
     }
 

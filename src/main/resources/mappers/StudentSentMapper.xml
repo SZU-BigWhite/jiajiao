@@ -5,9 +5,11 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="s_resume_id" jdbcType="INTEGER" property="sResumeId" />
     <result column="p_need_id" jdbcType="INTEGER" property="pNeedId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, s_resume_id, p_need_id
+    id, s_resume_id, p_need_id, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,10 +22,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.jiajiao.web.pojo.StudentSent">
-    insert into jiajiao_student_sent (id, s_resume_id, p_need_id
-      )
-    values (#{id,jdbcType=INTEGER}, #{sResumeId,jdbcType=INTEGER}, #{pNeedId,jdbcType=INTEGER}
-      )
+    insert into jiajiao_student_sent (id, s_resume_id, p_need_id, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{sResumeId,jdbcType=INTEGER}, #{pNeedId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.jiajiao.web.pojo.StudentSent">
     insert into jiajiao_student_sent
@@ -37,6 +39,12 @@
       <if test="pNeedId != null">
         p_need_id,
       </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -47,6 +55,12 @@
       </if>
       <if test="pNeedId != null">
         #{pNeedId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -59,13 +73,21 @@
       <if test="pNeedId != null">
         p_need_id = #{pNeedId,jdbcType=INTEGER},
       </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.jiajiao.web.pojo.StudentSent">
     update jiajiao_student_sent
     set s_resume_id = #{sResumeId,jdbcType=INTEGER},
-      p_need_id = #{pNeedId,jdbcType=INTEGER}
+      p_need_id = #{pNeedId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByStudentResumeId" parameterType="java.lang.Integer" resultMap="BaseResultMap">

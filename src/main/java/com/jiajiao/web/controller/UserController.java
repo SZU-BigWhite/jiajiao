@@ -24,20 +24,9 @@ public class UserController {
     @Autowired
     UserServiceImpl userService;
     @Autowired
-    SendSmsImpl sendSms;
-    @Autowired
     StringRedisTemplate redisTemplate;
 
-    /**
-     * 获取验证码接口
-     * @param phone
-     * @return
-     */
-    @GetMapping("/get/phone/code")
-    public ResponseVo getPhoneCode(Long phone){
-        ResponseVo res = sendSms.sendSms(String.valueOf(phone));
-        return  res;
-    }
+
     /**
      * 注册并登录接口
      * @param form
@@ -90,16 +79,6 @@ public class UserController {
             response.addCookie(cookie);
         }
         return res;
-    }
-
-    /**
-     * 设置临时验证码接口
-     * @param phone
-     * @return
-     */
-    @GetMapping("/setcode")
-    public ResponseVo setcode(Long phone){
-        return userService.setCode(phone);
     }
 
     /**

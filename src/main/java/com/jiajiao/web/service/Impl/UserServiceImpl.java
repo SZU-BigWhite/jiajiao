@@ -38,16 +38,6 @@ public class UserServiceImpl implements IUserService {
     UserMapper userMapper;
 
     /**
-     * 临时设置Code
-     * @param phone
-     */
-    public ResponseVo setCode(Long phone){
-        ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
-        int code=(int)(Math.random()*9000+1000);
-        opsForValue.setIfAbsent(""+phone,""+code,24L,TimeUnit.HOURS);
-        return ResponseVo.success("code 设置成功");
-    }
-    /**
      * 注册功能
      * 使用password + code 登录
      * @param form 注册表单 code=1234
@@ -79,7 +69,7 @@ public class UserServiceImpl implements IUserService {
             user.setRole(UserRoleEnum.CUMSTOMER.getCode());
             user.setName(UserRoleEnum.CUMSTOMER.getMsg()+"_"+user.getPhone());
             user.setHeadImg(HEAD_IMAGE_URL);
-        int num = userMapper.insert(user);
+        int num = userMapper.insertSelective(user);
         if(num==0){
             return ResponseVo.error();
         }

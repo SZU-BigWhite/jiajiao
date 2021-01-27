@@ -1,5 +1,9 @@
 package com.jiajiao.web.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class ParentNeed {
     private Integer id;
 
@@ -9,7 +13,7 @@ public class ParentNeed {
 
     private String wechat;
 
-    private String studentClass;
+    private Integer studentClass;
 
     private String gradeCondiction;
 
@@ -36,6 +40,14 @@ public class ParentNeed {
     private String location;
 
     private Float arriveHours;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date createTime;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date updateTime;
+
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -69,11 +81,11 @@ public class ParentNeed {
         this.wechat = wechat;
     }
 
-    public String getStudentClass() {
+    public Integer getStudentClass() {
         return studentClass;
     }
 
-    public void setStudentClass(String studentClass) {
+    public void setStudentClass(Integer studentClass) {
         this.studentClass = studentClass;
     }
 
@@ -179,5 +191,29 @@ public class ParentNeed {
 
     public void setArriveHours(Float arriveHours) {
         this.arriveHours = arriveHours;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
