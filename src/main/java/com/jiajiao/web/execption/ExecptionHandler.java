@@ -25,12 +25,18 @@ public class ExecptionHandler {
         return ResponseVo.message(ExceptionEnum.USER_NEED_LOGIN.getCode(),ExceptionEnum.PASSWORD_NOT_NULL.getMsg());
     }
 
+    @ExceptionHandler(UnLoginExecption.class)
+    public ResponseVo unLoginExection(UnLoginExecption e){
+        return ResponseVo.error(e.getMessage());
+    }
+
+
     /**
      * 其他异常错误
      * @param e
      * @return
      */
-    @ExceptionHandler(Exception.class)
+//    @ExceptionHandler(Exception.class)
     public ResponseVo otherException(Exception e){
 
         return ResponseVo.error("系统错误",e.getMessage());

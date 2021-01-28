@@ -323,6 +323,15 @@
     <if test="parentNeedOrder.salary == 2">
       salary DESC,
     </if>
+    <if test="parentNeedOrder.updateTime == 0">
+      null,
+    </if>
+    <if test="parentNeedOrder.updateTime == 1">
+      update_time ASC ,
+    </if>
+    <if test="parentNeedOrder.updateTime == 2">
+      update_time DESC,
+    </if>
     <if test="parentNeedOrder.arriveHours == 0">
       null
     </if>
@@ -341,5 +350,8 @@
     <foreach collection="idList" open="(" separator="," close=")" item="id">
       #{id}
     </foreach>
+  </select>
+  <select id="selectParentNeedSum" resultType="java.lang.Integer">
+    select count(*) from jiajiao_parent_need
   </select>
 </mapper>

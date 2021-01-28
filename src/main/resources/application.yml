@@ -14,8 +14,8 @@ spring:
 #mybatis 映射文件
 mybatis:
   mapper-locations: classpath:mappers/*xml
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #短信配置文件
 aliyun:
   sms:

@@ -28,4 +28,6 @@ public interface ParentNeedMapper {
     List<ParentNeed> selectAllByOrder(@Param("parentNeedOrder") GetParentNeedOrderForm parentNeedOrder);
 
     List<ParentNeed> selectByIdList(@Param("idList") List<Integer> idList);
+
+    int selectParentNeedSum();
 }

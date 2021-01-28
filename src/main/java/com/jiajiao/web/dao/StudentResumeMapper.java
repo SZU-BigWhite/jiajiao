@@ -26,4 +26,6 @@ public interface StudentResumeMapper {
     List<StudentResume> selectAllByOrder(@Param("resumeOrderVo") GetStudentResumeOrderForm resumeOrderVo);
 
     List<StudentResume> selectByIdList(@Param("idList") List<Integer> idList);
+
+    int selectStudentResumeSum();
 }

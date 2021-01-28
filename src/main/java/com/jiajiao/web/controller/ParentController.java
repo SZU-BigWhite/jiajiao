@@ -35,6 +35,8 @@ public class ParentController {
     }
 
     /**
+     * @deprecated
+     * 使用默认order查询，则获取所有list
      * 获取所有的 parent 的需求表
      * @return
      */
@@ -166,6 +168,16 @@ public class ParentController {
             return ResponseVo.error("无法操作他人的需求");
         }
         ResponseVo res = parentService.getParentSent(id);
+        return res;
+    }
+
+    /**
+     * 获取家长需求的总数
+     * @return
+     */
+    @GetMapping("/get/parent/need/sum")
+    public ResponseVo getParentNeedSum(){
+        ResponseVo res = parentService.getParentNeedSum();
         return res;
     }
 

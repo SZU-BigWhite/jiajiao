@@ -1,5 +1,6 @@
 package com.jiajiao.web.service.Impl;
 
+import com.jiajiao.web.enums.RedisIllegalConst;
 import com.jiajiao.web.enums.UserReqConst;
 import com.jiajiao.web.form.RegisterForm;
 import com.jiajiao.web.enums.HttpStatusEnum;
@@ -44,6 +45,10 @@ public class UserServiceImpl implements IUserService {
      * @return
      */
     public ResponseVo register(RegisterForm form) {
+
+        if(!checkLegal(form.getPhone())){
+            return ResponseVo.error("该账号已被封禁");
+        }
         //获取redis中的手机验证码
         ValueOperations<String, String> opsForValue  = redisTemplate.opsForValue();
         String codeStr = opsForValue.get(String.valueOf(form.getPhone()));
@@ -84,7 +89,9 @@ public class UserServiceImpl implements IUserService {
      * @return
      */
     public ResponseVo login(LoginForm form) {
-
+        if(!checkLegal(form.getPhone())){
+            return ResponseVo.error("该账号已被封禁");
+        }
         User userSql = userMapper.selectByPhone(form.getPhone());
         if(userSql==null){
             return ResponseVo.error("该账号不存在");
@@ -138,10 +145,19 @@ public class UserServiceImpl implements IUserService {
     public ResponseVo updateUser(User user,Integer uId) {
         //根据uId更新相关信息
         user.setId(uId);
+        //不能修改手机号
+        user.setPhone(null);
         int i =userMapper.updateByPrimaryKeySelective(user);
         if(i==0){
             return ResponseVo.error(HttpStatusEnum.ERROR_SERVER.getMsg());
         }
         return ResponseVo.success("设置成功");
+    }
+
+    private boolean checkLegal(Long phone){
+        Object check =redisTemplate.opsForHash().get(RedisIllegalConst.ILLEGAL_PHONES, String.valueOf(phone));
+        if(check==null)
+            return true;
+        return false;
     }
 }

@@ -17,4 +17,5 @@ public interface IStudentService {
     public ResponseVo deleteSendStudentResume(StudentSendParentVO studentSendParentVO);
     public ResponseVo getStudentReceive(Integer id);
     public ResponseVo getStudentSent(Integer id);
+    public ResponseVo getStudentResumeSum();
 }

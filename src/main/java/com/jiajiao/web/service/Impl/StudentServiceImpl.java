@@ -1,5 +1,7 @@
 package com.jiajiao.web.service.Impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jiajiao.web.dao.*;
 import com.jiajiao.web.enums.UserReqConst;
 import com.jiajiao.web.form.GetStudentResumeOrderForm;
@@ -97,12 +99,15 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public ResponseVo getStudentsResumes(GetStudentResumeOrderForm getStudentResumeOrderVo) {
+
+        //分页控制
+        PageHelper.startPage(getStudentResumeOrderVo.getPageNum(),getStudentResumeOrderVo.getPageSize());
         //获取StudentResumeList
         List<StudentResume> studentResumeList = resumeMapper.selectAllByOrder(getStudentResumeOrderVo);
         //构建VoList
         List<StudentResumeVo> studentResumeVoList = buildStudentResumeVoList(studentResumeList);
-
-        return ResponseVo.success("学生简历获取成功",studentResumeVoList);
+        PageInfo<StudentResumeVo> pageInfo=new PageInfo<>(studentResumeVoList);
+        return ResponseVo.success("学生简历获取成功",pageInfo);
     }
 
     @Override
@@ -191,6 +196,12 @@ public class StudentServiceImpl implements IStudentService {
         //根据NeedList 构建VoList
         List<ParentNeedVo> parentNeedVoList = ParentNeedUtil.buildParentNeedVoList(parentNeedList,timeMapper,subjectMapper);
         return ResponseVo.success("简历投递历史-查询成功",parentNeedVoList);
+    }
+
+    @Override
+    public ResponseVo getStudentResumeSum() {
+        int sum = resumeMapper.selectStudentResumeSum();
+        return ResponseVo.success("已经注册的学生简历数",sum);
     }
 
     //插入新的Subject表

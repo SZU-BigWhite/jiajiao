@@ -114,4 +114,5 @@
     delete from jiajiao_student_sent
     where p_need_id = #{p_need_id,jdbcType=INTEGER}
   </delete>
+
 </mapper>

@@ -17,5 +17,6 @@ public interface IParentService {
     public ResponseVo deleteSendNeedToResume(ParentSendStudentVo psend);
     public ResponseVo getParentReceive(Integer id);
     public ResponseVo getParentSent(Integer id);
+    public ResponseVo getParentNeedSum();
 
 }

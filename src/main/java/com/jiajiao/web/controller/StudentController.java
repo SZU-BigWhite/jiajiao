@@ -75,7 +75,7 @@ public class StudentController {
      * @param studentResumeOrderVo
      * @return
      */
-    @GetMapping("/get/students/resumes/order")
+    @GetMapping("/get/students/resumelist/order")
     public ResponseVo getStudentsResumesOrder(GetStudentResumeOrderForm studentResumeOrderVo){
         System.out.println(studentResumeOrderVo);
         ResponseVo res = studentService.getStudentsResumes(studentResumeOrderVo);
@@ -155,6 +155,16 @@ public class StudentController {
         }
 
         ResponseVo res = studentService.getStudentSent(id);
+        return res;
+    }
+
+    /**
+     * 获取学生简历的总数
+     * @return
+     */
+    @GetMapping("/get/student/resume/sum")
+    public ResponseVo getStudentResumeSum(){
+        ResponseVo res = studentService.getStudentResumeSum();
         return res;
     }
 }

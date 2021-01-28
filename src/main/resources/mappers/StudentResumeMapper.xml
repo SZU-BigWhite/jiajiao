@@ -266,6 +266,15 @@
     <if test="resumeOrderVo.academyId == 2">
       academy_id DESC ,
     </if>
+    <if test="resumeOrderVo.updateTime == 0">
+      null,
+    </if>
+    <if test="resumeOrderVo.updateTime == 1">
+      update_time ASC,
+    </if>
+    <if test="resumeOrderVo.updateTime == 2">
+      update_time DESC,
+    </if>
     <if test="resumeOrderVo.salary == 0">
       null
     </if>
@@ -285,5 +294,8 @@
     <foreach collection="idList" open="(" separator="," close=")" item="id">
       #{id}
     </foreach>
+  </select>
+  <select id="selectStudentResumeSum" resultType="java.lang.Integer">
+    select count(*) from jiajiao_student_resume
   </select>
 </mapper>

@@ -44,8 +44,9 @@ public class ParentServiceImpl implements IParentService {
     @Override
     public ResponseVo getParentsNeed() {
 
+        //分页控制
+        PageHelper.startPage(1,10);
         //get ParentNeed
-        PageHelper.startPage(1,2);
         List<ParentNeed> parentNeedList = parentNeedMapper.selectAll();
         //构建VoList
         List<ParentNeedVo> parentNeedVoList = buildParentNeedVoList(parentNeedList);
@@ -57,10 +58,15 @@ public class ParentServiceImpl implements IParentService {
     @Override
     public ResponseVo getParentsNeedByOrder(GetParentNeedOrderForm parentNeedOrderVo) {
 
+        //分页控制
+        PageHelper.startPage(parentNeedOrderVo.getPageNum(),parentNeedOrderVo.getPageSize());
+        //查询信息
         List<ParentNeed> parentNeedList = parentNeedMapper.selectAllByOrder(parentNeedOrderVo);
         //构建VoList
         List<ParentNeedVo> parentNeedVoList = buildParentNeedVoList(parentNeedList);
-        return ResponseVo.success("排序成功",parentNeedList);
+        //生成分页Page信息
+        PageInfo<ParentNeedVo> pageInfo=new PageInfo<>(parentNeedVoList);
+        return ResponseVo.success("排序成功",pageInfo);
     }
 
     @Override
@@ -192,6 +198,12 @@ public class ParentServiceImpl implements IParentService {
         List<StudentResumeVo> studentResumeVoList = StudentResumeUtil.buildStudentResumeVoList(studentResumeList,timeMapper,subjectMapper);
 
         return ResponseVo.success("发送历史查询成功",studentResumeVoList);
+    }
+
+    @Override
+    public ResponseVo getParentNeedSum() {
+        int sum = parentNeedMapper.selectParentNeedSum();
+        return ResponseVo.success("已注册的家长需求数",sum);
     }
 
     //根据ParentNeed 构建 Vo
