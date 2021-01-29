@@ -14,6 +14,16 @@ public class StudentResumeVo {
 
     List<Time> timeList;
 
+    Integer receiveCounts;
+
+    public Integer getReceiveCounts() {
+        return receiveCounts;
+    }
+
+    public void setReceiveCounts(Integer receiveCounts) {
+        this.receiveCounts = receiveCounts;
+    }
+
     public StudentResume getStudentResume() {
         return studentResume;
     }

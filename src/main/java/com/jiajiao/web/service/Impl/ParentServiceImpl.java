@@ -149,9 +149,10 @@ public class ParentServiceImpl implements IParentService {
         ParentSent parentSent=new ParentSent();
         parentSent.setpNeedId(pSend.getpNeedId());
         parentSent.setsResumeId(pSend.getsResumeId());
-        parentSentMapper.insert(parentSent);
+        parentSentMapper.insertSelective(parentSent);
         //发送通知
-        messagesService.sendMessageToStudent(pSend.getsResumeId());
+        if(!messagesService.sendMessageToStudent(pSend.getsResumeId()))
+            return ResponseVo.error("请选择正确的发送目标");
         return ResponseVo.success("发送需求成功");
     }
 
@@ -208,14 +209,17 @@ public class ParentServiceImpl implements IParentService {
 
     //根据ParentNeed 构建 Vo
     private ParentNeedVo buildParentNeedVo(ParentNeed parentNeed){
-        //获取time、subject
+        //获取time、subject、receiveCounts
         List<Subject> subjectList = subjectMapper.selectByOutKeyAndType(parentNeed.getId(), UserReqConst.SUBJECT_PARENT_TYPE);
         List<Time> timeList = timeMapper.selectByOutKeyAndType(parentNeed.getId(),UserReqConst.TIME_PARENT_TYPE);
+        int receiveCounts = studentSentMapper.selectByParentNeedId(parentNeed.getId()).size();
         //构建Vo
         ParentNeedVo parentNeedVo=new ParentNeedVo();
         parentNeedVo.setParentNeed(parentNeed);
         parentNeedVo.setSubjectList(subjectList);
         parentNeedVo.setTimeList(timeList);
+        parentNeedVo.setReceiveCounts(receiveCounts);
+
         return parentNeedVo;
     }
     //根据ParentNeedList 构建VoList

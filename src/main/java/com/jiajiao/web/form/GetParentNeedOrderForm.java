@@ -20,6 +20,82 @@ public class GetParentNeedOrderForm {
     private Integer arriveHours=0;
     private Integer updateTime=0;
 
+    /**
+     * 选择范围
+     * @return
+     */
+    private Float minDuration;
+    private Float maxDuration;
+    private Integer minTimes;
+    private Integer maxTimes;
+    private Float minSalary;
+    private Float maxSalary;
+    private Float minArriveHours;
+    private Float maxArriveHours;
+
+    public Float getMinDuration() {
+        return minDuration;
+    }
+
+    public void setMinDuration(Float minDuration) {
+        this.minDuration = minDuration;
+    }
+
+    public Float getMaxDuration() {
+        return maxDuration;
+    }
+
+    public void setMaxDuration(Float maxDuration) {
+        this.maxDuration = maxDuration;
+    }
+
+    public Integer getMinTimes() {
+        return minTimes;
+    }
+
+    public void setMinTimes(Integer minTimes) {
+        this.minTimes = minTimes;
+    }
+
+    public Integer getMaxTimes() {
+        return maxTimes;
+    }
+
+    public void setMaxTimes(Integer maxTimes) {
+        this.maxTimes = maxTimes;
+    }
+
+    public Float getMinSalary() {
+        return minSalary;
+    }
+
+    public void setMinSalary(Float minSalary) {
+        this.minSalary = minSalary;
+    }
+
+    public Float getMaxSalary() {
+        return maxSalary;
+    }
+
+    public void setMaxSalary(Float maxSalary) {
+        this.maxSalary = maxSalary;
+    }
+
+    public Float getMinArriveHours() {
+        return minArriveHours;
+    }
+
+    public void setMinArriveHours(Float minArriveHours) {
+        this.minArriveHours = minArriveHours;
+    }
+
+    public Float getMaxArriveHours() {
+        return maxArriveHours;
+    }
+
+    public void setMaxArriveHours(Float maxArriveHours) {
+        this.maxArriveHours = maxArriveHours;
+    }
 
     public Integer getPageNum() {
         return pageNum;

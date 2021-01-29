@@ -148,7 +148,9 @@ public class StudentServiceImpl implements IStudentService {
         studentSent.setpNeedId(studentSendParentVO.getpNeedId());
         studentSentMapper.insertSelective(studentSent);
         //发送通知
-        messagesService.sendMessageToParent(studentSendParentVO.getpNeedId());
+        if(!messagesService.sendMessageToParent(studentSendParentVO.getpNeedId()))
+            return ResponseVo.error("请选择正确的发送目标");
+
         return ResponseVo.success("简历发送成功");
     }
 
@@ -227,14 +229,18 @@ public class StudentServiceImpl implements IStudentService {
 
     //根据StudentResume 构建 Vo
     private StudentResumeVo buildStudentResumeVo(StudentResume resume){
-        //获取time、subject
+        //获取time、subject、receiveCounts
         List<Subject> subjectList = subjectMapper.selectByOutKeyAndType(resume.getId(), UserReqConst.SUBJECT_STUDENT_TYPE);
         List<Time> timeList = timeMapper.selectByOutKeyAndType(resume.getId(),UserReqConst.TIME_STUDENT_TYPE);
+        int receiveCounts = parentSentMapper.selectByStudentResumeId(resume.getId()).size();
+
         //构建Vo
         StudentResumeVo studentResumeVo=new StudentResumeVo();
         studentResumeVo.setStudentResume(resume);
         studentResumeVo.setSubjectList(subjectList);
         studentResumeVo.setTimeList(timeList);
+        studentResumeVo.setReceiveCounts(receiveCounts);
+
         return studentResumeVo;
     }
     //根据StudentResumeList 组装VoList

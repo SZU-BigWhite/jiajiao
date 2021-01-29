@@ -295,6 +295,33 @@
     select
     <include refid="Base_Column_List" />
     from jiajiao_parent_need
+    <where>
+      <if test="parentNeedOrder.minDuration!=null">
+        duration &gt;= #{parentNeedOrder.minDuration}
+      </if>
+      <if test="parentNeedOrder.maxDuration!=null">
+        and duration &lt;= #{parentNeedOrder.maxDuration}
+      </if>
+      <if test="parentNeedOrder.minTimes!=null">
+        and times &gt;= #{parentNeedOrder.minTimes}
+      </if>
+      <if test="parentNeedOrder.maxTimes!=null">
+        and times &lt;= #{parentNeedOrder.maxTimes}
+      </if>
+      <if test="parentNeedOrder.minSalary!=null">
+        and salary &gt;= #{parentNeedOrder.minSalary}
+      </if>
+      <if test="parentNeedOrder.maxSalary!=null">
+        and salary &lt;= #{parentNeedOrder.maxSalary}
+      </if>
+      <if test="parentNeedOrder.minArriveHours!=null">
+        and arrive_hours &gt;= #{parentNeedOrder.minArriveHours}
+      </if>
+      <if test="parentNeedOrder.maxArriveHours!=null">
+        and arrive_hours &lt;= #{parentNeedOrder.maxArriveHours}
+      </if>
+
+    </where>
     order by
     <if test="parentNeedOrder.duration == 0">
       null,

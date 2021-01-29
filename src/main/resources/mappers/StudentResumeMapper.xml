@@ -243,9 +243,19 @@
     <include refid="Base_Column_List" />
     from jiajiao_student_resume
     <where>
-      <if test="resumeOrderVo.ableClass !=0 ">
+      <if test="resumeOrderVo.ableClass != null ">
         and able_class >= #{resumeOrderVo.ableClass}
       </if>
+      <if test="resumeOrderVo.academyId !=null ">
+        and academy_id = #{resumeOrderVo.academyId}
+      </if>
+      <if test="resumeOrderVo.minSalary!=null">
+        and salary &gt;= #{resumeOrderVo.minSalary}
+      </if>
+      <if test="resumeOrderVo.maxSalary!=null">
+        and salary &lt;= #{resumeOrderVo.maxSalary}
+      </if>
+
     </where>
     order by
     <if test="resumeOrderVo.sex == 0">
@@ -256,15 +266,6 @@
     </if>
     <if test="resumeOrderVo.sex == 2">
       sex DESC ,
-    </if>
-    <if test="resumeOrderVo.academyId == 0">
-      null,
-    </if>
-    <if test="resumeOrderVo.academyId == 1">
-      academy_id ASC ,
-    </if>
-    <if test="resumeOrderVo.academyId == 2">
-      academy_id DESC ,
     </if>
     <if test="resumeOrderVo.updateTime == 0">
       null,

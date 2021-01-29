@@ -37,6 +37,9 @@ public class MessagesServiceImpl implements IMessagesService {
     public boolean sendMessageToStudent(Integer sRId) {
         //获取UId
         StudentResume studentResume = studentResumeMapper.selectByPrimaryKey(sRId);
+        if(studentResume==null){
+            return false;
+        }
         Integer uId = studentResume.getuId();
 
         //获取主题内容
@@ -50,6 +53,9 @@ public class MessagesServiceImpl implements IMessagesService {
     public boolean sendMessageToParent(Integer pNId) {
         //获取UId
         ParentNeed parentNeed=parentNeedMapper.selectByPrimaryKey(pNId);
+        if(parentNeed==null){
+            return false;
+        }
         Integer uId = parentNeed.getuId();
 
         //获取主题内容

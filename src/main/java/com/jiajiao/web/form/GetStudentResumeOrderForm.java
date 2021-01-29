@@ -12,11 +12,36 @@ public class GetStudentResumeOrderForm {
      * 1 - 升序
      * 2 - 降序 --时间降序则最新
      */
-    private Integer sex=0;
-    private Integer academyId=0;
     private Integer salary=0;
-    private Integer ableClass=0;
+    private Integer sex=0;
     private Integer updateTime=0;
+
+    /**
+     * 筛选
+     * @return
+     */
+    private Integer ableClass;
+    private Float minSalary;
+    private Float maxSalary;
+    private Integer academyId;
+
+
+    public Float getMinSalary() {
+        return minSalary;
+    }
+
+    public void setMinSalary(Float minSalary) {
+        this.minSalary = minSalary;
+    }
+
+    public Float getMaxSalary() {
+        return maxSalary;
+    }
+
+    public void setMaxSalary(Float maxSalary) {
+        this.maxSalary = maxSalary;
+    }
+
 
     public Integer getPageNum() {
         return pageNum;
