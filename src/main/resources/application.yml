@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 8888
 #配置数据库源
 spring:
   datasource:

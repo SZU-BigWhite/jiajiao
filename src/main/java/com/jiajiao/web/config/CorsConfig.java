@@ -8,8 +8,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig implements WebMvcConfigurer {
     //跨域请求
     public void addCorsMappings(CorsRegistry registry){
-        registry.addMapping("   /**")
-                .allowedOrigins("http://192.168.101.18:8080")
+        registry.addMapping("/**")
+                .allowedHeaders("*")  // 可限制固定请求头可以通过跨域
+                .allowedOrigins("*")  // 可限制访问ip可以通过跨域
                 .allowCredentials(true)
                 .allowedMethods("GET", "POST", "DELETE", "PUT")
                 .maxAge(3600);
