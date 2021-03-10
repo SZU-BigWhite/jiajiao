@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+<a href="#" onclick="get1()">发生get请求</a>
+<script type="text/javascript">
+
+    axios({
+        url:"http://localhost:8888"
+    })
+    function get1() {
+        axios.get('/get/user/messages')
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+</script>
+</body>
+
+</html>

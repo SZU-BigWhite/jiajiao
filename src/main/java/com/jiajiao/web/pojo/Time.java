@@ -1,9 +1,5 @@
 package com.jiajiao.web.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import java.util.Date;
-
 public class Time {
     private Integer id;
 
@@ -11,13 +7,7 @@ public class Time {
 
     private Integer type;
 
-    private Integer weekday;
-
-    @JsonFormat(pattern = "HH:mm")
-    private Date beginTime;
-
-    @JsonFormat(pattern = "HH:mm")
-    private Date endTime;
+    private Integer freeTime;
 
     public Integer getId() {
         return id;
@@ -43,27 +33,11 @@ public class Time {
         this.type = type;
     }
 
-    public Integer getWeekday() {
-        return weekday;
+    public Integer getFreeTime() {
+        return freeTime;
     }
 
-    public void setWeekday(Integer weekday) {
-        this.weekday = weekday;
-    }
-
-    public Date getBeginTime() {
-        return beginTime;
-    }
-
-    public void setBeginTime(Date beginTime) {
-        this.beginTime = beginTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setFreeTime(Integer freeTime) {
+        this.freeTime = freeTime;
     }
 }

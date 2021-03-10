@@ -1,7 +1,5 @@
 package com.jiajiao.web.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 public class StudentResume {
@@ -15,7 +13,7 @@ public class StudentResume {
 
     private String wechat;
 
-    private Integer academyId;
+    private String academyId;
 
     private Float salary;
 
@@ -23,9 +21,7 @@ public class StudentResume {
 
     private String characterCondiction;
 
-    private String grade;
-
-    private String prepareStress;
+    private Float grade;
 
     private String teachStress;
 
@@ -33,13 +29,45 @@ public class StudentResume {
 
     private String feedback;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    private String university;
+
+    private Integer education;
+
+    private String hobby;
+
+    private String learnMethods;
+
+    private String showSelf;
+
+    private String motto;
+
     private Date createTime;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
     private Date updateTime;
 
     private Integer status;
+
+    public StudentResume(){}
+
+    public StudentResume(String name, Integer sex, String wechat, String academyId, Float salary, Integer ableClass, String characterCondiction, Float grade, String teachStress, String teachGoal, String feedback, String university, Integer education, String hobby, String learnMethods, String showSelf, String motto) {
+        this.name = name;
+        this.sex = sex;
+        this.wechat = wechat;
+        this.academyId = academyId;
+        this.salary = salary;
+        this.ableClass = ableClass;
+        this.characterCondiction = characterCondiction;
+        this.grade = grade;
+        this.teachStress = teachStress;
+        this.teachGoal = teachGoal;
+        this.feedback = feedback;
+        this.university = university;
+        this.education = education;
+        this.hobby = hobby;
+        this.learnMethods = learnMethods;
+        this.showSelf = showSelf;
+        this.motto = motto;
+    }
 
     public Integer getId() {
         return id;
@@ -81,11 +109,11 @@ public class StudentResume {
         this.wechat = wechat;
     }
 
-    public Integer getAcademyId() {
+    public String getAcademyId() {
         return academyId;
     }
 
-    public void setAcademyId(Integer academyId) {
+    public void setAcademyId(String academyId) {
         this.academyId = academyId;
     }
 
@@ -113,20 +141,12 @@ public class StudentResume {
         this.characterCondiction = characterCondiction;
     }
 
-    public String getGrade() {
+    public Float getGrade() {
         return grade;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(Float grade) {
         this.grade = grade;
-    }
-
-    public String getPrepareStress() {
-        return prepareStress;
-    }
-
-    public void setPrepareStress(String prepareStress) {
-        this.prepareStress = prepareStress;
     }
 
     public String getTeachStress() {
@@ -151,6 +171,54 @@ public class StudentResume {
 
     public void setFeedback(String feedback) {
         this.feedback = feedback;
+    }
+
+    public String getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(String university) {
+        this.university = university;
+    }
+
+    public Integer getEducation() {
+        return education;
+    }
+
+    public void setEducation(Integer education) {
+        this.education = education;
+    }
+
+    public String getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
+    }
+
+    public String getLearnMethods() {
+        return learnMethods;
+    }
+
+    public void setLearnMethods(String learnMethods) {
+        this.learnMethods = learnMethods;
+    }
+
+    public String getShowSelf() {
+        return showSelf;
+    }
+
+    public void setShowSelf(String showSelf) {
+        this.showSelf = showSelf;
+    }
+
+    public String getMotto() {
+        return motto;
+    }
+
+    public void setMotto(String motto) {
+        this.motto = motto;
     }
 
     public Date getCreateTime() {

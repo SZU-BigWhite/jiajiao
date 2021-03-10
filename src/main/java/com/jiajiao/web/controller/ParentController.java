@@ -1,5 +1,6 @@
 package com.jiajiao.web.controller;
 
+import com.jiajiao.web.form.ParentNeedForm;
 import com.jiajiao.web.service.Impl.ParentServiceImpl;
 import com.jiajiao.web.utils.CookieUtils;
 import com.jiajiao.web.form.GetParentNeedOrderForm;
@@ -25,7 +26,7 @@ public class ParentController {
      * @param request
      * @return
      */
-    @GetMapping("/get/parent/needlist")
+    @GetMapping("/get/parent/need")
     public ResponseVo getParentNeedList(HttpServletRequest request){
 
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
@@ -59,30 +60,32 @@ public class ParentController {
 
     /**
      * parent 添加自身的需求表
-     * @param parentNeedVo
+     * @param parentNeedForm
      * @param request
      * @return
      */
     @PostMapping("/add/parent/need")
-    public ResponseVo addParentNeed(@RequestBody ParentNeedVo parentNeedVo,HttpServletRequest request){
+    public ResponseVo addParentNeed(@RequestBody ParentNeedForm parentNeedForm, HttpServletRequest request){
 
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
+        ParentNeedVo parentNeedVo = parentService.parentNeedFormToVo(parentNeedForm,uId);
         ResponseVo res = parentService.addParentNeedByUId(uId, parentNeedVo);
         return res;
     }
 
     /**
      * parent 更新自身的需求表
-     * @param parentNeedVo
+     * @param parentNeedForm
      * @return
      */
     @PostMapping("/update/parent/need")
-    public ResponseVo updateParentNeed(@RequestBody ParentNeedVo parentNeedVo,HttpServletRequest request){
+    public ResponseVo updateParentNeed(@RequestBody ParentNeedForm parentNeedForm,HttpServletRequest request){
         //校验uid->id的对应
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
-        if(!parentService.checkIdAndUId(parentNeedVo.getParentNeed().getId(),uId)){
+        if(!parentService.checkIdAndUId(parentNeedForm.getParentNeed().getId(),uId)){
             return ResponseVo.error("无法操作他人的需求");
         }
+        ParentNeedVo parentNeedVo = parentService.parentNeedFormToVo(parentNeedForm,uId);
 
         ResponseVo res = parentService.updateParentNeed(parentNeedVo);
         return res;

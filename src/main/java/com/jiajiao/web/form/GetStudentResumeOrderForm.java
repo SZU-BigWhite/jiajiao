@@ -5,25 +5,26 @@ public class GetStudentResumeOrderForm {
      * 默认 第 1 页
      * 默认 一页 10 行
      */
-    private Integer pageNum=1;
-    private Integer pageSize=10;
+    private Integer pageNum = 1;
+    private Integer pageSize = 10;
     /**
      * 0 - 不做排序
      * 1 - 升序
      * 2 - 降序 --时间降序则最新
      */
-    private Integer salary=0;
-    private Integer sex=0;
-    private Integer updateTime=0;
+    private Integer salary = 0;
+    private Integer sex = 0;
+    private Integer updateTime = 0;
 
     /**
      * 筛选
+     *
      * @return
      */
     private Integer ableClass;
     private Float minSalary;
     private Float maxSalary;
-    private Integer academyId;
+    private String academyId;
 
 
     public Float getMinSalary() {
@@ -75,13 +76,6 @@ public class GetStudentResumeOrderForm {
         this.sex = sex;
     }
 
-    public Integer getAcademyId() {
-        return academyId;
-    }
-
-    public void setAcademyId(Integer academyId) {
-        this.academyId = academyId;
-    }
 
     public Integer getSalary() {
         return salary;
@@ -99,13 +93,26 @@ public class GetStudentResumeOrderForm {
         this.ableClass = ableClass;
     }
 
+    public String getAcademyId() {
+        return academyId;
+    }
+
+    public void setAcademyId(String academyId) {
+        this.academyId = academyId;
+    }
+
     @Override
     public String toString() {
-        return "GetStudentResumeOrderVo{" +
-                "sex=" + sex +
-                ", academyId=" + academyId +
+        return "GetStudentResumeOrderForm{" +
+                "pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
                 ", salary=" + salary +
+                ", sex=" + sex +
+                ", updateTime=" + updateTime +
                 ", ableClass=" + ableClass +
+                ", minSalary=" + minSalary +
+                ", maxSalary=" + maxSalary +
+                ", academyId='" + academyId + '\'' +
                 '}';
     }
 }

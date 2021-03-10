@@ -9,27 +9,27 @@
     <result column="student_class" jdbcType="INTEGER" property="studentClass" />
     <result column="grade_condiction" jdbcType="VARCHAR" property="gradeCondiction" />
     <result column="character_condiction" jdbcType="VARCHAR" property="characterCondiction" />
-    <result column="time_is_change" jdbcType="INTEGER" property="timeIsChange" />
     <result column="duration" jdbcType="REAL" property="duration" />
     <result column="times" jdbcType="INTEGER" property="times" />
     <result column="salary" jdbcType="REAL" property="salary" />
-    <result column="marjor" jdbcType="VARCHAR" property="marjor" />
-    <result column="character_req" jdbcType="VARCHAR" property="characterReq" />
-    <result column="chatting_req" jdbcType="VARCHAR" property="chattingReq" />
     <result column="expect_goal" jdbcType="VARCHAR" property="expectGoal" />
-    <result column="added_bonus" jdbcType="INTEGER" property="addedBonus" />
     <result column="location" jdbcType="VARCHAR" property="location" />
     <result column="arrive_hours" jdbcType="REAL" property="arriveHours" />
+    <result column="education" jdbcType="INTEGER" property="education" />
+    <result column="teach_req" jdbcType="VARCHAR" property="teachReq" />
+    <result column="learn_condiction" jdbcType="VARCHAR" property="learnCondiction" />
+    <result column="expect_feedback" jdbcType="VARCHAR" property="expectFeedback" />
+    <result column="teach_by_self" jdbcType="VARCHAR" property="teachBySelf" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, u_id, name, wechat, student_class, grade_condiction, character_condiction, time_is_change, 
-    duration, times, salary, marjor, character_req, chatting_req, expect_goal, added_bonus, 
-    location, arrive_hours, create_time, update_time, status
+    id, u_id, name, wechat, student_class, grade_condiction, character_condiction, duration, 
+    times, salary, expect_goal, location, arrive_hours, education, teach_req, learn_condiction, 
+    expect_feedback, teach_by_self, create_time, update_time, status
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from jiajiao_parent_need
@@ -42,22 +42,22 @@
   <insert id="insert" parameterType="com.jiajiao.web.pojo.ParentNeed"  useGeneratedKeys="true" keyProperty="id">
     insert into jiajiao_parent_need (id, u_id, name, 
       wechat, student_class, grade_condiction, 
-      character_condiction, time_is_change, duration, 
-      times, salary, marjor, 
-      character_req, chatting_req, expect_goal, 
-      added_bonus, location, arrive_hours, 
+      character_condiction, duration, times, 
+      salary, expect_goal, location, 
+      arrive_hours, education, teach_req, 
+      learn_condiction, expect_feedback, teach_by_self, 
       create_time, update_time, status
       )
     values (#{id,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{wechat,jdbcType=VARCHAR}, #{studentClass,jdbcType=INTEGER}, #{gradeCondiction,jdbcType=VARCHAR}, 
-      #{characterCondiction,jdbcType=VARCHAR}, #{timeIsChange,jdbcType=INTEGER}, #{duration,jdbcType=REAL}, 
-      #{times,jdbcType=INTEGER}, #{salary,jdbcType=REAL}, #{marjor,jdbcType=VARCHAR}, 
-      #{characterReq,jdbcType=VARCHAR}, #{chattingReq,jdbcType=VARCHAR}, #{expectGoal,jdbcType=VARCHAR}, 
-      #{addedBonus,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, #{arriveHours,jdbcType=REAL}, 
+      #{characterCondiction,jdbcType=VARCHAR}, #{duration,jdbcType=REAL}, #{times,jdbcType=INTEGER}, 
+      #{salary,jdbcType=REAL}, #{expectGoal,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{arriveHours,jdbcType=REAL}, #{education,jdbcType=INTEGER}, #{teachReq,jdbcType=VARCHAR}, 
+      #{learnCondiction,jdbcType=VARCHAR}, #{expectFeedback,jdbcType=VARCHAR}, #{teachBySelf,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.jiajiao.web.pojo.ParentNeed"  useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insertSelective" parameterType="com.jiajiao.web.pojo.ParentNeed" useGeneratedKeys="true" keyProperty="id" >
     insert into jiajiao_parent_need
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -81,9 +81,6 @@
       <if test="characterCondiction != null">
         character_condiction,
       </if>
-      <if test="timeIsChange != null">
-        time_is_change,
-      </if>
       <if test="duration != null">
         duration,
       </if>
@@ -93,26 +90,29 @@
       <if test="salary != null">
         salary,
       </if>
-      <if test="marjor != null">
-        marjor,
-      </if>
-      <if test="characterReq != null">
-        character_req,
-      </if>
-      <if test="chattingReq != null">
-        chatting_req,
-      </if>
       <if test="expectGoal != null">
         expect_goal,
-      </if>
-      <if test="addedBonus != null">
-        added_bonus,
       </if>
       <if test="location != null">
         location,
       </if>
       <if test="arriveHours != null">
         arrive_hours,
+      </if>
+      <if test="education != null">
+        education,
+      </if>
+      <if test="teachReq != null">
+        teach_req,
+      </if>
+      <if test="learnCondiction != null">
+        learn_condiction,
+      </if>
+      <if test="expectFeedback != null">
+        expect_feedback,
+      </if>
+      <if test="teachBySelf != null">
+        teach_by_self,
       </if>
       <if test="createTime != null">
         create_time,
@@ -146,9 +146,6 @@
       <if test="characterCondiction != null">
         #{characterCondiction,jdbcType=VARCHAR},
       </if>
-      <if test="timeIsChange != null">
-        #{timeIsChange,jdbcType=INTEGER},
-      </if>
       <if test="duration != null">
         #{duration,jdbcType=REAL},
       </if>
@@ -158,26 +155,29 @@
       <if test="salary != null">
         #{salary,jdbcType=REAL},
       </if>
-      <if test="marjor != null">
-        #{marjor,jdbcType=VARCHAR},
-      </if>
-      <if test="characterReq != null">
-        #{characterReq,jdbcType=VARCHAR},
-      </if>
-      <if test="chattingReq != null">
-        #{chattingReq,jdbcType=VARCHAR},
-      </if>
       <if test="expectGoal != null">
         #{expectGoal,jdbcType=VARCHAR},
-      </if>
-      <if test="addedBonus != null">
-        #{addedBonus,jdbcType=INTEGER},
       </if>
       <if test="location != null">
         #{location,jdbcType=VARCHAR},
       </if>
       <if test="arriveHours != null">
         #{arriveHours,jdbcType=REAL},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=INTEGER},
+      </if>
+      <if test="teachReq != null">
+        #{teachReq,jdbcType=VARCHAR},
+      </if>
+      <if test="learnCondiction != null">
+        #{learnCondiction,jdbcType=VARCHAR},
+      </if>
+      <if test="expectFeedback != null">
+        #{expectFeedback,jdbcType=VARCHAR},
+      </if>
+      <if test="teachBySelf != null">
+        #{teachBySelf,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -211,9 +211,6 @@
       <if test="characterCondiction != null">
         character_condiction = #{characterCondiction,jdbcType=VARCHAR},
       </if>
-      <if test="timeIsChange != null">
-        time_is_change = #{timeIsChange,jdbcType=INTEGER},
-      </if>
       <if test="duration != null">
         duration = #{duration,jdbcType=REAL},
       </if>
@@ -223,26 +220,29 @@
       <if test="salary != null">
         salary = #{salary,jdbcType=REAL},
       </if>
-      <if test="marjor != null">
-        marjor = #{marjor,jdbcType=VARCHAR},
-      </if>
-      <if test="characterReq != null">
-        character_req = #{characterReq,jdbcType=VARCHAR},
-      </if>
-      <if test="chattingReq != null">
-        chatting_req = #{chattingReq,jdbcType=VARCHAR},
-      </if>
       <if test="expectGoal != null">
         expect_goal = #{expectGoal,jdbcType=VARCHAR},
-      </if>
-      <if test="addedBonus != null">
-        added_bonus = #{addedBonus,jdbcType=INTEGER},
       </if>
       <if test="location != null">
         location = #{location,jdbcType=VARCHAR},
       </if>
       <if test="arriveHours != null">
         arrive_hours = #{arriveHours,jdbcType=REAL},
+      </if>
+      <if test="education != null">
+        education = #{education,jdbcType=INTEGER},
+      </if>
+      <if test="teachReq != null">
+        teach_req = #{teachReq,jdbcType=VARCHAR},
+      </if>
+      <if test="learnCondiction != null">
+        learn_condiction = #{learnCondiction,jdbcType=VARCHAR},
+      </if>
+      <if test="expectFeedback != null">
+        expect_feedback = #{expectFeedback,jdbcType=VARCHAR},
+      </if>
+      <if test="teachBySelf != null">
+        teach_by_self = #{teachBySelf,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -264,22 +264,23 @@
       student_class = #{studentClass,jdbcType=INTEGER},
       grade_condiction = #{gradeCondiction,jdbcType=VARCHAR},
       character_condiction = #{characterCondiction,jdbcType=VARCHAR},
-      time_is_change = #{timeIsChange,jdbcType=INTEGER},
       duration = #{duration,jdbcType=REAL},
       times = #{times,jdbcType=INTEGER},
       salary = #{salary,jdbcType=REAL},
-      marjor = #{marjor,jdbcType=VARCHAR},
-      character_req = #{characterReq,jdbcType=VARCHAR},
-      chatting_req = #{chattingReq,jdbcType=VARCHAR},
       expect_goal = #{expectGoal,jdbcType=VARCHAR},
-      added_bonus = #{addedBonus,jdbcType=INTEGER},
       location = #{location,jdbcType=VARCHAR},
       arrive_hours = #{arriveHours,jdbcType=REAL},
+      education = #{education,jdbcType=INTEGER},
+      teach_req = #{teachReq,jdbcType=VARCHAR},
+      learn_condiction = #{learnCondiction,jdbcType=VARCHAR},
+      expect_feedback = #{expectFeedback,jdbcType=VARCHAR},
+      teach_by_self = #{teachBySelf,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <select id="selectByOutKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

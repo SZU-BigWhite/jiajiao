@@ -1,13 +1,14 @@
 package com.jiajiao.web.dao;
 
-import com.jiajiao.web.form.GetParentNeedOrderForm;
 import com.jiajiao.web.pojo.ParentNeed;
+import com.jiajiao.web.form.GetParentNeedOrderForm;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
+
 public interface ParentNeedMapper {
     int deleteByPrimaryKey(Integer id);
 

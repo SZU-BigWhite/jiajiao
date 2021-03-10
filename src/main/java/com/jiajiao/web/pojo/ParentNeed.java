@@ -19,27 +19,27 @@ public class ParentNeed {
 
     private String characterCondiction;
 
-    private Integer timeIsChange;
-
     private Float duration;
 
     private Integer times;
 
     private Float salary;
 
-    private String marjor;
-
-    private String characterReq;
-
-    private String chattingReq;
-
     private String expectGoal;
-
-    private Integer addedBonus;
 
     private String location;
 
     private Float arriveHours;
+
+    private Integer education;
+
+    private String teachReq;
+
+    private String learnCondiction;
+
+    private String expectFeedback;
+
+    private String teachBySelf;
 
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date createTime;
@@ -105,14 +105,6 @@ public class ParentNeed {
         this.characterCondiction = characterCondiction;
     }
 
-    public Integer getTimeIsChange() {
-        return timeIsChange;
-    }
-
-    public void setTimeIsChange(Integer timeIsChange) {
-        this.timeIsChange = timeIsChange;
-    }
-
     public Float getDuration() {
         return duration;
     }
@@ -137,44 +129,12 @@ public class ParentNeed {
         this.salary = salary;
     }
 
-    public String getMarjor() {
-        return marjor;
-    }
-
-    public void setMarjor(String marjor) {
-        this.marjor = marjor;
-    }
-
-    public String getCharacterReq() {
-        return characterReq;
-    }
-
-    public void setCharacterReq(String characterReq) {
-        this.characterReq = characterReq;
-    }
-
-    public String getChattingReq() {
-        return chattingReq;
-    }
-
-    public void setChattingReq(String chattingReq) {
-        this.chattingReq = chattingReq;
-    }
-
     public String getExpectGoal() {
         return expectGoal;
     }
 
     public void setExpectGoal(String expectGoal) {
         this.expectGoal = expectGoal;
-    }
-
-    public Integer getAddedBonus() {
-        return addedBonus;
-    }
-
-    public void setAddedBonus(Integer addedBonus) {
-        this.addedBonus = addedBonus;
     }
 
     public String getLocation() {
@@ -191,6 +151,46 @@ public class ParentNeed {
 
     public void setArriveHours(Float arriveHours) {
         this.arriveHours = arriveHours;
+    }
+
+    public Integer getEducation() {
+        return education;
+    }
+
+    public void setEducation(Integer education) {
+        this.education = education;
+    }
+
+    public String getTeachReq() {
+        return teachReq;
+    }
+
+    public void setTeachReq(String teachReq) {
+        this.teachReq = teachReq;
+    }
+
+    public String getLearnCondiction() {
+        return learnCondiction;
+    }
+
+    public void setLearnCondiction(String learnCondiction) {
+        this.learnCondiction = learnCondiction;
+    }
+
+    public String getExpectFeedback() {
+        return expectFeedback;
+    }
+
+    public void setExpectFeedback(String expectFeedback) {
+        this.expectFeedback = expectFeedback;
+    }
+
+    public String getTeachBySelf() {
+        return teachBySelf;
+    }
+
+    public void setTeachBySelf(String teachBySelf) {
+        this.teachBySelf = teachBySelf;
     }
 
     public Date getCreateTime() {

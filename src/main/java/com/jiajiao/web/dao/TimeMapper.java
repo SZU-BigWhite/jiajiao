@@ -1,11 +1,10 @@
 package com.jiajiao.web.dao;
 
 import com.jiajiao.web.pojo.Time;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
 @Repository
 public interface TimeMapper {
     int deleteByPrimaryKey(Integer id);

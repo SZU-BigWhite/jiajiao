@@ -5,10 +5,12 @@ import com.github.pagehelper.PageInfo;
 import com.jiajiao.web.dao.*;
 import com.jiajiao.web.enums.UserReqConst;
 import com.jiajiao.web.form.GetParentNeedOrderForm;
+import com.jiajiao.web.form.ParentNeedForm;
 import com.jiajiao.web.pojo.*;
 import com.jiajiao.web.service.IParentService;
 import com.jiajiao.web.utils.StudentResumeUtil;
 import com.jiajiao.web.vo.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -253,5 +255,35 @@ public class ParentServiceImpl implements IParentService {
     }
     public List<Subject> getSubject(int out_id){
         return subjectMapper.selectByOutKeyAndType(out_id,UserReqConst.SUBJECT_PARENT_TYPE);
+    }
+    public ParentNeedVo parentNeedFormToVo(ParentNeedForm form,Integer uId){
+        ParentNeedVo res=new ParentNeedVo();
+
+        //组装爱好
+        String character = StringUtils.join(form.getTags(), " ");
+        ParentNeed parentNeed = form.getParentNeed();
+        //加入性格
+        parentNeed.setCharacterCondiction(character);
+        parentNeed.setuId(uId);
+
+        //组装科目+时间
+        List<Subject> subjectList=new ArrayList<>();
+        List<Time> timeList=new ArrayList<>();
+        for(Integer time:form.getTimeList()){
+            Time temp=new Time();
+            temp.setFreeTime(time);
+            timeList.add(temp);
+        }
+        for(String name:form.getSubjectList()){
+            Subject temp=new Subject();
+            temp.setName(name);
+            subjectList.add(temp);
+        }
+
+        res.setTimeList(timeList);
+        res.setSubjectList(subjectList);
+        res.setParentNeed(parentNeed);
+        return res;
+
     }
 }

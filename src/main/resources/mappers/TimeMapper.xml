@@ -5,12 +5,10 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="out_id" jdbcType="INTEGER" property="outId" />
     <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="weekday" jdbcType="INTEGER" property="weekday" />
-    <result column="begin_time" jdbcType="TIME" property="beginTime" />
-    <result column="end_time" jdbcType="TIME" property="endTime" />
+    <result column="free_time" jdbcType="INTEGER" property="freeTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, out_id, type, weekday, begin_time, end_time
+    id, out_id, type, free_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -18,19 +16,15 @@
     from jiajiao_time
     where id = #{id,jdbcType=INTEGER}
   </select>
-
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from jiajiao_time
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.jiajiao.web.pojo.Time">
     insert into jiajiao_time (id, out_id, type, 
-      weekday, begin_time, end_time
-      )
+      free_time)
     values (#{id,jdbcType=INTEGER}, #{outId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
-      #{weekday,jdbcType=INTEGER}, #{beginTime,jdbcType=TIME}, #{endTime,jdbcType=TIME}
-      )
+      #{freeTime,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.jiajiao.web.pojo.Time">
     insert into jiajiao_time
@@ -44,14 +38,8 @@
       <if test="type != null">
         type,
       </if>
-      <if test="weekday != null">
-        weekday,
-      </if>
-      <if test="beginTime != null">
-        begin_time,
-      </if>
-      <if test="endTime != null">
-        end_time,
+      <if test="freeTime != null">
+        free_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -64,14 +52,8 @@
       <if test="type != null">
         #{type,jdbcType=INTEGER},
       </if>
-      <if test="weekday != null">
-        #{weekday,jdbcType=INTEGER},
-      </if>
-      <if test="beginTime != null">
-        #{beginTime,jdbcType=TIME},
-      </if>
-      <if test="endTime != null">
-        #{endTime,jdbcType=TIME},
+      <if test="freeTime != null">
+        #{freeTime,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -84,14 +66,8 @@
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
       </if>
-      <if test="weekday != null">
-        weekday = #{weekday,jdbcType=INTEGER},
-      </if>
-      <if test="beginTime != null">
-        begin_time = #{beginTime,jdbcType=TIME},
-      </if>
-      <if test="endTime != null">
-        end_time = #{endTime,jdbcType=TIME},
+      <if test="freeTime != null">
+        free_time = #{freeTime,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -100,34 +76,29 @@
     update jiajiao_time
     set out_id = #{outId,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
-      weekday = #{weekday,jdbcType=INTEGER},
-      begin_time = #{beginTime,jdbcType=TIME},
-      end_time = #{endTime,jdbcType=TIME}
+      free_time = #{freeTime,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
   <select id="selectByOutKeyAndType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from jiajiao_time
     where out_id = #{out_id,jdbcType=INTEGER} and type = #{type,jdbcType=INTEGER}
   </select>
-
   <insert id="insertList" parameterType="java.util.List">
     insert into jiajiao_time (id, out_id, type,
-      weekday, begin_time, end_time
-      )
+    free_time
+    )
     values
     <foreach collection="record_list" separator="," item="record">
       (#{record.id,jdbcType=INTEGER}, #{record.outId,jdbcType=INTEGER}, #{record.type,jdbcType=INTEGER},
-      #{record.weekday,jdbcType=INTEGER}, #{record.beginTime,jdbcType=TIME}, #{record.endTime,jdbcType=TIME}
+      #{record.freeTime,jdbcType=INTEGER}
       )
     </foreach>
-
   </insert>
-
   <delete id="deleteByOutKey" parameterType="java.lang.Integer">
     delete from jiajiao_time
     where out_id = #{out_id,jdbcType=INTEGER} and type = #{type,jdbcType=INTEGER}
   </delete>
+
 </mapper>

@@ -42,17 +42,14 @@ public class UserServiceImplTest extends WebApplicationTests {
             //开始时间
             String begin="12:30:00";
             Date beginDate = sdf.parse(begin);
-            time.setBeginTime(beginDate);
             //结束时间
             String end="18:30:00";
             Date endDate = sdf.parse(end);
-            time.setEndTime(endDate);
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
         time.setOutId(12);
         time.setType(1);
-        time.setWeekday(7);
     }
 }

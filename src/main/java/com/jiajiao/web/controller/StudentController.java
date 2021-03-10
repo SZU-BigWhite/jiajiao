@@ -1,5 +1,6 @@
 package com.jiajiao.web.controller;
 
+import com.jiajiao.web.form.StudentResumeForm;
 import com.jiajiao.web.service.Impl.StudentServiceImpl;
 import com.jiajiao.web.utils.CookieUtils;
 import com.jiajiao.web.form.GetStudentResumeOrderForm;
@@ -44,28 +45,29 @@ public class StudentController {
     /**
      * 新增个人简历信息
      * @param request
-     * @param studentResumeVo
+     * @param studentResumeForm
      * @return
      */
     @PostMapping("/add/student/resume")
-    public ResponseVo addStudentResume(HttpServletRequest request, @RequestBody StudentResumeVo studentResumeVo){
+    public ResponseVo addStudentResume(HttpServletRequest request, @RequestBody StudentResumeForm studentResumeForm){
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
+        StudentResumeVo studentResumeVo = studentService.resumeFormToVo(studentResumeForm, uId);
         ResponseVo res = studentService.addStudentResume(studentResumeVo, uId);
         return  res;
     }
 
     /**
      * 更新个人简历信息
-     * @param studentResumeVo
+     * @param studentResumeForm
      * @return
      */
     @PostMapping("/update/student/resume")
-    public ResponseVo updateStudentResume(@RequestBody StudentResumeVo studentResumeVo,HttpServletRequest request){
+    public ResponseVo updateStudentResume(@RequestBody StudentResumeForm studentResumeForm, HttpServletRequest request){
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);  //校验id == uid
-        if(!studentService.checkIdAndUId(studentResumeVo.getStudentResume().getId(),uId)){
+        if(!studentService.checkIdAndUId(studentResumeForm.getStudentResume().getId(),uId)){
             return ResponseVo.error("无法操作他人的简历");
         }
-
+        StudentResumeVo studentResumeVo = studentService.resumeFormToVo(studentResumeForm,uId);
         ResponseVo res = studentService.updateStudentResume(studentResumeVo);
         return res;
     }
