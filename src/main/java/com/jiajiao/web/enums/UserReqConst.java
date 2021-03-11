@@ -11,4 +11,7 @@ public class UserReqConst {
 
     public final static Integer TIME_STUDENT_TYPE = 1;
 
+    public final static Integer COMMENT_PARENT_TYPE = 0;
+
+    public final static Integer COMMENT_STUDENT_TYPE = 1;
 }

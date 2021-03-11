@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiajiao.web.dao.StudentSendMapper">
+  <resultMap id="BaseResultMap" type="com.jiajiao.web.pojo.StudentSend">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="help_id" jdbcType="INTEGER" property="helpId" />
+    <result column="condiction" jdbcType="VARCHAR" property="condiction" />
+    <result column="help_method" jdbcType="VARCHAR" property="helpMethod" />
+    <result column="wechat" jdbcType="VARCHAR" property="wechat" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, u_id, help_id, condiction, help_method, wechat, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jiajiao_help_send
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jiajiao_help_send
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jiajiao.web.pojo.StudentSend">
+    insert into jiajiao_help_send (id, u_id, help_id, 
+      condiction, help_method, wechat, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{helpId,jdbcType=INTEGER}, 
+      #{condiction,jdbcType=VARCHAR}, #{helpMethod,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jiajiao.web.pojo.StudentSend">
+    insert into jiajiao_help_send
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="helpId != null">
+        help_id,
+      </if>
+      <if test="condiction != null">
+        condiction,
+      </if>
+      <if test="helpMethod != null">
+        help_method,
+      </if>
+      <if test="wechat != null">
+        wechat,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="helpId != null">
+        #{helpId,jdbcType=INTEGER},
+      </if>
+      <if test="condiction != null">
+        #{condiction,jdbcType=VARCHAR},
+      </if>
+      <if test="helpMethod != null">
+        #{helpMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null">
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jiajiao.web.pojo.StudentSend">
+    update jiajiao_help_send
+    <set>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="helpId != null">
+        help_id = #{helpId,jdbcType=INTEGER},
+      </if>
+      <if test="condiction != null">
+        condiction = #{condiction,jdbcType=VARCHAR},
+      </if>
+      <if test="helpMethod != null">
+        help_method = #{helpMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null">
+        wechat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jiajiao.web.pojo.StudentSend">
+    update jiajiao_help_send
+    set u_id = #{uId,jdbcType=INTEGER},
+      help_id = #{helpId,jdbcType=INTEGER},
+      condiction = #{condiction,jdbcType=VARCHAR},
+      help_method = #{helpMethod,jdbcType=VARCHAR},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

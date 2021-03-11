@@ -7,13 +7,24 @@ import java.util.List;
 public class StudentResumeForm {
     StudentResume studentResume;
 
+    String ableClassString;
+
     List<String> tags;      //性格
 
     List<String> hobby;
 
     List<String> subjectList;
 
-    List<Integer> timeList;
+    List<String> timeList;
+
+
+    public String getAbleClassString() {
+        return ableClassString;
+    }
+
+    public void setAbleClassString(String ableClassString) {
+        this.ableClassString = ableClassString;
+    }
 
     public StudentResume getStudentResume() {
         return studentResume;
@@ -47,11 +58,11 @@ public class StudentResumeForm {
         this.subjectList = subjectList;
     }
 
-    public List<Integer> getTimeList() {
+    public List<String> getTimeList() {
         return timeList;
     }
 
-    public void setTimeList(List<Integer> timeList) {
+    public void setTimeList(List<String> timeList) {
         this.timeList = timeList;
     }
 }

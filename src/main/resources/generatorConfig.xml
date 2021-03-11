@@ -43,15 +43,13 @@
 <!--            <columnOverride column="topic" jdbcType="VARCHAR" />-->
 <!--            <columnOverride column="context" jdbcType="VARCHAR" />-->
 <!--        </table>-->
-        <table tableName="jiajiao_parent_need" domainObjectName="ParentNeed" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false">
-            <columnOverride column="grade_condiction" jdbcType="VARCHAR" />
-            <columnOverride column="character_condiction" jdbcType="VARCHAR" />
-            <columnOverride column="expect_goal" jdbcType="VARCHAR" />
-            <columnOverride column="location" jdbcType="VARCHAR" />
-            <columnOverride column="teach_req" jdbcType="VARCHAR" />
-            <columnOverride column="learn_condiction" jdbcType="VARCHAR" />
-            <columnOverride column="expect_feedback" jdbcType="VARCHAR" />
-            <columnOverride column="teach_by_self" jdbcType="VARCHAR" />
+<!--        <table tableName="jiajiao_student_help" domainObjectName="StudentHelp" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false">-->
+<!--            <columnOverride column="condiction" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="help_req" jdbcType="VARCHAR" />-->
+<!--        </table>-->
+        <table tableName="jiajiao_help_send" domainObjectName="StudentSend" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false">
+            <columnOverride column="condiction" jdbcType="VARCHAR" />
+            <columnOverride column="help_method" jdbcType="VARCHAR" />
         </table>
 
 <!--        <table tableName="jiajiao_student_sent" domainObjectName="StudentSent" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->

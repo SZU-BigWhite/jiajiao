@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiajiao.web.dao.StudentHelpMapper">
+  <resultMap id="BaseResultMap" type="com.jiajiao.web.pojo.StudentHelp">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="ademecy" jdbcType="VARCHAR" property="ademecy" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="condiction" jdbcType="VARCHAR" property="condiction" />
+    <result column="help_req" jdbcType="VARCHAR" property="helpReq" />
+    <result column="salary" jdbcType="REAL" property="salary" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_tim" jdbcType="TIMESTAMP" property="updateTim" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, u_id, ademecy, subject, condiction, help_req, salary, create_time, update_tim
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jiajiao_student_help
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jiajiao_student_help
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jiajiao.web.pojo.StudentHelp">
+    insert into jiajiao_student_help (id, u_id, ademecy, 
+      subject, condiction, help_req, 
+      salary, create_time, update_tim
+      )
+    values (#{id,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{ademecy,jdbcType=VARCHAR}, 
+      #{subject,jdbcType=VARCHAR}, #{condiction,jdbcType=VARCHAR}, #{helpReq,jdbcType=VARCHAR}, 
+      #{salary,jdbcType=REAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTim,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jiajiao.web.pojo.StudentHelp">
+    insert into jiajiao_student_help
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="ademecy != null">
+        ademecy,
+      </if>
+      <if test="subject != null">
+        subject,
+      </if>
+      <if test="condiction != null">
+        condiction,
+      </if>
+      <if test="helpReq != null">
+        help_req,
+      </if>
+      <if test="salary != null">
+        salary,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTim != null">
+        update_tim,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="ademecy != null">
+        #{ademecy,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null">
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="condiction != null">
+        #{condiction,jdbcType=VARCHAR},
+      </if>
+      <if test="helpReq != null">
+        #{helpReq,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null">
+        #{salary,jdbcType=REAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTim != null">
+        #{updateTim,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jiajiao.web.pojo.StudentHelp">
+    update jiajiao_student_help
+    <set>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="ademecy != null">
+        ademecy = #{ademecy,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null">
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="condiction != null">
+        condiction = #{condiction,jdbcType=VARCHAR},
+      </if>
+      <if test="helpReq != null">
+        help_req = #{helpReq,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null">
+        salary = #{salary,jdbcType=REAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTim != null">
+        update_tim = #{updateTim,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jiajiao.web.pojo.StudentHelp">
+    update jiajiao_student_help
+    set u_id = #{uId,jdbcType=INTEGER},
+      ademecy = #{ademecy,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      condiction = #{condiction,jdbcType=VARCHAR},
+      help_req = #{helpReq,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=REAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_tim = #{updateTim,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jiajiao_student_help
+  </select>
+  <select id="selectByUId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jiajiao_student_help
+    where u_id = #{u_id,jdbcType=INTEGER}
+  </select>
+</mapper>

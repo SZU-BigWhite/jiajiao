@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jiajiao.web.dao.*;
 import com.jiajiao.web.enums.UserReqConst;
+import com.jiajiao.web.form.CommentForm;
 import com.jiajiao.web.form.GetStudentResumeOrderForm;
 import com.jiajiao.web.form.StudentResumeForm;
 import com.jiajiao.web.pojo.*;
@@ -21,6 +22,7 @@ import java.util.List;
 @Service
 @Transactional
 public class StudentServiceImpl implements IStudentService {
+
     @Autowired
     StudentResumeMapper resumeMapper;
     @Autowired
@@ -209,6 +211,8 @@ public class StudentServiceImpl implements IStudentService {
         return ResponseVo.success("已经注册的学生简历数", sum);
     }
 
+
+
     //插入新的Subject表
     private void insertNewSubject(Integer outId, StudentResumeVo studentResumeVo) {
 
@@ -262,22 +266,16 @@ public class StudentServiceImpl implements IStudentService {
     //form表单转Vo
     public StudentResumeVo resumeFormToVo(StudentResumeForm form,Integer uId){
         StudentResumeVo res = new StudentResumeVo();
-        //组装性格
+        //生成规范的性格+爱好+可教授的年级
         String character = StringUtils.join(form.getTags(), " ");
-        //组装爱好
         String hobby = StringUtils.join(form.getHobby(), " ");
-        StudentResume studentResume = form.getStudentResume();
-
-        studentResume.setuId(uId);
-        studentResume.setCharacterCondiction(character);
-        studentResume.setHobby(hobby);
-
-        //组装科目+时间
+        Integer ableClass = ableClassStringToInteger(form.getAbleClassString());
+        //生成规范的科目+时间
         List<Subject> subjectList=new ArrayList<>();
         List<Time> timeList=new ArrayList<>();
-        for(Integer time:form.getTimeList()){
+        for(String time:form.getTimeList()){
             Time temp=new Time();
-            temp.setFreeTime(time);
+            temp.setFreeTime(timeStringToInteger(time));
             timeList.add(temp);
         }
         for(String name:form.getSubjectList()){
@@ -286,9 +284,65 @@ public class StudentServiceImpl implements IStudentService {
             subjectList.add(temp);
         }
 
+        //将性格+爱好+可教授的年级信息填充进resume中
+        StudentResume studentResume = form.getStudentResume();
+        studentResume.setuId(uId);
+        studentResume.setCharacterCondiction(character);
+        studentResume.setHobby(hobby);
+        studentResume.setAbleClass(ableClass);
+
+        //填充resume+时间+科目生成Vo
         res.setTimeList(timeList);
         res.setSubjectList(subjectList);
         res.setStudentResume(studentResume);
+        return res;
+    }
+    public Integer timeStringToInteger(String time){
+        int res=0;
+        String[] split = StringUtils.split(time, " : ");
+        if(split[0].equals("周一")){
+            res=1;
+        }else if(split[0].equals("周二")){
+            res=2;
+        }else if(split[0].equals("周三")){
+            res=3;
+        }else if(split[0].equals("周四")){
+            res=4;
+        }else if(split[0].equals("周五")){
+            res=5;
+        }else if(split[0].equals("周六")){
+            res=6;
+        }else if(split[0].equals("周日")){
+            res=7;
+        }
+        if(split[1].equals("上午")){
+            res=res*10+1;
+        }else if(split[1].equals("下午")){
+            res=res*10+2;
+        }else if(split[1].equals("晚上")){
+            res=res*10+3;
+        }
+        System.out.println(res);
+        return res;
+    }
+    public Integer ableClassStringToInteger(String ablerClass){
+        int res=0;
+        if (ablerClass.equals("小学")) {
+            res=6;
+        }else if(ablerClass.equals("初一")){
+            res=7;
+        }else if(ablerClass.equals("初二")){
+            res=8;
+        }else if(ablerClass.equals("初三")){
+            res=9;
+        }else if(ablerClass.equals("高一")){
+            res=10;
+        }else if(ablerClass.equals("高二")){
+            res=11;
+        }else if(ablerClass.equals("高三")){
+            res=12;
+        }
+        System.out.println(res);
         return res;
     }
 }

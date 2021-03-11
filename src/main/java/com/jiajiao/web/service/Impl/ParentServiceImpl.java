@@ -259,19 +259,15 @@ public class ParentServiceImpl implements IParentService {
     public ParentNeedVo parentNeedFormToVo(ParentNeedForm form,Integer uId){
         ParentNeedVo res=new ParentNeedVo();
 
-        //组装爱好
+        //生成规范的性格+所在年级
         String character = StringUtils.join(form.getTags(), " ");
-        ParentNeed parentNeed = form.getParentNeed();
-        //加入性格
-        parentNeed.setCharacterCondiction(character);
-        parentNeed.setuId(uId);
-
-        //组装科目+时间
+        Integer studentClass = studentClassStringToInteger(form.getStudentClassString());
+        //生成科目+时间
         List<Subject> subjectList=new ArrayList<>();
         List<Time> timeList=new ArrayList<>();
-        for(Integer time:form.getTimeList()){
+        for(String time:form.getTimeList()){
             Time temp=new Time();
-            temp.setFreeTime(time);
+            temp.setFreeTime(timeStringToInteger(time));
             timeList.add(temp);
         }
         for(String name:form.getSubjectList()){
@@ -280,10 +276,73 @@ public class ParentServiceImpl implements IParentService {
             subjectList.add(temp);
         }
 
+        //加入性格+年级到need中
+        ParentNeed parentNeed = form.getParentNeed();
+        parentNeed.setCharacterCondiction(character);
+        parentNeed.setStudentClass(studentClass);
+        parentNeed.setuId(uId);
+        //加入need+time+subject生成Vo
         res.setTimeList(timeList);
         res.setSubjectList(subjectList);
         res.setParentNeed(parentNeed);
         return res;
-
+    }
+    public Integer studentClassStringToInteger(String studentClass){
+        int res=0;
+        if (studentClass.equals("一年级")) {
+            res=1;
+        }else if(studentClass.equals("二年级")){
+            res=2;
+        }else if(studentClass.equals("三年级")){
+            res=3;
+        }else if(studentClass.equals("四年级")){
+            res=4;
+        }else if(studentClass.equals("五年级")){
+            res=5;
+        }else if(studentClass.equals("六年级")){
+            res=6;
+        }else if(studentClass.equals("初一")){
+            res=7;
+        }else if(studentClass.equals("初二")){
+            res=8;
+        }else if(studentClass.equals("初三")){
+            res=9;
+        }else if(studentClass.equals("高一")){
+            res=10;
+        }else if(studentClass.equals("高二")){
+            res=11;
+        }else if(studentClass.equals("高三")){
+            res=12;
+        }
+        System.out.println(res);
+        return res;
+    }
+    public Integer timeStringToInteger(String time){
+        int res=0;
+        String[] split = StringUtils.split(time, " : ");
+        if(split[0].equals("周一")){
+            res=1;
+        }else if(split[0].equals("周二")){
+            res=2;
+        }else if(split[0].equals("周三")){
+            res=3;
+        }else if(split[0].equals("周四")){
+            res=4;
+        }else if(split[0].equals("周五")){
+            res=5;
+        }else if(split[0].equals("周六")){
+            res=6;
+        }else if(split[0].equals("周日")){
+            res=7;
+        }
+        if(split[1].equals("上午")){
+            res=res*10+1;
+        }else if(split[1].equals("下午")){
+            res=res*10+2;
+        }else if(split[1].equals("晚上")){
+            res=res*10+3;
+        }
+        System.out.println(res);
+        return res;
     }
 }

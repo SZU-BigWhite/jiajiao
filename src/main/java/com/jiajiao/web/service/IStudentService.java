@@ -1,5 +1,6 @@
 package com.jiajiao.web.service;
 
+import com.jiajiao.web.form.CommentForm;
 import com.jiajiao.web.form.GetStudentResumeOrderForm;
 import com.jiajiao.web.vo.ResponseVo;
 import com.jiajiao.web.vo.StudentResumeVo;
@@ -18,4 +19,5 @@ public interface IStudentService {
     public ResponseVo getStudentReceive(Integer id);
     public ResponseVo getStudentSent(Integer id);
     public ResponseVo getStudentResumeSum();
+
 }

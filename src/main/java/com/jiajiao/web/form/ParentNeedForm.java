@@ -10,11 +10,21 @@ public class ParentNeedForm {
 
     ParentNeed parentNeed;
 
+    String studentClassString;
+
     List<String> subjectList;
 
-    List<Integer> timeList;
+    List<String> timeList;
 
     List<String> tags;      //性格
+
+    public String getStudentClassString() {
+        return studentClassString;
+    }
+
+    public void setStudentClassString(String studentClassString) {
+        this.studentClassString = studentClassString;
+    }
 
     public List<String> getTags() {
         return tags;
@@ -40,11 +50,11 @@ public class ParentNeedForm {
         this.subjectList = subjectList;
     }
 
-    public List<Integer> getTimeList() {
+    public List<String> getTimeList() {
         return timeList;
     }
 
-    public void setTimeList(List<Integer> timeList) {
+    public void setTimeList(List<String> timeList) {
         this.timeList = timeList;
     }
 }
