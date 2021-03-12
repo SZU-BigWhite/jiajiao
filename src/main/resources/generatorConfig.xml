@@ -43,17 +43,13 @@
 <!--            <columnOverride column="topic" jdbcType="VARCHAR" />-->
 <!--            <columnOverride column="context" jdbcType="VARCHAR" />-->
 <!--        </table>-->
-<!--        <table tableName="jiajiao_student_help" domainObjectName="StudentHelp" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false">-->
-<!--            <columnOverride column="condiction" jdbcType="VARCHAR" />-->
-<!--            <columnOverride column="help_req" jdbcType="VARCHAR" />-->
+<!--        <table tableName="volunteer_collection" domainObjectName="VolunteerCollection" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false">-->
+<!--            <columnOverride column="content" jdbcType="VARCHAR" />-->
 <!--        </table>-->
-        <table tableName="jiajiao_help_send" domainObjectName="StudentSend" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false">
-            <columnOverride column="condiction" jdbcType="VARCHAR" />
-            <columnOverride column="help_method" jdbcType="VARCHAR" />
-        </table>
 
-<!--        <table tableName="jiajiao_student_sent" domainObjectName="StudentSent" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->
-<!--        <table tableName="jiajiao_parent_sent" domainObjectName="ParentSent" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->
+        <table tableName="volunteer_things" domainObjectName="VolunteerThings" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />
+<!--        <table tableName="things" domainObjectName="Things" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->
+        <!--        <table tableName="jiajiao_parent_sent" domainObjectName="ParentSent" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->
 
 <!--        <table tableName="mall_product" domainObjectName="Product" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" >-->
 <!--            <columnOverride column="detail" jdbcType="VARCHAR" />-->
