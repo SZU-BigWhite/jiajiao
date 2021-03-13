@@ -1,7 +1,9 @@
 package com.jiajiao.web.service.Impl;
 
 import com.jiajiao.web.dao.StudentHelpMapper;
+import com.jiajiao.web.dao.StudentSendMapper;
 import com.jiajiao.web.pojo.StudentHelp;
+import com.jiajiao.web.pojo.StudentSend;
 import com.jiajiao.web.service.IStudentHelpService;
 import com.jiajiao.web.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,10 @@ import java.util.List;
 public class StudentHelpServiceImpl implements IStudentHelpService {
     @Autowired
     StudentHelpMapper studentHelpMapper;
-    @Override
+    @Autowired
+    StudentSendMapper studentSendMapper;
 
+    @Override
     public ResponseVo addStudentHelp(StudentHelp studentHelp, Integer uId) {
         studentHelp.setuId(uId);
         studentHelpMapper.insertSelective(studentHelp);
@@ -41,6 +45,7 @@ public class StudentHelpServiceImpl implements IStudentHelpService {
         return ResponseVo.success("查询个人互助成功",studentHelpList);
     }
 
+
     public ResponseVo updateStudentHelp(StudentHelp studentHelp,Integer uId){
         Integer id = studentHelp.getId();
         StudentHelp studentHelpTemp = studentHelpMapper.selectByPrimaryKey(id);
@@ -51,4 +56,12 @@ public class StudentHelpServiceImpl implements IStudentHelpService {
         studentHelpMapper.updateByPrimaryKeySelective(studentHelp);
         return ResponseVo.success("更新成功");
     }
+
+    @Override
+    public ResponseVo sendStudentHelp(StudentSend studentSend, Integer uId) {
+        studentSend.setuId(uId);
+        studentSendMapper.insertSelective(studentSend);
+        return ResponseVo.success("发送互助成功");
+    }
+
 }

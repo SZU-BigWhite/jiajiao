@@ -1,6 +1,8 @@
 package com.jiajiao.web.controller;
 
 import com.jiajiao.web.pojo.StudentHelp;
+import com.jiajiao.web.pojo.StudentSend;
+import com.jiajiao.web.pojo.StudentSent;
 import com.jiajiao.web.service.Impl.MessagesServiceImpl;
 import com.jiajiao.web.service.Impl.StudentHelpServiceImpl;
 import com.jiajiao.web.utils.CookieUtils;
@@ -74,5 +76,11 @@ public class StudentHelpController {
     public ResponseVo updateStudentHelp(HttpServletRequest request,@RequestBody StudentHelp studentHelp){
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
         return studentHelpService.updateStudentHelp(studentHelp, uId);
+    }
+
+    @PostMapping("/send/student/help")
+    public ResponseVo sendStudentHelp(HttpServletRequest request, @RequestBody StudentSend studentSend){
+        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
+        return studentHelpService.sendStudentHelp(studentSend,uId);
     }
 }

@@ -1,6 +1,7 @@
 package com.jiajiao.web.service;
 
 import com.jiajiao.web.pojo.StudentHelp;
+import com.jiajiao.web.pojo.StudentSend;
 import com.jiajiao.web.vo.ResponseVo;
 
 public interface IStudentHelpService {
@@ -8,4 +9,6 @@ public interface IStudentHelpService {
     ResponseVo deleteStudentHelp(Integer id,Integer uId);
     ResponseVo getStudentsHelpList();
     ResponseVo getStudentHelpListByUid(Integer uId);
+    ResponseVo updateStudentHelp(StudentHelp studentHelp,Integer uId);
+    ResponseVo sendStudentHelp(StudentSend studentSend,Integer uId);
 }
