@@ -244,4 +244,32 @@ public class StudentResume {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "StudentResume{" +
+                "id=" + id +
+                ", uId=" + uId +
+                ", name='" + name + '\'' +
+                ", sex=" + sex +
+                ", wechat='" + wechat + '\'' +
+                ", academyId='" + academyId + '\'' +
+                ", salary=" + salary +
+                ", ableClass=" + ableClass +
+                ", characterCondiction='" + characterCondiction + '\'' +
+                ", grade=" + grade +
+                ", teachStress='" + teachStress + '\'' +
+                ", teachGoal='" + teachGoal + '\'' +
+                ", feedback='" + feedback + '\'' +
+                ", university='" + university + '\'' +
+                ", education=" + education +
+                ", hobby='" + hobby + '\'' +
+                ", learnMethods='" + learnMethods + '\'' +
+                ", showSelf='" + showSelf + '\'' +
+                ", motto='" + motto + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", status=" + status +
+                '}';
+    }
 }

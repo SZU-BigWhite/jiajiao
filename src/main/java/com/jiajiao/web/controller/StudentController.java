@@ -50,6 +50,7 @@ public class StudentController {
      */
     @PostMapping("/add/student/resume")
     public ResponseVo addStudentResume(HttpServletRequest request, @RequestBody StudentResumeForm studentResumeForm){
+        System.out.println(studentResumeForm);
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
         StudentResumeVo studentResumeVo = studentService.resumeFormToVo(studentResumeForm, uId);
         ResponseVo res = studentService.addStudentResume(studentResumeVo, uId);

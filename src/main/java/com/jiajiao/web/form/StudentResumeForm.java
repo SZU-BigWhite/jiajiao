@@ -65,4 +65,16 @@ public class StudentResumeForm {
     public void setTimeList(List<String> timeList) {
         this.timeList = timeList;
     }
+
+    @Override
+    public String toString() {
+        return "StudentResumeForm{" +
+                "studentResume=" + studentResume +
+                ", ableClassString='" + ableClassString + '\'' +
+                ", tags=" + tags +
+                ", hobby=" + hobby +
+                ", subjectList=" + subjectList +
+                ", timeList=" + timeList +
+                '}';
+    }
 }
