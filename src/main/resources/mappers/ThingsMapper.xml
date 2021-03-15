@@ -78,4 +78,16 @@
       )
     </foreach>
   </insert>
+
+  <delete id="deleteByOutKey" parameterType="java.lang.Integer">
+    delete from things
+    where out_id = #{out_id,jdbcType=INTEGER}
+  </delete>
+
+  <select id="selectByOutKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from things
+    where out_id = #{out_id,jdbcType=INTEGER}
+  </select>
 </mapper>

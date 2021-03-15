@@ -22,4 +22,10 @@ public interface ThingsMapper {
     int updateByPrimaryKey(Things record);
 
     int insertList(@Param("things_list") List<Things> things_list);
+
+    int deleteByOutKey(@Param("out_id") Integer out_id);
+
+    List<Things> selectByOutKey(@Param("out_id") Integer out_id);
+
+
 }

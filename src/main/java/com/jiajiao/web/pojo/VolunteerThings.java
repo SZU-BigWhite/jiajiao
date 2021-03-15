@@ -66,4 +66,16 @@ public class VolunteerThings {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+    @Override
+    public String toString() {
+        return "VolunteerThings{" +
+                "id=" + id +
+                ", uId=" + uId +
+                ", cId=" + cId +
+                ", time=" + time +
+                ", wechet='" + wechet + '\'' +
+                ", createTime=" + createTime +
+                '}';
+    }
 }

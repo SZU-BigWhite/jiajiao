@@ -103,4 +103,18 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByUId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from volunteer_things
+    where u_id = #{u_id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByCId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from volunteer_things
+    where c_id = #{c_id,jdbcType=INTEGER}
+  </select>
 </mapper>
