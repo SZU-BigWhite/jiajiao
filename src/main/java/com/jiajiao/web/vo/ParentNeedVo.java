@@ -46,4 +46,14 @@ public class ParentNeedVo {
     public void setTimeList(List<Time> timeList) {
         this.timeList = timeList;
     }
+
+    @Override
+    public String toString() {
+        return "ParentNeedVo{" +
+                "parentNeed=" + parentNeed +
+                ", subjectList=" + subjectList +
+                ", timeList=" + timeList +
+                ", receiveCounts=" + receiveCounts +
+                '}';
+    }
 }

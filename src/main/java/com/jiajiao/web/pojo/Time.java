@@ -40,4 +40,14 @@ public class Time {
     public void setFreeTime(Integer freeTime) {
         this.freeTime = freeTime;
     }
+
+    @Override
+    public String toString() {
+        return "Time{" +
+                "id=" + id +
+                ", outId=" + outId +
+                ", type=" + type +
+                ", freeTime=" + freeTime +
+                '}';
+    }
 }

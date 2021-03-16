@@ -216,4 +216,31 @@ public class ParentNeed {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "ParentNeed{" +
+                "id=" + id +
+                ", uId=" + uId +
+                ", name='" + name + '\'' +
+                ", wechat='" + wechat + '\'' +
+                ", studentClass=" + studentClass +
+                ", gradeCondiction='" + gradeCondiction + '\'' +
+                ", characterCondiction='" + characterCondiction + '\'' +
+                ", duration=" + duration +
+                ", times=" + times +
+                ", salary=" + salary +
+                ", expectGoal='" + expectGoal + '\'' +
+                ", location='" + location + '\'' +
+                ", arriveHours=" + arriveHours +
+                ", education=" + education +
+                ", teachReq='" + teachReq + '\'' +
+                ", learnCondiction='" + learnCondiction + '\'' +
+                ", expectFeedback='" + expectFeedback + '\'' +
+                ", teachBySelf='" + teachBySelf + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", status=" + status +
+                '}';
+    }
 }
