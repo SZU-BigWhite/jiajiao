@@ -14,4 +14,8 @@ public interface IRedisService {
     List<StudentResumeVo> getNeedRecommend(Integer pNId);
     void addResumeRecommend(Integer sRId,ParentNeedVo parentNeedVo,double score);
     List<ParentNeedVo> getResumeRecommend(Integer sRId);
+    void addRelativeResume(Integer sRId,StudentResumeVo studentResumeVo,double score);
+    List<StudentResumeVo> getRelativeResume(Integer sRId);
+    void addRelativeNeed(Integer sRId,ParentNeedVo parentNeedVo,double score);
+    List<ParentNeedVo> getRelativeNeed(Integer pNId);
 }

@@ -29,4 +29,14 @@ public class RecommendController {
     public ResponseVo recommendNeedByResume(HttpServletRequest request,Integer sRId){
         return recommendService.recommendNeedByResume(sRId);
     }
+
+    @GetMapping("/recommend/resume/by/resume")
+    public ResponseVo recommendResumeByResume(HttpServletRequest request,Integer sRId){
+        return recommendService.recommendResumeByResume(sRId);
+    }
+
+    @GetMapping("/recommend/need/by/need")
+    public ResponseVo recommendNeedByNeed(HttpServletRequest request,Integer pNId){
+        return recommendService.recommendNeedByNeed(pNId);
+    }
 }
