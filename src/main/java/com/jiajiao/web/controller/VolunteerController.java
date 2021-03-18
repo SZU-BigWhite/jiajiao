@@ -133,11 +133,24 @@ public class VolunteerController {
         return volunteerService.deleteVolunteerCollection(id,uId);
     }
 
+    /**
+     * 捐赠物品状态
+     * @param id
+     * @param status
+     * @return
+     */
     @GetMapping("/set/things/status")
     public ResponseVo setThingsStatus(@Param("id") Integer id,@Param("status") Integer status){
         return volunteerService.setThingsStatus(id,status);
     }
 
+    /**
+     * 捐赠项目审核状态
+     * @param request
+     * @param id
+     * @param status
+     * @return
+     */
     @GetMapping("/set/collection/status")
     public ResponseVo setCollectionStatus(HttpServletRequest request,@Param("id")Integer id,@Param("status") Integer status){
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
