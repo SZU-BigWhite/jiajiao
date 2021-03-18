@@ -1,7 +1,7 @@
 package com.jiajiao.web.dao;
 
-import com.jiajiao.web.pojo.VolunteerThings;
 import org.apache.ibatis.annotations.Param;
+import com.jiajiao.web.pojo.VolunteerThings;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,5 +22,7 @@ public interface VolunteerThingsMapper {
 
     List<VolunteerThings> selectByUId(@Param("u_id") Integer u_id);
 
-    List<VolunteerThings> selectByCId(@Param("c_id")Integer c_id);
+    List<VolunteerThings> selectByCIdAndStatus(@Param("c_id") Integer c_id,@Param("status") Integer status);
+
+    void updateStatusById(@Param("id") Integer id,@Param("status")Integer status);
 }

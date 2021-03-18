@@ -114,4 +114,11 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByHelpId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jiajiao_help_send
+    where help_id = #{help_id,jdbcType=INTEGER}
+  </select>
 </mapper>

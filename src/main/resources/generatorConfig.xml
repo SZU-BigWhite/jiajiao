@@ -43,11 +43,11 @@
 <!--            <columnOverride column="topic" jdbcType="VARCHAR" />-->
 <!--            <columnOverride column="context" jdbcType="VARCHAR" />-->
 <!--        </table>-->
-<!--        <table tableName="volunteer_collection" domainObjectName="VolunteerCollection" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false">-->
-<!--            <columnOverride column="content" jdbcType="VARCHAR" />-->
-<!--        </table>-->
+        <table tableName="volunteer_collection" domainObjectName="VolunteerCollection" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false">
+            <columnOverride column="content" jdbcType="VARCHAR" />
+        </table>
 
-        <table tableName="volunteer_things" domainObjectName="VolunteerThings" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />
+<!--        <table tableName="volunteer_things" domainObjectName="VolunteerThings" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->
 <!--        <table tableName="things" domainObjectName="Things" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->
         <!--        <table tableName="jiajiao_parent_sent" domainObjectName="ParentSent" enableUpdateByExample="false" enableSelectByExample="false" enableCountByExample="false" enableDeleteByExample="false" />-->
 

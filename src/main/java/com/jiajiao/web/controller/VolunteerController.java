@@ -6,6 +6,7 @@ import com.jiajiao.web.service.Impl.UserServiceImpl;
 import com.jiajiao.web.service.Impl.VolunteerServiceImpl;
 import com.jiajiao.web.utils.CookieUtils;
 import com.jiajiao.web.vo.ResponseVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -62,8 +63,8 @@ public class VolunteerController {
      * @return
      */
     @GetMapping("/get/volunteer/things/by/cid")
-    public ResponseVo getVolunteerThingsByCId(Integer cId){
-        return volunteerService.getVolunteerThingsByCId(cId);
+    public ResponseVo getVolunteerThingsByCId(@Param("cId") Integer cId,@Param("status") Integer status){
+        return volunteerService.getVolunteerThingsByCId(cId,status);
     }
 
     /**
@@ -101,6 +102,15 @@ public class VolunteerController {
     }
 
     /**
+     * 获取捐赠项目byId
+     * @return
+     */
+//    @GetMapping("/get/volunteer/collection/by/id")
+//    public ResponseVo getVolunteerCollectionByIdAndOrder(@Param("id") Integer id){
+//        return volunteerService.getVolunteerCollectionById(id);
+//    }
+
+    /**
      * 获取个人的捐赠项目
      * @param request
      * @return
@@ -121,6 +131,17 @@ public class VolunteerController {
     public ResponseVo deleteVolunteerCollection(HttpServletRequest request,Integer id){
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
         return volunteerService.deleteVolunteerCollection(id,uId);
+    }
+
+    @GetMapping("/set/things/status")
+    public ResponseVo setThingsStatus(@Param("id") Integer id,@Param("status") Integer status){
+        return volunteerService.setThingsStatus(id,status);
+    }
+
+    @GetMapping("/set/collection/status")
+    public ResponseVo setCollectionStatus(HttpServletRequest request,@Param("id")Integer id,@Param("status") Integer status){
+        int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
+        return volunteerService.setCollectionStatus(id,status,uId);
     }
 
 }

@@ -19,6 +19,8 @@ public class VolunteerThings {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
+    private Integer status;
+
     public Integer getId() {
         return id;
     }
@@ -67,15 +69,11 @@ public class VolunteerThings {
         this.createTime = createTime;
     }
 
-    @Override
-    public String toString() {
-        return "VolunteerThings{" +
-                "id=" + id +
-                ", uId=" + uId +
-                ", cId=" + cId +
-                ", time=" + time +
-                ", wechet='" + wechet + '\'' +
-                ", createTime=" + createTime +
-                '}';
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

@@ -11,4 +11,5 @@ public interface IStudentHelpService {
     ResponseVo getStudentHelpListByUid(Integer uId);
     ResponseVo updateStudentHelp(StudentHelp studentHelp,Integer uId);
     ResponseVo sendStudentHelp(StudentSend studentSend,Integer uId);
+    ResponseVo getStudentHelpReceive(Integer id);
 }

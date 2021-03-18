@@ -78,9 +78,27 @@ public class StudentHelpController {
         return studentHelpService.updateStudentHelp(studentHelp, uId);
     }
 
+    /**
+     * 发送帮扶
+     * @param request
+     * @param studentSend
+     * @return
+     */
     @PostMapping("/send/student/help")
     public ResponseVo sendStudentHelp(HttpServletRequest request, @RequestBody StudentSend studentSend){
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
         return studentHelpService.sendStudentHelp(studentSend,uId);
     }
+
+    /**
+     * 获取帮扶的接收的信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/get/student/help/receive")
+    public ResponseVo getStudentHelpReceive(Integer id){
+        return studentHelpService.getStudentHelpReceive(id);
+    }
+
+
 }

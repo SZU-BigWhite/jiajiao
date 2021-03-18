@@ -23,4 +23,6 @@ public interface VolunteerCollectionMapper {
     List<VolunteerCollection> selectAll();
 
     List<VolunteerCollection> selectByUId(@Param("u_id") Integer u_id);
+
+    void updateStatusById(@Param("id") Integer id,@Param("status")Integer status);
 }

@@ -8,9 +8,10 @@
     <result column="time" jdbcType="TIMESTAMP" property="time" />
     <result column="wechet" jdbcType="VARCHAR" property="wechet" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, u_id, c_id, time, wechet, create_time
+    id, u_id, c_id, time, wechet, create_time, status
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,11 +25,11 @@
   </delete>
   <insert id="insert" parameterType="com.jiajiao.web.pojo.VolunteerThings" useGeneratedKeys="true" keyProperty="id">
     insert into volunteer_things (id, u_id, c_id, 
-      time, wechet, create_time
-      )
+      time, wechet, create_time, 
+      status)
     values (#{id,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{cId,jdbcType=INTEGER}, 
-      #{time,jdbcType=TIMESTAMP}, #{wechet,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
-      )
+      #{time,jdbcType=TIMESTAMP}, #{wechet,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.jiajiao.web.pojo.VolunteerThings" useGeneratedKeys="true" keyProperty="id">
     insert into volunteer_things
@@ -51,6 +52,9 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="status != null">
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -70,6 +74,9 @@
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -91,6 +98,9 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -100,7 +110,8 @@
       c_id = #{cId,jdbcType=INTEGER},
       time = #{time,jdbcType=TIMESTAMP},
       wechet = #{wechet,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -111,10 +122,19 @@
     where u_id = #{u_id,jdbcType=INTEGER}
   </select>
 
-  <select id="selectByCId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByCIdAndStatus" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from volunteer_things
     where c_id = #{c_id,jdbcType=INTEGER}
+    <if test="status != null">
+      and status = #{status,jdbcType=INTEGER}
+    </if>
   </select>
+
+  <update id="updateStatusById">
+    update volunteer_things
+    set status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

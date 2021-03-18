@@ -1,14 +1,17 @@
 package com.jiajiao.web.service.Impl;
 
 import com.jiajiao.web.dao.ThingsMapper;
+import com.jiajiao.web.dao.UserMapper;
 import com.jiajiao.web.dao.VolunteerCollectionMapper;
 import com.jiajiao.web.dao.VolunteerThingsMapper;
 import com.jiajiao.web.form.VolunteerThingsForm;
 import com.jiajiao.web.pojo.Things;
+import com.jiajiao.web.pojo.User;
 import com.jiajiao.web.pojo.VolunteerCollection;
 import com.jiajiao.web.pojo.VolunteerThings;
 import com.jiajiao.web.service.IVolunteerService;
 import com.jiajiao.web.vo.ResponseVo;
+import com.jiajiao.web.vo.VolunteerCollectionVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,8 @@ public class VolunteerServiceImpl implements IVolunteerService {
     VolunteerThingsMapper volunteerThingsMapper;
     @Autowired
     VolunteerCollectionMapper volunteerCollectionMapper;
+    @Autowired
+    UserMapper userMapper;
 
     @Override
     public ResponseVo addVolunteerThings(VolunteerThingsForm form,Integer uId) {
@@ -84,8 +89,8 @@ public class VolunteerServiceImpl implements IVolunteerService {
     }
 
     @Override
-    public ResponseVo getVolunteerThingsByCId(Integer cId) {
-        List<VolunteerThings> volunteerThings = volunteerThingsMapper.selectByCId(cId);
+    public ResponseVo getVolunteerThingsByCId(Integer cId,Integer status) {
+        List<VolunteerThings> volunteerThings = volunteerThingsMapper.selectByCIdAndStatus(cId,status);
         List<VolunteerThingsForm> res=new ArrayList<>();
         for(VolunteerThings temp:volunteerThings){
             //获取捐赠的书籍
@@ -124,13 +129,30 @@ public class VolunteerServiceImpl implements IVolunteerService {
     @Override
     public ResponseVo getAllVolunteerCollection() {
         List<VolunteerCollection> volunteerCollections = volunteerCollectionMapper.selectAll();
-        return ResponseVo.success("义工收集列表返回成功",volunteerCollections);
+        List<VolunteerCollectionVo> volunteerCollectionVos= new ArrayList<>();
+        for(VolunteerCollection temp:volunteerCollections){
+            VolunteerCollectionVo vo = buildVolunteerCollectionVo(temp);
+            volunteerCollectionVos.add(vo);
+        }
+        return ResponseVo.success("义工收集列表返回成功",volunteerCollectionVos);
     }
+
+//    @Override
+//    public ResponseVo getVolunteerCollectionById(Integer id) {
+//        VolunteerCollection volunteerCollection = volunteerCollectionMapper.selectByPrimaryKey(id);
+//        VolunteerCollectionVo volunteerCollectionVo = buildVolunteerCollectionVo(volunteerCollection);
+//        return ResponseVo.success("义工收集返回成功",volunteerCollectionVo);
+//    }
 
     @Override
     public ResponseVo getMyVolunteerCollection(Integer uId) {
         List<VolunteerCollection> volunteerCollections = volunteerCollectionMapper.selectByUId(uId);
-        return ResponseVo.success("个人义工收集列表返回成功",volunteerCollections);
+        List<VolunteerCollectionVo> volunteerCollectionVos= new ArrayList<>();
+        for(VolunteerCollection temp:volunteerCollections){
+            VolunteerCollectionVo vo = buildVolunteerCollectionVo(temp);
+            volunteerCollectionVos.add(vo);
+        }
+        return ResponseVo.success("个人义工收集列表返回成功",volunteerCollectionVos);
     }
 
     @Override
@@ -141,5 +163,39 @@ public class VolunteerServiceImpl implements IVolunteerService {
         }
         volunteerCollectionMapper.deleteByPrimaryKey(id);
         return ResponseVo.success("删除成功");
+    }
+
+
+
+    @Override
+    public ResponseVo setThingsStatus(Integer id, Integer status) {
+        volunteerThingsMapper.updateStatusById(id,status);
+        return ResponseVo.success("更新状态成功");
+    }
+
+    @Override
+    public ResponseVo setCollectionStatus(Integer id, Integer status, Integer uId) {
+        if(status==1){
+            User user = userMapper.selectByPrimaryKey(uId);
+            if(!user.getRole().equals(0)&&!user.getRole().equals(1)){
+                return ResponseVo.error("你不是管理员，无法进行审批操作");
+            }
+        }
+        volunteerCollectionMapper.updateStatusById(id,status);
+        return ResponseVo.success("更新状态成功");
+    }
+
+    private VolunteerCollectionVo buildVolunteerCollectionVo(VolunteerCollection volunteerCollection){
+        Integer id = volunteerCollection.getId();
+        Integer nums =getThingsNums(id);
+        VolunteerCollectionVo vo=new VolunteerCollectionVo();
+        vo.setCount(nums);
+        vo.setVolunteerCollection(volunteerCollection);
+        return vo;
+    }
+
+    private Integer getThingsNums(Integer id) {
+        List<VolunteerThings> volunteerThings = volunteerThingsMapper.selectByCIdAndStatus(id,null);
+        return volunteerThings.size();
     }
 }

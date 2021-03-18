@@ -24,11 +24,11 @@ public class StudentController {
      * 获取学院名
      * @return
      */
-    @GetMapping("/get/student/academy")
-    public ResponseVo getStudentAcademy(){
-        ResponseVo res = studentService.getStudentAcademy();
-        return res;
-    }
+//    @GetMapping("/get/student/academy")
+//    public ResponseVo getStudentAcademy(){
+//        ResponseVo res = studentService.getStudentAcademy();
+//        return res;
+//    }
 
     /**
      * 获取个人的简历信息

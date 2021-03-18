@@ -19,6 +19,7 @@ import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -180,6 +181,7 @@ public class RedisServiceImpl implements IRedisService {
      * @return
      */
     @PostConstruct
+    @Scheduled(fixedRate = 36000000)        //每10分钟更新一次
     public boolean storeStudentResume() {
         List<String> list = new ArrayList<>();
 
@@ -201,6 +203,7 @@ public class RedisServiceImpl implements IRedisService {
      * @return
      */
     @PostConstruct
+    @Scheduled(fixedRate = 36000000)        //每10分钟更新一次
     public boolean storeParentNeed() {
         List<String> list = new ArrayList<>();
 
@@ -216,25 +219,5 @@ public class RedisServiceImpl implements IRedisService {
         return true;
     }
 
-    //测试
-    public ResponseVo recommendResumeByNeed(ParentNeed parentNeed) {
-        ListOperations<String, String> opsForList = redisTemplate.opsForList();
-
-        int step = 4;     //步长，每次取出的数据数
-        List<String> range;
-        for (Long start = 0l; start < 10000; start = start + step + 1) {
-            range = opsForList.range(STUDENT_RESUME, start, start + step);
-            for (String s : range) {
-                StudentResumeVo studentResumeVo = gson.fromJson(s, StudentResumeVo.class);
-                redisTemplate.opsForZSet().add(parentNeed.getId() + "p", s, studentResumeVo.getStudentResume().getId());
-            }
-
-            if (range == null || range.size() < step)
-                break;
-        }
-//        zSetOperations.range()
-
-        return null;
-    }
 
 }
