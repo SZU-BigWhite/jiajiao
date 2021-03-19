@@ -12,7 +12,7 @@ public interface IVolunteerService {
     ResponseVo addVolunteerCollection(VolunteerCollection volunteerCollection);
     ResponseVo updateVolunteerCollection(VolunteerCollection volunteerCollection,Integer uId);
     ResponseVo getAllVolunteerCollection();
-//    ResponseVo getVolunteerCollectionById(Integer id);
+    ResponseVo getVolunteerCollectionById(Integer id);
     ResponseVo getMyVolunteerCollection(Integer uId);
     ResponseVo deleteVolunteerCollection(Integer id,Integer uId);
     ResponseVo setThingsStatus(Integer id,Integer status);

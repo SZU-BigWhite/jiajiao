@@ -137,12 +137,12 @@ public class VolunteerServiceImpl implements IVolunteerService {
         return ResponseVo.success("义工收集列表返回成功",volunteerCollectionVos);
     }
 
-//    @Override
-//    public ResponseVo getVolunteerCollectionById(Integer id) {
-//        VolunteerCollection volunteerCollection = volunteerCollectionMapper.selectByPrimaryKey(id);
-//        VolunteerCollectionVo volunteerCollectionVo = buildVolunteerCollectionVo(volunteerCollection);
-//        return ResponseVo.success("义工收集返回成功",volunteerCollectionVo);
-//    }
+    @Override
+    public ResponseVo getVolunteerCollectionById(Integer id) {
+        VolunteerCollection volunteerCollection = volunteerCollectionMapper.selectByPrimaryKey(id);
+        VolunteerCollectionVo volunteerCollectionVo = buildVolunteerCollectionVo(volunteerCollection);
+        return ResponseVo.success("义工收集返回成功",volunteerCollectionVo);
+    }
 
     @Override
     public ResponseVo getMyVolunteerCollection(Integer uId) {

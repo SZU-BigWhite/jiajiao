@@ -105,10 +105,11 @@ public class VolunteerController {
      * 获取捐赠项目byId
      * @return
      */
-//    @GetMapping("/get/volunteer/collection/by/id")
-//    public ResponseVo getVolunteerCollectionByIdAndOrder(@Param("id") Integer id){
-//        return volunteerService.getVolunteerCollectionById(id);
-//    }
+    @GetMapping("/get/volunteer/collection/by/id")
+    public ResponseVo getVolunteerCollectionByIdAndOrder(@Param("id") Integer id){
+        System.out.println(id);
+        return volunteerService.getVolunteerCollectionById(id);
+    }
 
     /**
      * 获取个人的捐赠项目
