@@ -66,6 +66,11 @@ public class StudentHelpController {
         return studentHelpService.getStudentHelpListByUid(uId);
     }
 
+    @GetMapping("/get/student/help/by/id")
+    public ResponseVo getStudentHelpList(Integer id){
+        return studentHelpService.getStudentHelpById(id);
+    }
+
     /**
      * 更新个人学生互助
      * @param request

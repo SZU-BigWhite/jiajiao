@@ -135,7 +135,7 @@ public class VolunteerController {
     }
 
     /**
-     * 捐赠物品状态
+     * 设置捐赠物品状态
      * @param id
      * @param status
      * @return
@@ -146,7 +146,7 @@ public class VolunteerController {
     }
 
     /**
-     * 捐赠项目审核状态
+     * 设置捐赠项目审核状态
      * @param request
      * @param id
      * @param status
