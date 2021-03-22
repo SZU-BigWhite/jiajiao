@@ -22,26 +22,7 @@ public class GetStudentResumeOrderForm {
      * @return
      */
     private Integer ableClass;
-    private Float minSalary;
-    private Float maxSalary;
     private String academyId;
-
-
-    public Float getMinSalary() {
-        return minSalary;
-    }
-
-    public void setMinSalary(Float minSalary) {
-        this.minSalary = minSalary;
-    }
-
-    public Float getMaxSalary() {
-        return maxSalary;
-    }
-
-    public void setMaxSalary(Float maxSalary) {
-        this.maxSalary = maxSalary;
-    }
 
 
     public Integer getPageNum() {
@@ -110,8 +91,6 @@ public class GetStudentResumeOrderForm {
                 ", sex=" + sex +
                 ", updateTime=" + updateTime +
                 ", ableClass=" + ableClass +
-                ", minSalary=" + minSalary +
-                ", maxSalary=" + maxSalary +
                 ", academyId='" + academyId + '\'' +
                 '}';
     }

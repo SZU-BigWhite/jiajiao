@@ -308,19 +308,13 @@
           and able_class >= #{resumeOrderVo.ableClass}
         </if>
         <if test="resumeOrderVo.academyId !=null ">
-          and academy_id = #{resumeOrderVo.academyId}
-        </if>
-        <if test="resumeOrderVo.minSalary!=null">
-          and salary &gt;= #{resumeOrderVo.minSalary}
-        </if>
-        <if test="resumeOrderVo.maxSalary!=null">
-          and salary &lt;= #{resumeOrderVo.maxSalary}
+          and academy_id LIKE CONCAT('%',#{resumeOrderVo.academyId},'%')
         </if>
         <if test="resumeOrderVo.sex == 1">
           and sex = 1
         </if>
         <if test="resumeOrderVo.sex == 2">
-          sex sex = 2
+          and sex = 2
         </if>
       </where>
       order by
@@ -345,6 +339,27 @@
     </if>
   </select>
 
+  <select id="selectAllByOrderCount" resultType="java.lang.Integer">
+    select
+      count(*)
+    from jiajiao_student_resume
+    <if test="resumeOrderVo!=null">
+      <where>
+        <if test="resumeOrderVo.ableClass != null ">
+          and able_class >= #{resumeOrderVo.ableClass}
+        </if>
+        <if test="resumeOrderVo.academyId !=null ">
+          and academy_id LIKE CONCAT('%',#{resumeOrderVo.academyId},'%')
+        </if>
+        <if test="resumeOrderVo.sex == 1">
+          and sex = 1
+        </if>
+        <if test="resumeOrderVo.sex == 2">
+          and sex = 2
+        </if>
+      </where>
+    </if>
+  </select>
   <select id="selectByIdList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

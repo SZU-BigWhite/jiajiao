@@ -112,7 +112,8 @@ public class StudentServiceImpl implements IStudentService {
         //构建VoList
         List<StudentResumeVo> studentResumeVoList = buildStudentResumeVoList(studentResumeList);
         PageInfo<StudentResumeVo> pageInfo = new PageInfo<>(studentResumeVoList);
-        return ResponseVo.success("学生简历获取成功", pageInfo);
+        Integer count = resumeMapper.selectAllByOrderCount(getStudentResumeOrderVo);
+        return ResponseVo.success(""+count, pageInfo);
     }
 
     @Override
