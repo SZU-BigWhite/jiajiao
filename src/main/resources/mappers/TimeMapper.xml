@@ -84,6 +84,7 @@
     <include refid="Base_Column_List" />
     from jiajiao_time
     where out_id = #{out_id,jdbcType=INTEGER} and type = #{type,jdbcType=INTEGER}
+    order by free_time
   </select>
   <insert id="insertList" parameterType="java.util.List">
     insert into jiajiao_time (id, out_id, type,

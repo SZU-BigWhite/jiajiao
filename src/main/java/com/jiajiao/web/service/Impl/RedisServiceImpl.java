@@ -46,7 +46,8 @@ public class RedisServiceImpl implements IRedisService {
 
     private final String STUDENT_RESUME = "student_resume";
     private final String PARENT_NEED = "parent_need";
-    Long recommendSize = 50l;
+    Long recommendSize = 5l;    //推荐6份相似简历
+    Long recommendSize1 = 50l;  //推荐50份匹配简历
 
 
     @Override
@@ -89,7 +90,7 @@ public class RedisServiceImpl implements IRedisService {
     public List<StudentResumeVo> getNeedRecommend(Integer pNId) {
         List<StudentResumeVo> res = new ArrayList<>();
 
-        Set<String> range  = redisTemplate.opsForZSet().reverseRange(pNId + "p", 0, recommendSize);
+        Set<String> range  = redisTemplate.opsForZSet().reverseRange(pNId + "p", 0, recommendSize1);
         for(String vo:range){
             StudentResumeVo studentResumeVo = gson.fromJson(vo, StudentResumeVo.class);
             res.add(studentResumeVo);
@@ -107,7 +108,7 @@ public class RedisServiceImpl implements IRedisService {
     public List<ParentNeedVo> getResumeRecommend(Integer sRId) {
         List<ParentNeedVo> res = new ArrayList<>();
 
-        Set<String> range = redisTemplate.opsForZSet().reverseRange(sRId + "s", 0, recommendSize);
+        Set<String> range = redisTemplate.opsForZSet().reverseRange(sRId + "s", 0, recommendSize1);
         for (String vo : range) {
             ParentNeedVo parentNeedVo = gson.fromJson(vo, ParentNeedVo.class);
             res.add(parentNeedVo);
@@ -125,7 +126,7 @@ public class RedisServiceImpl implements IRedisService {
     public List<StudentResumeVo> getRelativeResume(Integer sRId) {
         List<StudentResumeVo> res = new ArrayList<>();
 
-        Set<String> range = redisTemplate.opsForZSet().reverseRange(sRId + "ss", 0, 6);
+        Set<String> range = redisTemplate.opsForZSet().reverseRange(sRId + "ss", 0, recommendSize);
         for (String vo : range) {
             StudentResumeVo studentResumeVo = gson.fromJson(vo, StudentResumeVo.class);
             res.add(studentResumeVo);

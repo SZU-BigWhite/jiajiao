@@ -105,6 +105,16 @@ public class StudentServiceImpl implements IStudentService {
     @Override
     public ResponseVo getStudentsResumes(GetStudentResumeOrderForm getStudentResumeOrderVo) {
 
+        //格式化时间
+        if(getStudentResumeOrderVo.getFreeTimeString()!=null){
+            List<Integer> freeTime=new ArrayList<>();
+            for(String time:getStudentResumeOrderVo.getFreeTimeString()){
+                freeTime.add(timeStringToInteger(time));
+            }
+            getStudentResumeOrderVo.setFreeTime(freeTime);
+        }
+        System.out.println(getStudentResumeOrderVo);
+
         //分页控制
         PageHelper.startPage(getStudentResumeOrderVo.getPageNum(), getStudentResumeOrderVo.getPageSize());
         //获取StudentResumeList
@@ -212,7 +222,12 @@ public class StudentServiceImpl implements IStudentService {
         return ResponseVo.success("已经注册的学生简历数", sum);
     }
 
-
+    @Override
+    public ResponseVo getStudentResumeById(Integer id) {
+        StudentResume studentResume = resumeMapper.selectByPrimaryKey(id);
+        StudentResumeVo studentResumeVo = buildStudentResumeVo(studentResume);
+        return ResponseVo.success("简历获取成功",studentResumeVo);
+    }
 
     //插入新的Subject表
     private void insertNewSubject(Integer outId, StudentResumeVo studentResumeVo) {
@@ -301,19 +316,19 @@ public class StudentServiceImpl implements IStudentService {
     public Integer timeStringToInteger(String time){
         int res=0;
         String[] split = StringUtils.split(time, " : ");
-        if(split[0].equals("周一")){
+        if(split[0].equals("星期一")){
             res=1;
-        }else if(split[0].equals("周二")){
+        }else if(split[0].equals("星期二")){
             res=2;
-        }else if(split[0].equals("周三")){
+        }else if(split[0].equals("星期三")){
             res=3;
-        }else if(split[0].equals("周四")){
+        }else if(split[0].equals("星期四")){
             res=4;
-        }else if(split[0].equals("周五")){
+        }else if(split[0].equals("星期五")){
             res=5;
-        }else if(split[0].equals("周六")){
+        }else if(split[0].equals("星期六")){
             res=6;
-        }else if(split[0].equals("周日")){
+        }else if(split[0].equals("星期日")){
             res=7;
         }
         if(split[1].equals("上午")){

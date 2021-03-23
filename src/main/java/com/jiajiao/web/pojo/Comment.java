@@ -1,5 +1,7 @@
 package com.jiajiao.web.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Comment {
@@ -13,6 +15,7 @@ public class Comment {
 
     private String content;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
     public Integer getId() {

@@ -1,5 +1,7 @@
 package com.jiajiao.web.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class StudentHelp {
@@ -17,8 +19,10 @@ public class StudentHelp {
 
     private Float salary;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date updateTim;
 
     public Integer getId() {

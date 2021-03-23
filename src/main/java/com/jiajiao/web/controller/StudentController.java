@@ -78,8 +78,8 @@ public class StudentController {
      * @param studentResumeOrderVo
      * @return
      */
-    @GetMapping("/get/students/resumelist/order")
-    public ResponseVo getStudentsResumesOrder(GetStudentResumeOrderForm studentResumeOrderVo){
+    @PostMapping("/get/students/resumelist/order")
+    public ResponseVo getStudentsResumesOrder(@RequestBody GetStudentResumeOrderForm studentResumeOrderVo){
         System.out.println(studentResumeOrderVo);
         ResponseVo res = studentService.getStudentsResumes(studentResumeOrderVo);
         return res;
@@ -103,6 +103,16 @@ public class StudentController {
     }
 
     /**
+     * 根据简历id获取简历
+     * @param id
+     * @return
+     */
+    @GetMapping("/get/student/resume/by/id")
+    public ResponseVo getStudentResumeById(Integer id){
+        return studentService.getStudentResumeById(id);
+    }
+
+    /**
      * 发送个人简历
      * @param studentSendParentVO
      * @return
@@ -118,6 +128,12 @@ public class StudentController {
         return res;
     }
 
+    /**
+     * 删除发送
+     * @param studentSendParentVO
+     * @param request
+     * @return
+     */
     @PostMapping("/delete/send/student/resume")
     public ResponseVo deleteSendStudentResume(@RequestBody StudentSendParentVO studentSendParentVO,HttpServletRequest request){
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);  //校验id == uid

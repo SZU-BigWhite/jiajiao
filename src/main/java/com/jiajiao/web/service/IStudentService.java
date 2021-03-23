@@ -19,5 +19,6 @@ public interface IStudentService {
     public ResponseVo getStudentReceive(Integer id);
     public ResponseVo getStudentSent(Integer id);
     public ResponseVo getStudentResumeSum();
+    public ResponseVo getStudentResumeById(Integer id);
 
 }

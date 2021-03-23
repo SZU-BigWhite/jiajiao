@@ -1,5 +1,7 @@
 package com.jiajiao.web.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class StudentSend {
@@ -15,7 +17,7 @@ public class StudentSend {
 
     private String wechat;
 
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
     public Integer getId() {

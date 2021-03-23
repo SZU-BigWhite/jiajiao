@@ -301,7 +301,7 @@
   <select id="selectAllByOrder" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from jiajiao_student_resume
+    from jiajiao_student_resume r1
     <if test="resumeOrderVo!=null">
       <where>
         <if test="resumeOrderVo.ableClass != null ">
@@ -315,6 +315,22 @@
         </if>
         <if test="resumeOrderVo.sex == 2">
           and sex = 2
+        </if>
+        <if test="resumeOrderVo.freeTime!=null and resumeOrderVo.freeTime.size!=0">
+          and r1.id in
+            (SELECT t1.out_id FROM jiajiao_time t1 WHERE t1.TYPE =1 AND t1.free_time IN
+             <foreach collection="resumeOrderVo.freeTime" item="item" open="(" close=")" separator=",">
+               #{item}
+             </foreach>
+             GROUP BY t1.out_id HAVING COUNT(t1.free_time)=${resumeOrderVo.freeTime.size})
+        </if>
+        <if test="resumeOrderVo.name!=null and resumeOrderVo.name.size!=0">
+          and r1.id in
+          (SELECT s1.out_id FROM jiajiao_subject s1 WHERE s1.TYPE =1 AND s1.name IN
+          <foreach collection="resumeOrderVo.name" item="item" open="(" close=")" separator=",">
+            #{item}
+          </foreach>
+          GROUP BY s1.out_id HAVING COUNT(s1.name)=${resumeOrderVo.name.size})
         </if>
       </where>
       order by
@@ -342,7 +358,7 @@
   <select id="selectAllByOrderCount" resultType="java.lang.Integer">
     select
       count(*)
-    from jiajiao_student_resume
+    from jiajiao_student_resume r1
     <if test="resumeOrderVo!=null">
       <where>
         <if test="resumeOrderVo.ableClass != null ">
@@ -356,6 +372,22 @@
         </if>
         <if test="resumeOrderVo.sex == 2">
           and sex = 2
+        </if>
+        <if test="resumeOrderVo.freeTime!=null and resumeOrderVo.freeTime.size!=0">
+          and r1.id in
+          (SELECT t1.out_id FROM jiajiao_time t1 WHERE t1.TYPE =1 AND t1.free_time IN
+          <foreach collection="resumeOrderVo.freeTime" item="item" open="(" close=")" separator=",">
+            #{item}
+          </foreach>
+          GROUP BY t1.out_id HAVING COUNT(t1.free_time)=${resumeOrderVo.freeTime.size})
+        </if>
+        <if test="resumeOrderVo.name!=null and resumeOrderVo.name.size!=0">
+          and r1.id in
+          (SELECT s1.out_id FROM jiajiao_subject s1 WHERE s1.TYPE =1 AND s1.name IN
+          <foreach collection="resumeOrderVo.name" item="item" open="(" close=")" separator=",">
+            #{item}
+          </foreach>
+          GROUP BY s1.out_id HAVING COUNT(s1.name)=${resumeOrderVo.name.size})
         </if>
       </where>
     </if>

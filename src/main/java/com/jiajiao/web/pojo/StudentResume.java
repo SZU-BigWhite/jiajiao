@@ -1,5 +1,7 @@
 package com.jiajiao.web.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class StudentResume {
@@ -41,8 +43,10 @@ public class StudentResume {
 
     private String motto;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date updateTime;
 
     private Integer status;

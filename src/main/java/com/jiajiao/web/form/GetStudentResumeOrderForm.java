@@ -1,5 +1,7 @@
 package com.jiajiao.web.form;
 
+import java.util.List;
+
 public class GetStudentResumeOrderForm {
     /**
      * 默认 第 1 页
@@ -23,7 +25,34 @@ public class GetStudentResumeOrderForm {
      */
     private Integer ableClass;
     private String academyId;
+    private List<String> freeTimeString;
+    private List<String> name;
+    private List<Integer> freeTime;
 
+
+    public List<String> getFreeTimeString() {
+        return freeTimeString;
+    }
+
+    public void setFreeTimeString(List<String> freeTimeString) {
+        this.freeTimeString = freeTimeString;
+    }
+
+    public List<Integer> getFreeTime() {
+        return freeTime;
+    }
+
+    public void setFreeTime(List<Integer> freeTime) {
+        this.freeTime = freeTime;
+    }
+
+    public List<String> getName() {
+        return name;
+    }
+
+    public void setName(List<String> name) {
+        this.name = name;
+    }
 
     public Integer getPageNum() {
         return pageNum;
@@ -92,6 +121,9 @@ public class GetStudentResumeOrderForm {
                 ", updateTime=" + updateTime +
                 ", ableClass=" + ableClass +
                 ", academyId='" + academyId + '\'' +
+                ", freeTimeString=" + freeTimeString +
+                ", name=" + name +
+                ", freeTime=" + freeTime +
                 '}';
     }
 }
