@@ -1,6 +1,7 @@
 package com.jiajiao.web.dao;
 
 import com.jiajiao.web.pojo.Comment;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,5 +20,5 @@ public interface CommentMapper {
 
     int updateByPrimaryKey(Comment record);
 
-    List<Comment> selectByOutId(Integer out_id);
+    List<Comment> selectByOutIdAndType(@Param("out_id") Integer out_id, @Param("type") Integer type);
 }

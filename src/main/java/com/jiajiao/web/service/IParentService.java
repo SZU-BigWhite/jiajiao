@@ -6,9 +6,10 @@ import com.jiajiao.web.vo.ParentSendStudentVo;
 import com.jiajiao.web.vo.ResponseVo;
 
 public interface IParentService {
-    public ResponseVo getParentNeedByUId(int id);
+    public ResponseVo getParentNeedByUId(int uId);
     public ResponseVo getParentsNeed();
     public ResponseVo getParentsNeedByOrder(GetParentNeedOrderForm parentNeedOrderVo);
+    public ResponseVo getParentNeedById(Integer id);
     public ResponseVo addParentNeedByUId(int id, ParentNeedVo parentNeedVo);
     public ResponseVo updateParentNeed(ParentNeedVo parentNeedVo);
     public ResponseVo deleteParentNeed(int id);

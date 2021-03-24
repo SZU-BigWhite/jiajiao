@@ -2,6 +2,8 @@ package com.jiajiao.web.form;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import java.util.List;
+
 public class GetParentNeedOrderForm {
     /**
      * 默认 第 1 页
@@ -14,88 +16,18 @@ public class GetParentNeedOrderForm {
      * 1 - 升序
      * 2 - 降序 --时间降序则最新
      */
-    private Integer duration=0;
-    private Integer times=0;
     private Integer salary=0;
-    private Integer arriveHours=0;
     private Integer updateTime=0;
 
     /**
-     * 选择范围
+     * 筛选
      * @return
      */
-    private Float minDuration;
-    private Float maxDuration;
-    private Integer minTimes;
-    private Integer maxTimes;
-    private Float minSalary;
-    private Float maxSalary;
-    private Float minArriveHours;
-    private Float maxArriveHours;
-
-    public Float getMinDuration() {
-        return minDuration;
-    }
-
-    public void setMinDuration(Float minDuration) {
-        this.minDuration = minDuration;
-    }
-
-    public Float getMaxDuration() {
-        return maxDuration;
-    }
-
-    public void setMaxDuration(Float maxDuration) {
-        this.maxDuration = maxDuration;
-    }
-
-    public Integer getMinTimes() {
-        return minTimes;
-    }
-
-    public void setMinTimes(Integer minTimes) {
-        this.minTimes = minTimes;
-    }
-
-    public Integer getMaxTimes() {
-        return maxTimes;
-    }
-
-    public void setMaxTimes(Integer maxTimes) {
-        this.maxTimes = maxTimes;
-    }
-
-    public Float getMinSalary() {
-        return minSalary;
-    }
-
-    public void setMinSalary(Float minSalary) {
-        this.minSalary = minSalary;
-    }
-
-    public Float getMaxSalary() {
-        return maxSalary;
-    }
-
-    public void setMaxSalary(Float maxSalary) {
-        this.maxSalary = maxSalary;
-    }
-
-    public Float getMinArriveHours() {
-        return minArriveHours;
-    }
-
-    public void setMinArriveHours(Float minArriveHours) {
-        this.minArriveHours = minArriveHours;
-    }
-
-    public Float getMaxArriveHours() {
-        return maxArriveHours;
-    }
-
-    public void setMaxArriveHours(Float maxArriveHours) {
-        this.maxArriveHours = maxArriveHours;
-    }
+    private Integer times=0;
+    private Integer ableClass=0;
+    private List<String> freeTimeString;
+    private List<String> name;
+    private List<Integer> freeTime;
 
     public Integer getPageNum() {
         return pageNum;
@@ -113,20 +45,20 @@ public class GetParentNeedOrderForm {
         this.pageSize = pageSize;
     }
 
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
+    }
+
     public Integer getUpdateTime() {
         return updateTime;
     }
 
     public void setUpdateTime(Integer updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
     }
 
     public Integer getTimes() {
@@ -137,29 +69,50 @@ public class GetParentNeedOrderForm {
         this.times = times;
     }
 
-    public Integer getSalary() {
-        return salary;
+    public Integer getAbleClass() {
+        return ableClass;
     }
 
-    public void setSalary(Integer salary) {
-        this.salary = salary;
+    public void setAbleClass(Integer ableClass) {
+        this.ableClass = ableClass;
     }
 
-    public Integer getArriveHours() {
-        return arriveHours;
+    public List<String> getFreeTimeString() {
+        return freeTimeString;
     }
 
-    public void setArriveHours(Integer arriveHours) {
-        this.arriveHours = arriveHours;
+    public void setFreeTimeString(List<String> freeTimeString) {
+        this.freeTimeString = freeTimeString;
+    }
+
+    public List<String> getName() {
+        return name;
+    }
+
+    public void setName(List<String> name) {
+        this.name = name;
+    }
+
+    public List<Integer> getFreeTime() {
+        return freeTime;
+    }
+
+    public void setFreeTime(List<Integer> freeTime) {
+        this.freeTime = freeTime;
     }
 
     @Override
     public String toString() {
-        return "GetParentNeedOrderVo{" +
-                "duration=" + duration +
-                ", times=" + times +
+        return "GetParentNeedOrderForm{" +
+                "pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
                 ", salary=" + salary +
-                ", arriveHours=" + arriveHours +
+                ", updateTime=" + updateTime +
+                ", times=" + times +
+                ", ableClass=" + ableClass +
+                ", freeTimeString=" + freeTimeString +
+                ", name=" + name +
+                ", freeTime=" + freeTime +
                 '}';
     }
 }

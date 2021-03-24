@@ -16,7 +16,6 @@ public class ParentNeedForm {
 
     List<String> timeList;
 
-    List<String> tags;      //性格
 
     public String getStudentClassString() {
         return studentClassString;
@@ -26,13 +25,6 @@ public class ParentNeedForm {
         this.studentClassString = studentClassString;
     }
 
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
 
     public ParentNeed getParentNeed() {
         return parentNeed;
@@ -56,5 +48,15 @@ public class ParentNeedForm {
 
     public void setTimeList(List<String> timeList) {
         this.timeList = timeList;
+    }
+
+    @Override
+    public String toString() {
+        return "ParentNeedForm{" +
+                "parentNeed=" + parentNeed +
+                ", studentClassString='" + studentClassString + '\'' +
+                ", subjectList=" + subjectList +
+                ", timeList=" + timeList +
+                '}';
     }
 }

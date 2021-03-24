@@ -104,10 +104,10 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectByOutId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByOutIdAndType" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from jiajiao_comment
-    where out_id = #{out_id,jdbcType=INTEGER}
+    where out_id = #{out_id,jdbcType=INTEGER} and type =#{type}
   </select>
 </mapper>

@@ -52,8 +52,9 @@ public class ParentController {
      * @param parentOrderVo
      * @return
      */
-    @GetMapping("/get/parents/needlist/order")
-    public ResponseVo getParentsNeedListByOrder(GetParentNeedOrderForm parentOrderVo){
+    @PostMapping("/get/parents/needlist/order")
+    public ResponseVo getParentsNeedListByOrder(@RequestBody GetParentNeedOrderForm parentOrderVo){
+        System.out.println(parentOrderVo);
         ResponseVo res = parentService.getParentsNeedByOrder(parentOrderVo);
         return res;
     }
@@ -66,7 +67,7 @@ public class ParentController {
      */
     @PostMapping("/add/parent/need")
     public ResponseVo addParentNeed(@RequestBody ParentNeedForm parentNeedForm, HttpServletRequest request){
-
+        System.out.println(parentNeedForm);
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
         ParentNeedVo parentNeedVo = parentService.parentNeedFormToVo(parentNeedForm,uId);
         ResponseVo res = parentService.addParentNeedByUId(uId, parentNeedVo);
@@ -106,6 +107,16 @@ public class ParentController {
 
         ResponseVo res = parentService.deleteParentNeed(id);
         return res;
+    }
+
+    /**
+     * 根据id获取简历
+     * @param id
+     * @return
+     */
+    @GetMapping("/get/parent/nedd/by/id")
+    public ResponseVo getParentNeedById(Integer id){
+        return parentService.getParentNeedById(id);
     }
 
     /**

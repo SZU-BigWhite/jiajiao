@@ -15,7 +15,7 @@ public class GetStudentResumeOrderForm {
      * 2 - 降序 --时间降序则最新
      */
     private Integer salary = 0;
-    private Integer sex = 0;
+    private Integer education =0;
     private Integer updateTime = 0;
 
     /**
@@ -23,6 +23,7 @@ public class GetStudentResumeOrderForm {
      *
      * @return
      */
+    private Integer sex = 0;
     private Integer ableClass;
     private String academyId;
     private List<String> freeTimeString;
@@ -111,14 +112,23 @@ public class GetStudentResumeOrderForm {
         this.academyId = academyId;
     }
 
+    public Integer getEducation() {
+        return education;
+    }
+
+    public void setEducation(Integer education) {
+        this.education = education;
+    }
+
     @Override
     public String toString() {
         return "GetStudentResumeOrderForm{" +
                 "pageNum=" + pageNum +
                 ", pageSize=" + pageSize +
                 ", salary=" + salary +
-                ", sex=" + sex +
+                ", education=" + education +
                 ", updateTime=" + updateTime +
+                ", sex=" + sex +
                 ", ableClass=" + ableClass +
                 ", academyId='" + academyId + '\'' +
                 ", freeTimeString=" + freeTimeString +

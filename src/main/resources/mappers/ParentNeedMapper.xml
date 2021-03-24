@@ -295,80 +295,85 @@
   <select id="selectAllByOrder" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from jiajiao_parent_need
-    <where>
-      <if test="parentNeedOrder.minDuration!=null">
-        duration &gt;= #{parentNeedOrder.minDuration}
+    from jiajiao_parent_need n1
+    <if test="parentNeedOrder!=null">
+      <where>
+        <if test="parentNeedOrder.times!=0">
+          and times &lt;= #{parentNeedOrder.times}
+        </if>
+        <if test="parentNeedOrder.ableClass!=0">
+          and student_class &lt;= #{parentNeedOrder.ableClass}
+        </if>
+        <if test="parentNeedOrder.freeTime!=null and parentNeedOrder.freeTime.size!=0">
+          and n1.id in
+          (SELECT t1.out_id FROM jiajiao_time t1 WHERE t1.TYPE =0 AND t1.free_time IN
+          <foreach collection="parentNeedOrder.freeTime" item="item" open="(" close=")" separator=",">
+            #{item}
+          </foreach>
+          GROUP BY t1.out_id HAVING COUNT(t1.free_time)=${parentNeedOrder.freeTime.size})
+        </if>
+        <if test="parentNeedOrder.name!=null and parentNeedOrder.name.size!=0">
+          and n1.id in
+          (SELECT s1.out_id FROM jiajiao_subject s1 WHERE s1.TYPE =0 AND s1.name IN
+          <foreach collection="parentNeedOrder.name" item="item" open="(" close=")" separator=",">
+            #{item}
+          </foreach>
+          GROUP BY s1.out_id HAVING COUNT(s1.name)=${parentNeedOrder.name.size})
+        </if>
+      </where>
+      order by
+      <if test="parentNeedOrder.salary == 0">
+        null,
       </if>
-      <if test="parentNeedOrder.maxDuration!=null">
-        and duration &lt;= #{parentNeedOrder.maxDuration}
+      <if test="parentNeedOrder.salary == 1">
+        salary ASC ,
       </if>
-      <if test="parentNeedOrder.minTimes!=null">
-        and times &gt;= #{parentNeedOrder.minTimes}
+      <if test="parentNeedOrder.salary == 2">
+        salary DESC ,
       </if>
-      <if test="parentNeedOrder.maxTimes!=null">
-        and times &lt;= #{parentNeedOrder.maxTimes}
+      <if test="parentNeedOrder.updateTime == 0">
+        null
       </if>
-      <if test="parentNeedOrder.minSalary!=null">
-        and salary &gt;= #{parentNeedOrder.minSalary}
+      <if test="parentNeedOrder.updateTime == 1">
+        update_time ASC
       </if>
-      <if test="parentNeedOrder.maxSalary!=null">
-        and salary &lt;= #{parentNeedOrder.maxSalary}
+      <if test="parentNeedOrder.updateTime == 2">
+        update_time DESC
       </if>
-      <if test="parentNeedOrder.minArriveHours!=null">
-        and arrive_hours &gt;= #{parentNeedOrder.minArriveHours}
-      </if>
-      <if test="parentNeedOrder.maxArriveHours!=null">
-        and arrive_hours &lt;= #{parentNeedOrder.maxArriveHours}
-      </if>
+    </if>
 
-    </where>
-    order by
-    <if test="parentNeedOrder.duration == 0">
-      null,
+  </select>
+  <select id="selectAllByOrderCount" resultType="java.lang.Integer">
+    select
+      count(*)
+    from jiajiao_parent_need n1
+    <if test="parentNeedOrder!=null">
+      <where>
+        <if test="parentNeedOrder.times!=0">
+          and times &lt;= #{parentNeedOrder.times}
+        </if>
+        <if test="parentNeedOrder.ableClass!=0">
+          and student_class &lt;= #{parentNeedOrder.ableClass}
+        </if>
+        <if test="parentNeedOrder.freeTime!=null and parentNeedOrder.freeTime.size!=0">
+          and n1.id in
+          (SELECT t1.out_id FROM jiajiao_time t1 WHERE t1.TYPE =0 AND t1.free_time IN
+          <foreach collection="parentNeedOrder.freeTime" item="item" open="(" close=")" separator=",">
+            #{item}
+          </foreach>
+          GROUP BY t1.out_id HAVING COUNT(t1.free_time)=${parentNeedOrder.freeTime.size})
+        </if>
+        <if test="parentNeedOrder.name!=null and parentNeedOrder.name.size!=0">
+          and n1.id in
+          (SELECT s1.out_id FROM jiajiao_subject s1 WHERE s1.TYPE =0 AND s1.name IN
+          <foreach collection="parentNeedOrder.name" item="item" open="(" close=")" separator=",">
+            #{item}
+          </foreach>
+          GROUP BY s1.out_id HAVING COUNT(s1.name)=${parentNeedOrder.name.size})
+        </if>
+      </where>
     </if>
-    <if test="parentNeedOrder.duration == 1">
-      duration ASC ,
-    </if>
-    <if test="parentNeedOrder.duration == 2">
-      duration DESC ,
-    </if>
-    <if test="parentNeedOrder.times == 0">
-      null,
-    </if>
-    <if test="parentNeedOrder.times == 1">
-      times ASC ,
-    </if>
-    <if test="parentNeedOrder.times == 2">
-      times DESC ,
-    </if>
-    <if test="parentNeedOrder.salary == 0">
-      null,
-    </if>
-    <if test="parentNeedOrder.salary == 1">
-      salary ASC ,
-    </if>
-    <if test="parentNeedOrder.salary == 2">
-      salary DESC,
-    </if>
-    <if test="parentNeedOrder.updateTime == 0">
-      null,
-    </if>
-    <if test="parentNeedOrder.updateTime == 1">
-      update_time ASC ,
-    </if>
-    <if test="parentNeedOrder.updateTime == 2">
-      update_time DESC,
-    </if>
-    <if test="parentNeedOrder.arriveHours == 0">
-      null
-    </if>
-    <if test="parentNeedOrder.arriveHours == 1">
-      arrive_hours ASC
-    </if>
-    <if test="parentNeedOrder.arriveHours == 2">
-      arrive_hours DESC
-    </if>
+
   </select>
   <select id="selectByIdList" resultMap="BaseResultMap">
     select

@@ -60,6 +60,16 @@ public class ParentServiceImpl implements IParentService {
     @Override
     public ResponseVo getParentsNeedByOrder(GetParentNeedOrderForm parentNeedOrderVo) {
 
+        //格式化时间
+        if(parentNeedOrderVo.getFreeTimeString()!=null){
+            List<Integer> freeTime=new ArrayList<>();
+            for(String time:parentNeedOrderVo.getFreeTimeString()){
+                freeTime.add(timeStringToInteger(time));
+            }
+            parentNeedOrderVo.setFreeTime(freeTime);
+        }
+        System.out.println(parentNeedOrderVo);
+
         //分页控制
         PageHelper.startPage(parentNeedOrderVo.getPageNum(),parentNeedOrderVo.getPageSize());
         //查询信息
@@ -68,7 +78,16 @@ public class ParentServiceImpl implements IParentService {
         List<ParentNeedVo> parentNeedVoList = buildParentNeedVoList(parentNeedList);
         //生成分页Page信息
         PageInfo<ParentNeedVo> pageInfo=new PageInfo<>(parentNeedVoList);
-        return ResponseVo.success("排序成功",pageInfo);
+
+        Integer count = parentNeedMapper.selectAllByOrderCount(parentNeedOrderVo);
+        return ResponseVo.success(""+count,pageInfo);
+    }
+
+    @Override
+    public ResponseVo getParentNeedById(Integer id) {
+        ParentNeed parentNeed = parentNeedMapper.selectByPrimaryKey(id);
+        ParentNeedVo parentNeedVo = buildParentNeedVo(parentNeed);
+        return ResponseVo.success("需求获取成功",parentNeedVo);
     }
 
     @Override
@@ -260,7 +279,6 @@ public class ParentServiceImpl implements IParentService {
         ParentNeedVo res=new ParentNeedVo();
 
         //生成规范的性格+所在年级
-        String character = StringUtils.join(form.getTags(), " ");
         Integer studentClass = studentClassStringToInteger(form.getStudentClassString());
         //生成科目+时间
         List<Subject> subjectList=new ArrayList<>();
@@ -278,7 +296,6 @@ public class ParentServiceImpl implements IParentService {
 
         //加入性格+年级到need中
         ParentNeed parentNeed = form.getParentNeed();
-        parentNeed.setCharacterCondiction(character);
         parentNeed.setStudentClass(studentClass);
         parentNeed.setuId(uId);
         //加入need+time+subject生成Vo
@@ -320,19 +337,19 @@ public class ParentServiceImpl implements IParentService {
     public Integer timeStringToInteger(String time){
         int res=0;
         String[] split = StringUtils.split(time, " : ");
-        if(split[0].equals("周一")){
+        if(split[0].equals("星期一")){
             res=1;
-        }else if(split[0].equals("周二")){
+        }else if(split[0].equals("星期二")){
             res=2;
-        }else if(split[0].equals("周三")){
+        }else if(split[0].equals("星期三")){
             res=3;
-        }else if(split[0].equals("周四")){
+        }else if(split[0].equals("星期四")){
             res=4;
-        }else if(split[0].equals("周五")){
+        }else if(split[0].equals("星期五")){
             res=5;
-        }else if(split[0].equals("周六")){
+        }else if(split[0].equals("星期六")){
             res=6;
-        }else if(split[0].equals("周日")){
+        }else if(split[0].equals("星期日")){
             res=7;
         }
         if(split[1].equals("上午")){

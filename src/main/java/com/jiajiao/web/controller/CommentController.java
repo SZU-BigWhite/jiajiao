@@ -5,6 +5,7 @@ import com.jiajiao.web.service.Impl.CommentServiceImpl;
 import com.jiajiao.web.service.Impl.MessagesServiceImpl;
 import com.jiajiao.web.utils.CookieUtils;
 import com.jiajiao.web.vo.ResponseVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +51,7 @@ public class CommentController {
      * @return
      */
     @GetMapping("/get/comments")
-    public ResponseVo getComments(Integer outId){
-        return commentService.getCommentByOutId(outId);
+    public ResponseVo getComments(@Param("outId") Integer outId ,@Param("type") Integer type){
+        return commentService.getCommentByOutId(outId,type);
     }
 }

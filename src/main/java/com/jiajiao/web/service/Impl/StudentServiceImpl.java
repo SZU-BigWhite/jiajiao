@@ -113,7 +113,7 @@ public class StudentServiceImpl implements IStudentService {
             }
             getStudentResumeOrderVo.setFreeTime(freeTime);
         }
-        System.out.println(getStudentResumeOrderVo);
+//        System.out.println(getStudentResumeOrderVo);
 
         //分页控制
         PageHelper.startPage(getStudentResumeOrderVo.getPageNum(), getStudentResumeOrderVo.getPageSize());

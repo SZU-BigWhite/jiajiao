@@ -344,13 +344,22 @@
         update_time DESC,
       </if>
       <if test="resumeOrderVo.salary == 0">
-        null
+        null,
       </if>
       <if test="resumeOrderVo.salary == 1">
-        salary ASC
+        salary ASC,
       </if>
       <if test="resumeOrderVo.salary == 2">
-        salary DESC
+        salary DESC,
+      </if>
+      <if test="resumeOrderVo.education == 0">
+        null
+      </if>
+      <if test="resumeOrderVo.education == 1">
+        education ASC
+      </if>
+      <if test="resumeOrderVo.education == 2">
+        education DESC
       </if>
     </if>
   </select>

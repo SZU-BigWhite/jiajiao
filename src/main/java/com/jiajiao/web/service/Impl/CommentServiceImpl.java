@@ -34,8 +34,8 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     @Override
-    public ResponseVo getCommentByOutId(Integer outId) {
-        List<Comment> comments = commentMapper.selectByOutId(outId);
+    public ResponseVo getCommentByOutId(Integer outId,Integer type) {
+        List<Comment> comments = commentMapper.selectByOutIdAndType(outId,type);
         return ResponseVo.success("评论查询成功",comments);
     }
 }

@@ -6,5 +6,5 @@ import com.jiajiao.web.vo.ResponseVo;
 public interface ICommentService {
     ResponseVo addComment(CommentForm commentForm, Integer uId);
     ResponseVo deleteComment(Integer id, Integer uId);
-    ResponseVo getCommentByOutId(Integer outId);
+    ResponseVo getCommentByOutId(Integer outId,Integer type);
 }
