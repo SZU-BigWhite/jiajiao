@@ -122,6 +122,7 @@ public class VolunteerServiceImpl implements IVolunteerService {
             return ResponseVo.error("无法操作他人的需求");
         }
         volunteerCollection.setuId(uId);
+        volunteerCollection.setStatus(0);
         volunteerCollectionMapper.updateByPrimaryKeySelective(volunteerCollection);
         return ResponseVo.success("更新成功");
     }

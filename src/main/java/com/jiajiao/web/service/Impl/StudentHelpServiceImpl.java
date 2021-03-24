@@ -58,6 +58,12 @@ public class StudentHelpServiceImpl implements IStudentHelpService {
         return ResponseVo.success("查询个人互助成功",studentHelpVos);
     }
 
+    @Override
+    public ResponseVo getStudentHelpById(Integer id) {
+        StudentHelp studentHelp = studentHelpMapper.selectByPrimaryKey(id);
+        return ResponseVo.success("查询个人互助成功",studentHelp);
+    }
+
 
     public ResponseVo updateStudentHelp(StudentHelp studentHelp,Integer uId){
         Integer id = studentHelp.getId();

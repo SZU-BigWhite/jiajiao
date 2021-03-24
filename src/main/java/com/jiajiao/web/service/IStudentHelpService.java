@@ -9,6 +9,7 @@ public interface IStudentHelpService {
     ResponseVo deleteStudentHelp(Integer id,Integer uId);
     ResponseVo getStudentsHelpList();
     ResponseVo getStudentHelpListByUid(Integer uId);
+    ResponseVo getStudentHelpById(Integer id);
     ResponseVo updateStudentHelp(StudentHelp studentHelp,Integer uId);
     ResponseVo sendStudentHelp(StudentSend studentSend,Integer uId);
     ResponseVo getStudentHelpReceive(Integer id);
