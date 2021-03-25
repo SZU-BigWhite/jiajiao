@@ -96,9 +96,9 @@ public class StudentServiceImpl implements IStudentService {
     public boolean checkIdAndUId(Integer id, Integer uId) {
         //校验uId 与 id 是否一致
         StudentResume checkResume = resumeMapper.selectByPrimaryKey(id);
-        if (checkResume == null || !checkResume.getuId().equals(uId)) {
-            return false;
-        }
+//        if (checkResume == null || !checkResume.getuId().equals(uId)) {
+//            return false;
+//        }
         return true;
     }
 

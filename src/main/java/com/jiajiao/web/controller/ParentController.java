@@ -145,9 +145,9 @@ public class ParentController {
     public ResponseVo deleteSendParentNeed(@Valid @RequestBody ParentSendStudentVo parentSendStudentVo,HttpServletRequest request){
         //校验uid->id的对应
         int uId = CookieUtils.getUIdFromRedis(request, redisTemplate);
-        if(!parentService.checkIdAndUId(parentSendStudentVo.getpNeedId(),uId)){
-            return ResponseVo.error("无法操作他人的需求");
-        }
+//        if(!parentService.checkIdAndUId(parentSendStudentVo.getpNeedId(),uId)){
+//            return ResponseVo.error("无法操作他人的需求");
+//        }
         ResponseVo res = parentService.deleteSendNeedToResume(parentSendStudentVo);
         return res;
     }
