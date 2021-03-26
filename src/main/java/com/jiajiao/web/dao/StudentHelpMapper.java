@@ -22,4 +22,6 @@ public interface StudentHelpMapper {
     List<StudentHelp> selectAll();
 
     List<StudentHelp> selectByUId(Integer u_Id);
+
+    Integer selectDataSum();
 }

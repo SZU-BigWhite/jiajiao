@@ -93,4 +93,9 @@ public class UserController {
         return res;
     }
 
+    @GetMapping("/get/data/sum")
+    public ResponseVo getDataSum(){
+        return userService.getDataSum();
+    }
+
 }

@@ -169,4 +169,10 @@
     set status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectDataSum" resultType="java.lang.Integer">
+    select
+    count(*)
+    from volunteer_collection
+  </select>
 </mapper>

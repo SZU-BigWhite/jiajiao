@@ -1,15 +1,17 @@
 package com.jiajiao.web.service.Impl;
 
+import com.jiajiao.web.dao.*;
 import com.jiajiao.web.enums.RedisIllegalConst;
 import com.jiajiao.web.enums.UserReqConst;
 import com.jiajiao.web.form.RegisterForm;
 import com.jiajiao.web.enums.HttpStatusEnum;
 import com.jiajiao.web.enums.UserRoleEnum;
+import com.jiajiao.web.pojo.VolunteerCollection;
 import com.jiajiao.web.vo.ResponseVo;
-import com.jiajiao.web.dao.UserMapper;
 import com.jiajiao.web.form.LoginForm;
 import com.jiajiao.web.pojo.User;
 import com.jiajiao.web.service.IUserService;
+import com.jiajiao.web.vo.UserSumVo;
 import org.apache.tomcat.util.security.MD5Encoder;
 import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,14 @@ public class UserServiceImpl implements IUserService {
     StringRedisTemplate redisTemplate;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    StudentHelpMapper studentHelpMapper;
+    @Autowired
+    ParentNeedMapper parentNeedMapper;
+    @Autowired
+    VolunteerCollectionMapper volunteerCollectionMapper;
+    @Autowired
+    StudentResumeMapper studentResumeMapper;
 
     /**
      * 注册功能
@@ -159,5 +169,16 @@ public class UserServiceImpl implements IUserService {
         if(check==null)
             return true;
         return false;
+    }
+
+    @Override
+    public ResponseVo getDataSum() {
+        UserSumVo userSumVo=new UserSumVo();
+            userSumVo.setHelpSum(studentHelpMapper.selectDataSum());
+            userSumVo.setNeedSum(parentNeedMapper.selectParentNeedSum());
+            userSumVo.setResumeSum(studentResumeMapper.selectStudentResumeSum());
+            userSumVo.setVolunteerSum(volunteerCollectionMapper.selectDataSum());
+
+        return ResponseVo.success("总数据获取成功",userSumVo);
     }
 }

@@ -15,4 +15,5 @@ public interface IUserService {
     public ResponseVo logout(Cookie cookie);
     public void setSession(User user, HttpServletResponse response);
     public ResponseVo updateUser(User user,Integer uId);
+    public ResponseVo getDataSum();
 }

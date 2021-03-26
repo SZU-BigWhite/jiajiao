@@ -150,4 +150,10 @@
     from jiajiao_student_help
     where u_id = #{u_id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectDataSum" resultType="java.lang.Integer">
+    select
+    count(*)
+    from jiajiao_student_help
+  </select>
 </mapper>
