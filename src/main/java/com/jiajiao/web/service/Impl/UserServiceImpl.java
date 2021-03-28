@@ -139,7 +139,10 @@ public class UserServiceImpl implements IUserService {
         //设置浏览器session
         String userSession = DigestUtils.md5DigestAsHex(("" + user.getId() + user.getPhone()).getBytes());
         //添加sessionid到Cookie
-        response.addCookie(new Cookie(UserReqConst.UESR_SESSION,userSession));
+        Cookie cookie = new Cookie(UserReqConst.UESR_SESSION, userSession);
+        //todo 上线解除注解
+//        cookie.setDomain("42.193.177.25");
+        response.addCookie(cookie);
         //添加 sessionid -》 userid  到 redis
         ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
         opsForValue.set(userSession,user.getId().toString(),7L,TimeUnit.DAYS);
