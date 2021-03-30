@@ -281,9 +281,9 @@ public class RecommendServiceImpl implements IRecommendService {
         double length = r.getCharacterCondiction().toCharArray().length+
                         r.getTeachGoal().toCharArray().length+
                         r.getTeachStress().toCharArray().length+
-                        r.getFeedback().toCharArray().length+
-                        r.getLearnMethods().toCharArray().length+
-                        r.getShowSelf().toCharArray().length;
+                        r.getFeedback().toCharArray().length;
+//                        r.getLearnMethods().toCharArray().length+
+//                        r.getShowSelf().toCharArray().length;
 
         res=length/2/40;
         return res>=30?25:res;

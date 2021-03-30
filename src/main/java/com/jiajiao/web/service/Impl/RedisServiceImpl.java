@@ -55,8 +55,8 @@ public class RedisServiceImpl implements IRedisService {
         List<StudentResumeVo> res = new ArrayList<>();
 
         ListOperations<String, String> opsForList = redisTemplate.opsForList();
-        Long size = opsForList.size(STUDENT_RESUME);
-        List<String> range = opsForList.range(STUDENT_RESUME, 0l, size);
+//        Long size = opsForList.size(STUDENT_RESUME);
+        List<String> range = opsForList.range(STUDENT_RESUME, 0l, 100);
         for (String s : range) {
             StudentResumeVo studentResumeVo = gson.fromJson(s, StudentResumeVo.class);
             res.add(studentResumeVo);
@@ -69,8 +69,8 @@ public class RedisServiceImpl implements IRedisService {
         List<ParentNeedVo> res = new ArrayList<>();
 
         ListOperations<String, String> opsForList = redisTemplate.opsForList();
-        Long size = opsForList.size(PARENT_NEED);
-        List<String> range = opsForList.range(PARENT_NEED, 0l, size);
+//        Long size = opsForList.size(PARENT_NEED);
+        List<String> range = opsForList.range(PARENT_NEED, 0l, 100);
         for (String s : range) {
             ParentNeedVo parentNeedVo = gson.fromJson(s, ParentNeedVo.class);
             res.add(parentNeedVo);
@@ -181,8 +181,8 @@ public class RedisServiceImpl implements IRedisService {
      *
      * @return
      */
-    @PostConstruct
-    @Scheduled(fixedRate = 36000000)        //每10分钟更新一次
+//    @PostConstruct
+//    @Scheduled(fixedRate = 36000000)        //每10分钟更新一次
     public boolean storeStudentResume() {
         List<String> list = new ArrayList<>();
 
@@ -203,8 +203,8 @@ public class RedisServiceImpl implements IRedisService {
      *
      * @return
      */
-    @PostConstruct
-    @Scheduled(fixedRate = 36000000)        //每10分钟更新一次
+//    @PostConstruct
+//    @Scheduled(fixedRate = 36000000)        //每10分钟更新一次
     public boolean storeParentNeed() {
         List<String> list = new ArrayList<>();
 

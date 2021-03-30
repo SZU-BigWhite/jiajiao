@@ -233,22 +233,26 @@ public class StudentServiceImpl implements IStudentService {
     private void insertNewSubject(Integer outId, StudentResumeVo studentResumeVo) {
 
         List<Subject> subjectList = studentResumeVo.getSubjectList();
-        for (Subject subject : subjectList) {
-            subject.setOutId(outId);
-            subject.setType(UserReqConst.SUBJECT_STUDENT_TYPE);
+        if(subjectList!=null&&subjectList.size()!=0){
+            for (Subject subject : subjectList) {
+                subject.setOutId(outId);
+                subject.setType(UserReqConst.SUBJECT_STUDENT_TYPE);
+            }
+            subjectMapper.insertList(subjectList);
         }
-        subjectMapper.insertList(subjectList);
     }
 
     ///设置outId 并插入time表
     private void insertNewTime(Integer outId, StudentResumeVo studentResumeVo) {
         //设置outId 并插入time表
         List<Time> timeList = studentResumeVo.getTimeList();
-        for (Time time : timeList) {
-            time.setOutId(outId);
-            time.setType(UserReqConst.TIME_STUDENT_TYPE);
+        if(timeList!=null&&timeList.size()!=0){
+            for (Time time : timeList) {
+                time.setOutId(outId);
+                time.setType(UserReqConst.TIME_STUDENT_TYPE);
+            }
+            timeMapper.insertList(timeList);
         }
-        timeMapper.insertList(timeList);
     }
 
     //根据StudentResume 构建 Vo

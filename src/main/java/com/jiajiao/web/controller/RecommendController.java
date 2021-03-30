@@ -1,6 +1,7 @@
 package com.jiajiao.web.controller;
 
 import com.jiajiao.web.service.Impl.RecommendServiceImpl;
+import com.jiajiao.web.thread.RecommendNeedByNeedThread;
 import com.jiajiao.web.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,7 +55,11 @@ public class RecommendController {
      * @return
      */
     @GetMapping("/recommend/need/by/need")
-    public ResponseVo recommendNeedByNeed(HttpServletRequest request,Integer pNId){
-        return recommendService.recommendNeedByNeed(pNId);
+    public ResponseVo recommendNeedByNeed(HttpServletRequest request,Integer pNId) throws InterruptedException {
+        new RecommendNeedByNeedThread(pNId,recommendService).start();
+        Thread.sleep(500L);
+        ResponseVo responseVo = recommendService.recommendNeedByNeed(pNId);
+        System.out.println("responseVo");
+        return responseVo;
     }
 }

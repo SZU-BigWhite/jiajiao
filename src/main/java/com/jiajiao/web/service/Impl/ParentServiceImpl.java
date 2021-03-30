@@ -256,21 +256,25 @@ public class ParentServiceImpl implements IParentService {
     private void insertNewSubject(Integer outId,ParentNeedVo parentNeedVo){
 
         List<Subject> subjectList = parentNeedVo.getSubjectList();
-        for (Subject subject:subjectList){
-            subject.setOutId(outId);
-            subject.setType(UserReqConst.SUBJECT_PARENT_TYPE);
+        if(subjectList!=null&&subjectList.size()!=0){
+            for (Subject subject:subjectList){
+                subject.setOutId(outId);
+                subject.setType(UserReqConst.SUBJECT_PARENT_TYPE);
+            }
+            subjectMapper.insertList(subjectList);
         }
-        subjectMapper.insertList(subjectList);
     }
     ///设置outId 并插入time表
     private void insertNewTime(Integer outId,ParentNeedVo parentNeedVo){
         //设置outId 并插入time表
         List<Time> timeList = parentNeedVo.getTimeList();
-        for(Time time:timeList){
-            time.setOutId(outId);
-            time.setType(UserReqConst.TIME_PARENT_TYPE);
+        if(timeList!=null&&timeList.size()!=0){
+            for(Time time:timeList){
+                time.setOutId(outId);
+                time.setType(UserReqConst.TIME_PARENT_TYPE);
+            }
+            timeMapper.insertList(timeList);
         }
-        timeMapper.insertList(timeList);
     }
     public List<Subject> getSubject(int out_id){
         return subjectMapper.selectByOutKeyAndType(out_id,UserReqConst.SUBJECT_PARENT_TYPE);
