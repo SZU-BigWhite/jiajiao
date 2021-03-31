@@ -89,6 +89,12 @@ public class StudentHelpServiceImpl implements IStudentHelpService {
         return ResponseVo.success("获取接收的帮助成功",studentSends);
     }
 
+    @Override
+    public ResponseVo refuseHelp(Integer id) {
+        studentSendMapper.deleteByPrimaryKey(id);
+        return ResponseVo.success("删除成功");
+    }
+
     private Integer getReceiveNums(Integer id){
         List<StudentSend> studentSends = studentSendMapper.selectByHelpId(id);
         return studentSends.size();

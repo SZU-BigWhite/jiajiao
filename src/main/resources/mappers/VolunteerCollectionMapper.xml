@@ -155,6 +155,7 @@
     select
     <include refid="Base_Column_List"/>
     from volunteer_collection
+    where status=1
   </select>
 
   <select id="selectByUId" parameterType="java.lang.Integer" resultMap="BaseResultMap">

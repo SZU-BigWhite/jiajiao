@@ -181,8 +181,8 @@ public class RedisServiceImpl implements IRedisService {
      *
      * @return
      */
-//    @PostConstruct
-//    @Scheduled(fixedRate = 36000000)        //每10分钟更新一次
+    @PostConstruct
+    @Scheduled(fixedRate = 36000000)        //每10分钟更新一次
     public boolean storeStudentResume() {
         List<String> list = new ArrayList<>();
 
@@ -203,8 +203,8 @@ public class RedisServiceImpl implements IRedisService {
      *
      * @return
      */
-//    @PostConstruct
-//    @Scheduled(fixedRate = 36000000)        //每10分钟更新一次
+    @PostConstruct
+    @Scheduled(fixedRate = 36000000)        //每10分钟更新一次
     public boolean storeParentNeed() {
         List<String> list = new ArrayList<>();
 

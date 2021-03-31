@@ -96,6 +96,16 @@ public class StudentHelpController {
     }
 
     /**
+     * 拒绝帮扶
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/refuse/help")
+    public ResponseVo refuseHelp(Integer id){
+        return studentHelpService.refuseHelp(id);
+    }
+
+    /**
      * 获取帮扶的接收的信息
      * @param id
      * @return
